@@ -1,0 +1,9 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "ParameterValuesNotAllowed",
+    "details": {
+      "error": "required w: '{width}' valid transformation: False"
+    }
+  }
+}

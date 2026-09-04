@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Drip Cafe – Specialty Coffee | Titwala, Thane</title>
+  <meta name="description" content="Daily Drip Cafe – Freshly roasted specialty coffee, pour-overs, cold brews and brewing gear. Shop No.7, Building 40 Regency, Ganpati Mandir Road, Titwala, Thane-421605, Maharashtra. Made by aise360.com">
+  <link rel="icon" href="images/favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Daily Drip Cafe",
+    "url": "https://www.dailydripcafe.in",
+    "telephone": "+91 98200 00000",
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Shop Number 7, Building 40 Regency, Ganpati Mandir Road",
+      "addressLocality": "Titwala",
+      "addressRegion": "Thane, Maharashtra",
+      "postalCode": "421605",
+      "addressCountry": "IN"
+    },
+    "openingHours": "Mo-Su 08:00-23:00",
+    "description": "Daily Drip Cafe in Titwala, Thane offers freshly roasted specialty coffee, pour-overs, cold brews, espresso drinks, and brewing gear."
+  }
+  </script>
+  <style>
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --hdr: #1a1514;
+      --hdr-border: rgba(255,255,255,0.1);
+      --cream: #f0ece6;
+      --cream-dark: #e8e3dc;
+      --coffee-dark: #1f1815;
+      --coffee-medium: #3c2a21;
+      --coffee-light: #c5a880;
+      --coffee-gold: #b8952a;
+      --coffee-green: #2d5016;
+      --accent-red: #c1440e;
+      --text: #1f1815;
+      --text-muted: #6b6158;
+      --border: #ddd8d1;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md: 0 8px 28px rgba(0,0,0,0.12);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
+      --r-sm: 4px;
+      --r-md: 10px;
+      --r-lg: 20px;
+      --r-full: 100px;
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-heading: 'DM Serif Display', Georgia, serif;
+      --t: 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--cream); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ===========================
+       HEADER
+    =========================== */
+    .hdr {
+      position: sticky; top: 0; z-index: 1000;
+      background: var(--hdr);
+    }
+    .hdr__bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 60px;
+      padding: 0 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* Left side */
+    .hdr__left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hdr__quiz-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: var(--hdr);
+      padding: 6px 16px;
+      border-radius: var(--r-full);
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--t);
+      white-space: nowrap;
+      margin-right: 8px;
+    }
+    .hdr__quiz-btn:hover { background: var(--coffee-light); }
+    .hdr__nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .hdr__nav-item { position: relative; }
+    .hdr__nav-link {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: var(--r-sm);
+      transition: var(--t);
+      display: block;
+      white-space: nowrap;
+    }
+    .hdr__nav-link:hover, .hdr__nav-item.is-open .hdr__nav-link { color: #fff; }
+    .hdr__nav-link--active { color: var(--coffee-light) !important; }
+
+    /* Center logo */
+    .hdr__logo-link {
+      display: flex;
+      justify-content: center;
+    }
+    .hdr__logo {
+      text-align: center;
+      line-height: 1.0;
+    }
+    .hdr__logo-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      display: block;
+    }
+    .hdr__logo-sub {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: 4px;
+      color: var(--coffee-light);
+      display: block;
+      margin-top: -1px;
+    }
+
+    /* Right side */
+    .hdr__right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+    .hdr__icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      color: rgba(255,255,255,0.8);
+      border-radius: var(--r-sm);
+      transition: var(--t);
+      position: relative;
+    }
+    .hdr__icon-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .hdr__icon-btn svg { width: 20px; height: 20px; }
+    .hdr__cart-badge {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: var(--coffee-light);
+      color: var(--hdr);
+      font-size: 10px;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Mobile hamburger */
+    .hdr__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      margin-right: 4px;
+    }
+    .hdr__hamburger span {
+      width: 20px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      display: block;
+      transition: var(--t);
+    }
+
+    /* ===========================
+       MEGA DROPDOWN — SHOP
+    =========================== */
+    .mega {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      transform: none;
+      width: 860px;
+      background: var(--cream);
+      box-shadow: var(--shadow-lg);
+      border-top: 2px solid var(--coffee-light);
+      display: none;
+      z-index: 999;
+    }
+    .hdr__nav-item:hover .mega,
+    .hdr__nav-item.is-open .mega { display: flex; }
+    .mega__featured {
+      width: 210px;
+      flex-shrink: 0;
+      background: var(--cream-dark);
+      padding: 24px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .mega__col-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .mega__feat-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: var(--t);
+    }
+    .mega__feat-link:last-child { border-bottom: none; }
+    .mega__feat-link:hover { color: var(--coffee-gold); }
+    .mega__feat-icon {
+      width: 32px; height: 32px;
+      background: var(--coffee-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      color: var(--hdr);
+      font-weight: 700;
+    }
+    .mega__grid {
+      flex: 1;
+      padding: 24px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .mega__cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .mega__cat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 10px;
+      transition: var(--t);
+      cursor: pointer;
+    }
+    .mega__cat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .mega__cat-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--cream);
+    }
+    .mega__cat-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 8px;
+      padding: 0 8px;
+    }
+    .mega__traits {
+      width: 160px;
+      flex-shrink: 0;
+      padding: 24px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .mega__trait-link {
+      display: block;
+      padding: 7px 0;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid transparent;
+      transition: var(--t);
+    }
+    .mega__trait-link:hover { color: var(--coffee-gold); }
+    .mega__promo {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 16px;
+    }
+    .mega__promo-card {
+      background: var(--coffee-dark);
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .mega__promo-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    .mega__promo-body {
+      padding: 12px;
+      flex: 1;
+    }
+    .mega__promo-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .mega__promo-cta {
+      font-size: 12px;
+      color: var(--coffee-light);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===========================
+       DROPDOWN — Learn / small
+    =========================== */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 580px;
+      background: var(--cream);
+      box-shadow: var(--shadow-lg);
+      border-top: 2px solid var(--coffee-light);
+      display: none;
+      z-index: 999;
+    }
+    .hdr__nav-item:hover .dropdown,
+    .hdr__nav-item.is-open .dropdown { display: flex; }
+    .dropdown__col {
+      flex: 1;
+      padding: 20px 20px;
+    }
+    .dropdown__col + .dropdown__col { border-left: 1px solid var(--border); }
+    .dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: var(--t);
+    }
+    .dropdown__item:last-child { border-bottom: none; }
+    .dropdown__item:hover { color: var(--coffee-gold); }
+    .dropdown__item-icon {
+      width: 30px; height: 30px;
+      background: var(--coffee-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--hdr);
+    }
+    .dropdown__promo {
+      width: 200px;
+      flex-shrink: 0;
+      padding: 16px;
+      border-left: 1px solid var(--border);
+    }
+    .dropdown__promo-card {
+      background: #3a6b8a;
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .dropdown__promo-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .dropdown__promo-body { padding: 12px; }
+    .dropdown__promo-text { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 6px; }
+    .dropdown__promo-cta { font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px; }
+
+    /* ===========================
+       MOBILE MENU
+    =========================== */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: none; opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .mobile-overlay.open { display: block; opacity: 1; }
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: -100%;
+      width: min(340px, 90vw);
+      height: 100vh;
+      background: var(--hdr);
+      z-index: 2001;
+      transition: left 0.32s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .mobile-menu.open { left: 0; }
+    .mobile-menu__hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu__close {
+      color: rgba(255,255,255,0.6);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .mobile-menu__close:hover { color: #fff; }
+    .mobile-menu__nav { padding: 12px 20px; flex: 1; }
+    .m-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+      color: rgba(255,255,255,0.85);
+      font-size: 17px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .m-link:hover { color: var(--coffee-light); }
+    .m-sub { display: none; padding: 6px 0 6px 14px; }
+    .m-sub.open { display: block; }
+    .m-sub a {
+      display: block;
+      padding: 9px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+    }
+    .m-sub a:hover { color: var(--coffee-light); }
+    .mobile-menu__foot {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu__cta {
+      display: block;
+      text-align: center;
+      background: var(--coffee-light);
+      color: var(--hdr);
+      padding: 13px;
+      border-radius: var(--r-full);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .mobile-menu__addr {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+    }
+
+    /* ===========================
+       CART SIDEBAR
+    =========================== */
+    .cart-sidebar {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(400px, 96vw);
+      height: 100vh;
+      background: #fff;
+      z-index: 2001;
+      transition: right 0.32s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -6px 0 28px rgba(0,0,0,0.14);
+    }
+    .cart-sidebar.open { right: 0; }
+    .cart-hdr {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cart-hdr__title { font-size: 17px; font-weight: 700; }
+    .cart-hdr__close { font-size: 22px; color: var(--text-muted); }
+    .cart-body { flex: 1; overflow-y: auto; padding: 20px 22px; }
+    .cart-empty { text-align: center; padding: 48px 0; }
+    .cart-empty__text { color: var(--text-muted); font-size: 15px; margin-top: 10px; }
+    .cart-foot {
+      padding: 16px 22px;
+      border-top: 1px solid var(--border);
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-item__body { flex: 1; }
+    .cart-item__name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .cart-item__price { font-size: 13px; font-weight: 700; }
+    .cart-item__qty {
+      display: flex; align-items: center; gap: 8px; margin-top: 6px;
+    }
+    .qty-btn {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: var(--t);
+    }
+    .qty-btn:hover { background: var(--hdr); color: #fff; border-color: var(--hdr); }
+    .qty-num { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center; }
+
+    /* ===========================
+       TOAST
+    =========================== */
+    .toast {
+      position: fixed;
+      bottom: 22px; right: 22px;
+      background: var(--hdr);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lg);
+      font-size: 13px; font-weight: 500;
+      z-index: 9999;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
+      border-left: 3px solid var(--coffee-light);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===========================
+       HERO
+    =========================== */
+    .hero {
+      position: relative;
+      height: 580px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero__video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none; /* fallback only if video fails */
+    }
+    .hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(26,21,20,0.82) 0%, rgba(26,21,20,0.35) 60%, transparent 100%);
+    }
+    .hero__content {
+      position: relative; z-index: 1;
+      max-width: 1400px; margin: 0 auto;
+      padding: 0 60px; width: 100%;
+    }
+    .hero__eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--coffee-light); margin-bottom: 14px;
+    }
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(44px, 6vw, 82px);
+      color: #fff; line-height: 0.95;
+      margin-bottom: 20px;
+      max-width: 520px;
+    }
+    .hero__sub {
+      font-size: 17px; color: rgba(255,255,255,0.82);
+      margin-bottom: 32px; max-width: 420px;
+      line-height: 1.55;
+    }
+    .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ===========================
+       BUTTONS
+    =========================== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 26px; border-radius: var(--r-full);
+      font-size: 14px; font-weight: 600; transition: var(--t); cursor: pointer;
+    }
+    .btn--primary { background: var(--coffee-light); color: var(--hdr); }
+    .btn--primary:hover { background: var(--coffee-gold); transform: translateY(-2px); }
+    .btn--outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.65); }
+    .btn--outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; transform: translateY(-2px); }
+    .btn--dark { background: var(--hdr); color: #fff; }
+    .btn--dark:hover { background: #000; transform: translateY(-2px); }
+    .btn--sm { padding: 9px 20px; font-size: 13px; }
+
+    /* ===========================
+       SECTION
+    =========================== */
+    .section { padding: 80px 0; }
+    .section--white { background: #fff; }
+    .section--cream { background: var(--cream); }
+    .section--dark { background: var(--hdr); }
+    .container { max-width: 1380px; margin: 0 auto; padding: 0 40px; }
+    .sec-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--coffee-light); margin-bottom: 8px;
+    }
+    .sec-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 50px);
+      color: var(--text); line-height: 1.05;
+      margin-bottom: 14px;
+    }
+    .sec-title--white { color: #fff; }
+    .sec-sub {
+      font-size: 16px; color: var(--text-muted);
+      max-width: 520px; line-height: 1.6;
+      margin-bottom: 44px;
+    }
+    .sec-sub--white { color: rgba(255,255,255,0.72); }
+    .sec-hdr { margin-bottom: 40px; }
+    .sec-hdr--c { text-align: center; }
+    .sec-hdr--c .sec-sub { margin-left: auto; margin-right: auto; }
+
+    /* ===========================
+       STATS
+    =========================== */
+    .stats { background: var(--coffee-light); padding: 24px 0; }
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px; text-align: center;
+    }
+    .stats__num {
+      font-family: var(--font-heading);
+      font-size: 34px; font-weight: 700;
+      color: var(--hdr); line-height: 1;
+    }
+    .stats__label {
+      font-size: 12px; font-weight: 600;
+      color: var(--coffee-medium); margin-top: 3px;
+    }
+
+    /* ===========================
+       FILTER TABS
+    =========================== */
+    .filter-bar {
+      display: flex; align-items: center;
+      gap: 6px; margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 8px 20px;
+      border-radius: var(--r-full);
+      border: 1.5px solid var(--border);
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      background: #fff;
+      transition: var(--t); cursor: pointer;
+    }
+    .filter-tab:hover { border-color: var(--hdr); color: var(--hdr); }
+    .filter-tab.active { background: var(--hdr); color: #fff; border-color: var(--hdr); }
+
+    /* ===========================
+       PRODUCT GRID
+    =========================== */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 22px;
+    }
+    .prod-card {
+      background: #fff; border-radius: var(--r-md);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+      transition: var(--t); display: flex; flex-direction: column;
+      position: relative;
+    }
+    .prod-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .prod-card__badge {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      background: var(--hdr); color: #fff;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: var(--r-full);
+    }
+    .prod-card__badge--gold { background: var(--coffee-gold); color: var(--hdr); }
+    .prod-card__badge--green { background: var(--coffee-green); }
+    .prod-card__img-wrap {
+      aspect-ratio: 1; overflow: hidden;
+      background: #f2efe9;
+    }
+    .prod-card__img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .prod-card:hover .prod-card__img { transform: scale(1.05); }
+    .prod-card__body { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .prod-card__meta {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .roast-bar { display: flex; gap: 2px; }
+    .roast-bar__d {
+      width: 8px; height: 8px;
+      border-radius: 50%; background: var(--border);
+    }
+    .roast-bar__d.on { background: var(--coffee-medium); }
+    .prod-card__name {
+      font-family: var(--font-display);
+      font-size: 19px; font-weight: 700;
+      color: var(--hdr); line-height: 1.2;
+    }
+    .prod-card__flavor { font-size: 12px; color: var(--text-muted); }
+    .prod-card__footer {
+      padding: 14px 18px 18px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .prod-card__price { font-size: 20px; font-weight: 700; color: var(--hdr); }
+    .prod-card__price-old { font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-right: 5px; }
+    .prod-card__price-save { font-size: 11px; color: var(--accent-red); font-weight: 600; }
+    .prod-card__size { font-size: 11px; color: var(--text-muted); }
+    .atc-btn {
+      background: var(--hdr); color: #fff;
+      padding: 9px 20px; border-radius: var(--r-full);
+      font-size: 13px; font-weight: 600;
+      transition: var(--t); white-space: nowrap;
+    }
+    .atc-btn:hover { background: #000; transform: translateY(-1px); }
+
+    /* ===========================
+       SPLIT FEATURE
+    =========================== */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+    .split__img { overflow: hidden; }
+    .split__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .split__img:hover img { transform: scale(1.04); }
+    .split__content {
+      padding: 72px 60px;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 18px;
+    }
+    .split__content--dark { background: var(--hdr); color: #fff; }
+    .split__content--cream { background: var(--cream); color: var(--hdr); }
+    .split__eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--coffee-light);
+    }
+    .split__title {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 48px);
+      line-height: 1.05;
+    }
+    .split__desc { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.76); }
+    .split__content--cream .split__desc { color: var(--text-muted); }
+    .split__tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .split__tag {
+      padding: 6px 14px; border-radius: var(--r-full);
+      font-size: 12px; font-weight: 500;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.88);
+    }
+    .split__content--cream .split__tag {
+      background: rgba(31,24,21,0.08); color: var(--hdr);
+    }
+
+    /* ===========================
+       COLLECTION GRID
+    =========================== */
+    .coll-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .coll-card {
+      position: relative;
+      border-radius: var(--r-md); overflow: hidden;
+      aspect-ratio: 4/3; cursor: pointer;
+    }
+    .coll-card__img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+    .coll-card:hover .coll-card__img { transform: scale(1.06); }
+    .coll-card__ovl {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,21,20,0.72) 0%, transparent 55%);
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .coll-card__name {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700; color: #fff;
+    }
+    .coll-card__price { font-size: 13px; color: rgba(255,255,255,0.78); margin-top: 3px; }
+    .coll-card--tall { grid-row: span 2; aspect-ratio: unset; }
+
+    /* ===========================
+       MENU SECTION
+    =========================== */
+    .menu-tabs-row {
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(31,24,21,0.06);
+      padding: 4px; border-radius: var(--r-full);
+      width: fit-content; margin-bottom: 36px;
+    }
+    .menu-tab {
+      padding: 9px 22px; border-radius: var(--r-full);
+      font-size: 13px; font-weight: 600;
+      color: var(--text-muted); transition: var(--t); cursor: pointer;
+    }
+    .menu-tab.active { background: var(--hdr); color: #fff; }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .menu-item {
+      background: #fff; border-radius: var(--r-md);
+      padding: 18px; box-shadow: var(--shadow-sm);
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: var(--t);
+    }
+    .menu-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .menu-item__img {
+      width: 76px; height: 76px; border-radius: var(--r-sm);
+      object-fit: cover; flex-shrink: 0; background: var(--cream);
+    }
+    .menu-item__body { flex: 1; }
+    .menu-item__name {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700; color: var(--hdr);
+      margin-bottom: 3px;
+    }
+    .menu-item__desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 9px; }
+    .menu-item__row { display: flex; align-items: center; justify-content: space-between; }
+    .menu-item__price { font-size: 17px; font-weight: 700; color: var(--hdr); }
+    .menu-item__tag {
+      font-size: 10px; font-weight: 700; padding: 3px 9px;
+      border-radius: var(--r-full); background: var(--cream); color: var(--text-muted);
+    }
+    .menu-item__tag--hot { background: #fff0eb; color: var(--accent-red); }
+    .menu-item__tag--cold { background: #ebf3ff; color: #1a5cb0; }
+
+    /* ===========================
+       LOCATION
+    =========================== */
+    .loc-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: center;
+    }
+    .loc-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(197,168,128,0.14);
+      border: 1px solid var(--coffee-light);
+      color: var(--coffee-light);
+      padding: 5px 16px; border-radius: var(--r-full);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .loc-title { font-family: var(--font-heading); font-size: clamp(26px, 4vw, 50px); color: #fff; margin-bottom: 14px; }
+    .loc-desc { font-size: 15px; color: rgba(255,255,255,0.72); line-height: 1.65; margin-bottom: 24px; }
+    .loc-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(197,168,128,0.2);
+      border-radius: var(--r-md); padding: 22px; margin-bottom: 22px;
+    }
+    .loc-row { display: flex; gap: 12px; margin-bottom: 12px; }
+    .loc-row:last-child { margin-bottom: 0; }
+    .loc-icon-wrap { flex-shrink: 0; margin-top: 1px; }
+    .loc-icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(197,168,128,0.15);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .loc-icon svg { width: 15px; height: 15px; stroke: var(--coffee-light); fill: none; stroke-width: 2; }
+    .loc-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--coffee-light); margin-bottom: 2px; }
+    .loc-val { font-size: 14px; color: rgba(255,255,255,0.88); line-height: 1.45; }
+    .loc-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .loc-map-wrap { border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-lg); }
+    .loc-map-wrap iframe { width: 100%; height: 420px; display: block; border: 0; }
+
+    /* ===========================
+       TESTIMONIALS
+    =========================== */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .testi-card {
+      background: var(--cream); border-radius: var(--r-md);
+      padding: 26px; border-left: 3px solid var(--coffee-light);
+    }
+    .testi-stars { letter-spacing: 2px; margin-bottom: 12px; color: var(--coffee-gold); font-size: 16px; }
+    .testi-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+    .testi-author { font-weight: 700; font-size: 14px; }
+    .testi-loc { font-size: 12px; color: var(--text-muted); }
+
+    /* ===========================
+       NEWSLETTER
+    =========================== */
+    .newsletter { background: var(--hdr); padding: 68px 0; text-align: center; }
+    .newsletter__title { font-family: var(--font-heading); font-size: clamp(26px, 4vw, 46px); color: #fff; margin-bottom: 12px; }
+    .newsletter__desc { font-size: 15px; color: rgba(255,255,255,0.65); margin-bottom: 28px; }
+    .newsletter__form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; }
+    .newsletter__input {
+      flex: 1; padding: 13px 18px; border-radius: var(--r-full);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: #fff; font-size: 14px; outline: none;
+    }
+    .newsletter__input::placeholder { color: rgba(255,255,255,0.45); }
+    .newsletter__input:focus { background: rgba(255,255,255,0.12); border-color: var(--coffee-light); }
+    .newsletter__btn {
+      background: var(--coffee-light); color: var(--hdr);
+      padding: 13px 26px; border-radius: var(--r-full);
+      font-size: 14px; font-weight: 700; transition: var(--t); white-space: nowrap;
+    }
+    .newsletter__btn:hover { background: var(--coffee-gold); }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    .footer { background: var(--hdr); padding: 60px 0 0; color: rgba(255,255,255,0.75); }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 44px; margin-bottom: 52px;
+    }
+    .footer__logo {
+      line-height: 1.0; margin-bottom: 18px;
+    }
+    .footer__logo-name {
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: #fff; display: block;
+    }
+    .footer__logo-sub {
+      font-family: var(--font-display);
+      font-size: 13px; font-style: italic;
+      letter-spacing: 3px; color: var(--coffee-light); display: block;
+    }
+    .footer__desc { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.52); margin-bottom: 22px; }
+    .footer__socials { display: flex; gap: 10px; }
+    .footer__social {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; transition: var(--t);
+    }
+    .footer__social:hover { background: var(--coffee-light); color: var(--hdr); transform: translateY(-2px); }
+    .footer__addr {
+      background: rgba(255,255,255,0.04);
+      border-radius: var(--r-sm); padding: 14px;
+      margin-top: 14px; font-size: 12px;
+      color: rgba(255,255,255,0.52); line-height: 1.7;
+    }
+    .footer__col-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #fff; margin-bottom: 18px;
+    }
+    .footer__links { display: flex; flex-direction: column; gap: 9px; }
+    .footer__link { font-size: 13px; color: rgba(255,255,255,0.55); transition: var(--t); }
+    .footer__link:hover { color: var(--coffee-light); }
+    .footer__hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer__bottom {
+      padding: 20px 0;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    }
+    .footer__copy { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .footer__madeby { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .footer__madeby a { color: var(--coffee-light); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .footer__madeby a:hover { color: var(--coffee-gold); }
+    .footer__legal { display: flex; gap: 18px; }
+    .footer__legal a { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer__legal a:hover { color: rgba(255,255,255,0.65); }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 1024px) {
+      .hdr__nav { display: none; }
+      .hdr__quiz-btn { display: none; }
+      .hdr__hamburger { display: flex; }
+      .split { grid-template-columns: 1fr; }
+      .split__content { padding: 40px 32px; }
+      .coll-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .loc-grid { grid-template-columns: 1fr; }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); }
+      .testi-grid { grid-template-columns: 1fr; }
+      .mega { width: calc(100vw - 48px); left: 0; transform: none; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 18px; }
+      .section { padding: 52px 0; }
+      .hero { height: 460px; }
+      .hero__content { padding: 0 22px; }
+      .prod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .coll-grid { grid-template-columns: 1fr; }
+      .footer__grid { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+      .newsletter__form { flex-direction: column; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); }
+      .hdr__bar { grid-template-columns: auto 1fr auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===========================
+     HEADER
+=========================== -->
+<header class="hdr" id="hdr">
+  <div class="hdr__bar">
+
+    <!-- Left: Hamburger + Nav -->
+    <div class="hdr__left">
+      <button class="hdr__hamburger" id="mobileMenuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="hdr__nav">
+
+        <!-- SHOP mega dropdown -->
+        <div class="hdr__nav-item" id="nav-shop">
+          <a href="#products" class="hdr__nav-link hdr__nav-link--active">Shop</a>
+          <div class="mega">
+            <!-- Featured -->
+            <div class="mega__featured">
+              <div class="mega__col-title">Featured</div>
+              <a href="#products" class="mega__feat-link">
+                <span class="mega__feat-icon">B</span>
+                Bestsellers
+              </a>
+              <a href="#products" class="mega__feat-link">
+                <span class="mega__feat-icon">G</span>
+                Gift Subscriptions
+              </a>
+              <a href="#products" class="mega__feat-link">
+                <span class="mega__feat-icon">B</span>
+                Bundles
+              </a>
+              <a href="#products" class="mega__feat-link">
+                <span class="mega__feat-icon">L</span>
+                Limited Edition
+              </a>
+              <a href="#products" class="mega__feat-link">
+                <span class="mega__feat-icon">W</span>
+                Whole Bean
+              </a>
+            </div>
+            <!-- By Category grid -->
+            <div class="mega__grid">
+              <div class="mega__col-title">By Category</div>
+              <div class="mega__cat-grid">
+                <a href="#products" class="mega__cat-card">
+                  <img src="images/SCR_Hair_Bender_72DPI.png" alt="Coffee" class="mega__cat-img">
+                  <div class="mega__cat-label">Coffee</div>
+                </a>
+                <a href="#menu" class="mega__cat-card">
+                  <img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Cold Brew" class="mega__cat-img">
+                  <div class="mega__cat-label">Cold Brew</div>
+                </a>
+                <a href="#products" class="mega__cat-card">
+                  <img src="images/SCR_BlendShuffle_B_72dpi_e256d215-f6f1-4e04-ab74-093b26005221.png" alt="Subscriptions" class="mega__cat-img">
+                  <div class="mega__cat-label">Subscriptions</div>
+                </a>
+                <a href="#gear" class="mega__cat-card">
+                  <img src="images/HarioStovetop.png" alt="Gear" class="mega__cat-img">
+                  <div class="mega__cat-label">Gear</div>
+                </a>
+                <a href="#merch" class="mega__cat-card">
+                  <img src="images/SCR_Hat_Front_SummerBlues_72DPI.png" alt="Merch" class="mega__cat-img">
+                  <div class="mega__cat-label">Merch</div>
+                </a>
+                <a href="#products" class="mega__cat-card">
+                  <img src="images/SCR_Holler_Mt_72DPI.png" alt="Shop All" class="mega__cat-img">
+                  <div class="mega__cat-label">Shop All</div>
+                </a>
+              </div>
+            </div>
+            <!-- By Coffee Trait -->
+            <div class="mega__traits">
+              <div class="mega__col-title">By Coffee Trait</div>
+              <a href="#products" class="mega__trait-link">Single Origin</a>
+              <a href="#products" class="mega__trait-link">Signature Blends</a>
+              <a href="#products" class="mega__trait-link">Whole Bean</a>
+              <a href="#products" class="mega__trait-link">Ground</a>
+              <a href="#products" class="mega__trait-link">Organic</a>
+              <a href="#products" class="mega__trait-link">Decaf</a>
+              <a href="#products" class="mega__trait-link">Light Roast</a>
+              <a href="#products" class="mega__trait-link">Medium Roast</a>
+              <a href="#products" class="mega__trait-link">Dark Roast</a>
+            </div>
+            <!-- Promo -->
+            <div class="mega__promo">
+              <div class="mega__promo-card">
+                <img src="images/Ethiopia_Mordecofe_72DPI.png" alt="Ethiopia Origin" class="mega__promo-img">
+                <div class="mega__promo-body">
+                  <div class="mega__promo-text">Ethiopia Guji<br>Now Available</div>
+                  <div class="mega__promo-cta">Shop now &rarr;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOCATIONS -->
+        <div class="hdr__nav-item">
+          <a href="#location" class="hdr__nav-link">Locations</a>
+        </div>
+
+        <!-- LEARN dropdown -->
+        <div class="hdr__nav-item" id="nav-learn">
+          <a href="#" class="hdr__nav-link">Learn</a>
+          <div class="dropdown">
+            <div class="dropdown__col">
+              <div class="mega__col-title">Explore</div>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">B</span>
+                Brew Guides
+              </a>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">B</span>
+                Blog
+              </a>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">I</span>
+                Impact
+              </a>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">W</span>
+                Why Subscribe?
+              </a>
+            </div>
+            <div class="dropdown__col">
+              <div class="mega__col-title">About</div>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">S</span>
+                Our Story
+              </a>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">W</span>
+                Wholesale
+              </a>
+              <a href="#" class="dropdown__item">
+                <span class="dropdown__item-icon">C</span>
+                Contact Us
+              </a>
+              <a href="#menu" class="dropdown__item">
+                <span class="dropdown__item-icon">C</span>
+                Cold Brew
+              </a>
+            </div>
+            <div class="dropdown__promo">
+              <div class="dropdown__promo-card">
+                <img src="images/Guatemala_Injerto_72DPI.png" alt="Guatemala" class="dropdown__promo-img">
+                <div class="dropdown__promo-body">
+                  <div class="dropdown__promo-text">Guatemala El Injerto Is Back!</div>
+                  <div class="dropdown__promo-cta">Shop now &rarr;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Center: Logo -->
+    <a href="#" class="hdr__logo-link">
+      <div class="hdr__logo">
+        <span class="hdr__logo-name">Daily Drip</span>
+        <span class="hdr__logo-sub">Caf&eacute;</span>
+      </div>
+    </a>
+
+    <!-- Right: Icons -->
+    <div class="hdr__right">
+      <a href="#" class="hdr__icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </a>
+      <a href="#" class="hdr__icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <button class="hdr__icon-btn" id="cartToggle" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="hdr__cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu__hdr">
+    <div style="font-family:var(--font-display); line-height:1.0;">
+      <div style="font-size:20px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff;">Daily Drip</div>
+      <div style="font-size:12px; font-style:italic; letter-spacing:3px; color:var(--coffee-light);">Caf&eacute;</div>
+    </div>
+    <button class="mobile-menu__close" id="mobileMenuClose">&#x2715;</button>
+  </div>
+  <nav class="mobile-menu__nav">
+    <a href="#products" class="m-link" onclick="closeMM()">Shop Coffee</a>
+    <button class="m-link" onclick="toggleMS('ms-menu')" style="width:100%;text-align:left;background:none;border:none;font-family:inherit;font-size:17px;font-weight:500;color:rgba(255,255,255,0.85);border-bottom:1px solid rgba(255,255,255,0.06);">
+      Cafe Menu <span>+</span>
+    </button>
+    <div class="m-sub" id="ms-menu">
+      <a href="#menu" onclick="closeMM()">Espresso Drinks</a>
+      <a href="#menu" onclick="closeMM()">Filter Coffee</a>
+      <a href="#menu" onclick="closeMM()">Cold Brew</a>
+      <a href="#menu" onclick="closeMM()">Food</a>
+    </div>
+    <a href="#location" class="m-link" onclick="closeMM()">Locations</a>
+    <a href="#gear" class="m-link" onclick="closeMM()">Brew Gear</a>
+    <a href="#merch" class="m-link" onclick="closeMM()">Merch</a>
+    <a href="#" class="m-link" onclick="closeMM()">Learn</a>
+  </nav>
+  <div class="mobile-menu__foot">
+    <a href="#menu" class="mobile-menu__cta" onclick="closeMM()">Order Now</a>
+    <div class="mobile-menu__addr">Shop #7, Building 40 Regency,<br>Ganpati Mandir Road, Titwala,<br>Thane – 421605, Maharashtra</div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="mobile-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <span class="cart-hdr__title">Your Cart</span>
+    <button class="cart-hdr__close" id="cartClose">&#x2715;</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <div class="cart-empty__text">Your cart is empty.<br>Add some freshly roasted coffee!</div>
+    </div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none;">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">&#x20B9;0</span></div>
+    <button class="btn btn--dark" style="width:100%;justify-content:center;" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Added to cart</div>
+
+<!-- ===========================
+     HERO
+=========================== -->
+<section class="hero">
+  <video class="hero__video" autoplay muted loop playsinline
+    preload="metadata"
+    poster="images/LaborDay2026_BG_Desktop.jpg">
+    <source src="images/hero_video.mp4" type="video/mp4">
+  </video>
+  <img src="images/LaborDay2026_BG_Desktop.jpg" alt="Daily Drip Cafe" class="hero__bg">
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Titwala's Finest Specialty Cafe</p>
+    <h1 class="hero__title">Fresh Brews,<br>Every Day.</h1>
+    <p class="hero__sub">Handcrafted specialty coffee roasted in small batches. Pour-overs, cold brews and espresso from &#x20B9;99.</p>
+    <div class="hero__btns">
+      <a href="#menu" class="btn btn--primary">See Our Menu</a>
+      <a href="#products" class="btn btn--outline">Buy Beans Online</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stats__grid">
+      <div><div class="stats__num">50+</div><div class="stats__label">Coffee Varieties</div></div>
+      <div><div class="stats__num">1,200+</div><div class="stats__label">Happy Customers</div></div>
+      <div><div class="stats__num">&#x20B9;99</div><div class="stats__label">Starting Price</div></div>
+      <div><div class="stats__num">5 &#9733;</div><div class="stats__label">Justdial Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PRODUCTS
+=========================== -->
+<section class="section section--cream" id="products">
+  <div class="container">
+    <div class="sec-hdr">
+      <p class="sec-eyebrow">Our Coffee</p>
+      <h2 class="sec-title">Freshly Roasted Beans</h2>
+      <p class="sec-sub">Small-batch roasted, delivered to your door or available in-store at our Titwala cafe.</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-tab active" onclick="filterProd('all',this)">All</button>
+      <button class="filter-tab" onclick="filterProd('bestseller',this)">Best Sellers</button>
+      <button class="filter-tab" onclick="filterProd('blend',this)">Signature Blends</button>
+      <button class="filter-tab" onclick="filterProd('single-origin',this)">Single Origin</button>
+      <button class="filter-tab" onclick="filterProd('subscription',this)">Subscriptions</button>
+      <button class="filter-tab" onclick="filterProd('decaf',this)">Decaf</button>
+    </div>
+
+    <div class="prod-grid" id="prodGrid">
+
+      <!-- 1 -->
+      <div class="prod-card" data-cat="blend bestseller">
+        <span class="prod-card__badge prod-card__badge--gold">Best Seller</span>
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_Hair_Bender_72DPI.png" alt="Signature House Blend" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            BLEND &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d"></div></div>
+          </div>
+          <div class="prod-card__name">Signature House Blend</div>
+          <div class="prod-card__flavor">Citrus &bull; Dark Chocolate &bull; Caramel</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price-old">&#x20B9;699</span>
+            <span class="prod-card__price">&#x20B9;549</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Signature House Blend',549,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card" data-cat="blend bestseller">
+        <span class="prod-card__badge">Organic</span>
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_Holler_Mt_72DPI.png" alt="Morning Harvest Organic" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            BLEND &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d"></div><div class="roast-bar__d"></div></div>
+          </div>
+          <div class="prod-card__name">Morning Harvest Organic</div>
+          <div class="prod-card__flavor">Almond &bull; Brown Sugar &bull; Hazelnut</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price">&#x20B9;599</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Morning Harvest Organic',599,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card" data-cat="blend">
+        <span class="prod-card__badge" style="background:#1a3a6b;">Limited</span>
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_RoastersPick_72dpi.png" alt="Roaster's Private Reserve" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            BLEND &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div></div>
+          </div>
+          <div class="prod-card__name">Roaster's Private Reserve</div>
+          <div class="prod-card__flavor">Blueberry &bull; Jasmine &bull; Dark Cocoa</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price-old">&#x20B9;899</span>
+            <span class="prod-card__price">&#x20B9;749</span>
+            <div class="prod-card__size">200g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Roaster\'s Private Reserve',749,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card" data-cat="single-origin bestseller">
+        <div class="prod-card__img-wrap">
+          <img src="images/Ethiopia_Mordecofe_72DPI.png" alt="Ethiopia Guji Natural" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            SINGLE ORIGIN &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d"></div><div class="roast-bar__d"></div><div class="roast-bar__d"></div></div>
+          </div>
+          <div class="prod-card__name">Ethiopia Guji Natural</div>
+          <div class="prod-card__flavor">Berries &bull; Floral &bull; Honey</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price">&#x20B9;649</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Ethiopia Guji Natural',649,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card" data-cat="single-origin">
+        <div class="prod-card__img-wrap">
+          <img src="images/Guatemala_Injerto_72DPI.png" alt="Guatemala El Injerto" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            SINGLE ORIGIN &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d"></div><div class="roast-bar__d"></div></div>
+          </div>
+          <div class="prod-card__name">Guatemala El Injerto</div>
+          <div class="prod-card__flavor">Chocolate &bull; Caramel &bull; Peach</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price">&#x20B9;699</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Guatemala El Injerto',699,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card" data-cat="blend subscription bestseller">
+        <span class="prod-card__badge prod-card__badge--green">Save &#x20B9;300</span>
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_BlendShuffle_B_72dpi_e256d215-f6f1-4e04-ab74-093b26005221.png" alt="Heritage Trio Bundle" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">BUNDLE &middot; 3 BAGS</div>
+          <div class="prod-card__name">Heritage Trio Bundle</div>
+          <div class="prod-card__flavor">House Blend &bull; Ethiopia &bull; Guatemala</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price-old">&#x20B9;1,799</span>
+            <span class="prod-card__price">&#x20B9;1,499</span>
+            <div class="prod-card__price-save">You save &#x20B9;300</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Heritage Trio Bundle',1499,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="prod-card" data-cat="single-origin">
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_Honduras_Puente_Natural_34R_1534x1534_72DPI.png" alt="Honduras Natural" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">
+            SINGLE ORIGIN &nbsp;
+            ROAST <div class="roast-bar"><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d on"></div><div class="roast-bar__d"></div></div>
+          </div>
+          <div class="prod-card__name">Honduras Natural Process</div>
+          <div class="prod-card__flavor">Dark Choc &bull; Berry Jam &bull; Brown Sugar</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price">&#x20B9;679</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Honduras Natural Process',679,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="prod-card" data-cat="subscription">
+        <span class="prod-card__badge prod-card__badge--gold">Subscribe &amp; Save</span>
+        <div class="prod-card__img-wrap" style="background:linear-gradient(135deg,#1f1815,#3c2a21);display:flex;align-items:center;justify-content:center;padding:32px;">
+          <svg viewBox="0 0 100 100" fill="none" style="width:90px;height:90px;"><circle cx="50" cy="50" r="44" stroke="#C5A880" stroke-width="4"/><circle cx="50" cy="50" r="8" fill="#C5A880"/><path d="M50 6v10M50 84v10M6 50h10M84 50h10M20 20l7 7M73 73l7 7M80 20l-7 7M27 73l-7 7" stroke="#C5A880" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">MONTHLY SUBSCRIPTION</div>
+          <div class="prod-card__name">Coffee Club Subscription</div>
+          <div class="prod-card__flavor">Curated monthly selection &bull; Home delivery</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price-old">&#x20B9;649</span>
+            <span class="prod-card__price">&#x20B9;499<span style="font-size:13px;font-weight:400;">/mo</span></span>
+            <div class="prod-card__price-save">Save 20% every month</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Coffee Club Subscription',499,this)">Subscribe</button>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="prod-card" data-cat="decaf">
+        <div class="prod-card__img-wrap">
+          <img src="images/SCR_Canister_2026_1534x1534_72dpi.png" alt="Swiss Water Decaf" class="prod-card__img">
+        </div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">DECAF</div>
+          <div class="prod-card__name">Swiss Water Decaf</div>
+          <div class="prod-card__flavor">Milk Chocolate &bull; Walnut &bull; Toffee</div>
+        </div>
+        <div class="prod-card__footer">
+          <div>
+            <span class="prod-card__price">&#x20B9;529</span>
+            <div class="prod-card__size">250g whole bean</div>
+          </div>
+          <button class="atc-btn" onclick="addToCart('Swiss Water Decaf',529,this)">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     ORIGIN SPLIT
+=========================== -->
+<section class="split" id="origin">
+  <div class="split__img">
+    <img src="images/EL_Puente_BG_2025.jpg" alt="Coffee origin farm">
+  </div>
+  <div class="split__content split__content--dark">
+    <p class="split__eyebrow">Our Coffee Origin</p>
+    <h2 class="split__title" style="color:#fff;">Artisan Natural<br>Single Origin</h2>
+    <p class="split__desc">Sourced directly from smallholder farmers at altitude, our natural process single-origin coffee captures the terroir of the region in every sip — fruity, complex and deeply satisfying.</p>
+    <div class="split__tags">
+      <span class="split__tag">Dark Chocolate</span>
+      <span class="split__tag">Berry Jam</span>
+      <span class="split__tag">Brown Sugar</span>
+    </div>
+    <div>
+      <a href="#products" class="btn btn--primary btn--sm">Get This Coffee &mdash; &#x20B9;679</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     CAFE MENU
+=========================== -->
+<section class="section section--cream" id="menu">
+  <div class="container">
+    <div class="sec-hdr">
+      <p class="sec-eyebrow">Cafe Menu</p>
+      <h2 class="sec-title">What We Brew</h2>
+      <p class="sec-sub">All drinks crafted with freshly roasted Daily Drip beans. Visit us in Titwala, Thane.</p>
+    </div>
+    <div class="menu-tabs-row">
+      <button class="menu-tab active" onclick="switchTab('espresso',this)">Espresso</button>
+      <button class="menu-tab" onclick="switchTab('filter',this)">Filter Coffee</button>
+      <button class="menu-tab" onclick="switchTab('cold',this)">Cold Brew</button>
+      <button class="menu-tab" onclick="switchTab('food',this)">Food</button>
+    </div>
+
+    <!-- Espresso -->
+    <div class="menu-panel active" id="panel-espresso">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="images/SCR_Coffee_CLIP_A.png" alt="Espresso" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Single Espresso</div>
+            <div class="menu-item__desc">Pure, concentrated 30ml shot of our Signature House Blend. Bold, bright and perfectly extracted.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;99</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Cappuccino" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Cappuccino</div>
+            <div class="menu-item__desc">Equal parts espresso, steamed milk and silky microfoam. Classic Italian perfection.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;149</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Shell_Mug_SummerBlues_72DPI.png" alt="Flat White" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Flat White</div>
+            <div class="menu-item__desc">Double ristretto with velvety steamed milk. Rich espresso flavor with silky texture.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;159</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Hair_Bender_72DPI.png" alt="Latte" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Cafe Latte</div>
+            <div class="menu-item__desc">Espresso topped with gently steamed milk, finished with latte art from our baristas.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;169</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Holler_Mt_72DPI.png" alt="Iced Latte" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Iced Latte</div>
+            <div class="menu-item__desc">Double espresso over ice with chilled fresh milk. The perfect summer refresher.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;189</span><span class="menu-item__tag menu-item__tag--cold">Iced</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_RoastersPick_72dpi.png" alt="Mocha" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Daily Drip Mocha</div>
+            <div class="menu-item__desc">Espresso with premium dark chocolate sauce and steamed milk. Indulgent and warming.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;199</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="menu-panel" id="panel-filter">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="images/SCR_Origami_WHITE_72.png" alt="Pour Over" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Pour Over (V60)</div>
+            <div class="menu-item__desc">Hand-brewed single cup highlighting the origin characteristics of our single-origin coffees.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;179</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/STC-Shopify-Chemex-Brewer_Product-Image-Transparent-PNG_EDIT.png" alt="Chemex" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Chemex Brewed (2 cup)</div>
+            <div class="menu-item__desc">Clean, bright and complex. The Chemex showcases delicate floral and fruity notes beautifully.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;249</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/Aeropress_White_2025_8_NoFunnel.png" alt="AeroPress" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">AeroPress Brew</div>
+            <div class="menu-item__desc">Concentrated and bold, brewed in minutes. Smooth body with low acidity — full of flavour.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;159</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/HarioStovetop.png" alt="South Indian Filter" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">South Indian Filter Coffee</div>
+            <div class="menu-item__desc">Traditional filter coffee brewed slow, served with steamed milk. Rich, aromatic comfort.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;129</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cold -->
+    <div class="menu-panel" id="panel-cold">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Cold Brew" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Classic Cold Brew</div>
+            <div class="menu-item__desc">Steeped 18 hours in cold water. Smooth, chocolatey and intensely refreshing.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;199</span><span class="menu-item__tag menu-item__tag--cold">Cold</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Blue_Vessel_SummerBlues_72DPI.png" alt="Nitro" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Nitro Cold Brew</div>
+            <div class="menu-item__desc">Nitrogen-infused cold brew with a creamy, Guinness-like cascade. Bold, smooth, zero sugar.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;229</span><span class="menu-item__tag menu-item__tag--cold">Nitro</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Iced Americano" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Iced Americano</div>
+            <div class="menu-item__desc">Double espresso topped with cold water over ice. Clean, black, refreshing.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;149</span><span class="menu-item__tag menu-item__tag--cold">Iced</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Cold Brew Latte" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Cold Brew Latte</div>
+            <div class="menu-item__desc">Cold brew concentrate topped with chilled milk over ice. Smooth, mellow, not bitter.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;219</span><span class="menu-item__tag menu-item__tag--cold">Iced</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Food -->
+    <div class="menu-panel" id="panel-food">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F950;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Butter Croissant</div>
+            <div class="menu-item__desc">Flaky, buttery, golden croissant fresh-baked daily. Perfect with your morning latte.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;129</span><span class="menu-item__tag">Bakery</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F34C;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Banana Bread</div>
+            <div class="menu-item__desc">Moist, lightly spiced banana bread with walnuts. A warming companion to any coffee.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;119</span><span class="menu-item__tag">Bakery</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F96A;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Grilled Paneer Sandwich</div>
+            <div class="menu-item__desc">Soft multigrain bread with spiced paneer, veggies and chipotle mayo. Filling and delicious.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;199</span><span class="menu-item__tag">Hot Food</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F370;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Tiramisu Slice</div>
+            <div class="menu-item__desc">Classic Italian coffee-soaked dessert with mascarpone cream and dusted cocoa. Irresistible.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;189</span><span class="menu-item__tag">Dessert</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     GEAR
+=========================== -->
+<section class="section section--white" id="gear">
+  <div class="container">
+    <div class="sec-hdr">
+      <p class="sec-eyebrow">Brewing Equipment</p>
+      <h2 class="sec-title">Brew Like a Pro at Home</h2>
+      <p class="sec-sub">Premium brewing gear curated by our baristas. All gear sold with a free brewing guide.</p>
+    </div>
+    <div class="coll-grid">
+      <a href="#" class="coll-card coll-card--tall">
+        <img src="images/STC-Shopify-Chemex-Brewer_Product-Image-Transparent-PNG_EDIT.png" alt="Chemex" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">Chemex Brewer</div><div class="coll-card__price">&#x20B9;3,499 &middot; Classic 6-cup</div></div></div>
+      </a>
+      <a href="#" class="coll-card">
+        <img src="images/Aeropress_White_2025_8_NoFunnel.png" alt="AeroPress" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">AeroPress Go</div><div class="coll-card__price">&#x20B9;3,199 &middot; Portable brewer</div></div></div>
+      </a>
+      <a href="#" class="coll-card">
+        <img src="images/OXO_Brewer.png" alt="OXO Brewer" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">OXO Cold Brew</div><div class="coll-card__price">&#x20B9;4,499 &middot; Compact 24oz</div></div></div>
+      </a>
+      <a href="#" class="coll-card">
+        <img src="images/STC-Shopify-French-Press_Product-Image-Transparent-PNG.png" alt="French Press" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">French Press</div><div class="coll-card__price">&#x20B9;1,899 &middot; 8-cup</div></div></div>
+      </a>
+      <a href="#" class="coll-card">
+        <img src="images/HarioStovetop.png" alt="Kettle" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">Hario Stovetop Kettle</div><div class="coll-card__price">&#x20B9;2,999 &middot; 1.2L gooseneck</div></div></div>
+      </a>
+      <a href="#" class="coll-card">
+        <img src="images/STC-Shopify-Hario-Mini-Slim-Hand-Grinder_Product-Image-Transparent-PNG.png" alt="Hand Grinder" class="coll-card__img">
+        <div class="coll-card__ovl"><div><div class="coll-card__name">Hario Hand Grinder</div><div class="coll-card__price">&#x20B9;2,499 &middot; Mini Slim Plus</div></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     MERCH
+=========================== -->
+<section class="section section--cream" id="merch">
+  <div class="container">
+    <div class="sec-hdr">
+      <p class="sec-eyebrow">Merch</p>
+      <h2 class="sec-title">Wear the Drip</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-card__img-wrap"><img src="images/SCR_Hat_Front_SummerBlues_72DPI.png" alt="Dad Cap" class="prod-card__img"></div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">HEADWEAR</div>
+          <div class="prod-card__name">Daily Drip Dad Cap</div>
+          <div class="prod-card__flavor">Navy &bull; One size fits all</div>
+        </div>
+        <div class="prod-card__footer">
+          <div><span class="prod-card__price">&#x20B9;799</span></div>
+          <button class="atc-btn" onclick="addToCart('Daily Drip Dad Cap',799,this)">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__img-wrap"><img src="images/SCR_Shell_Mug_SummerBlues_72DPI.png" alt="Ceramic Mug" class="prod-card__img"></div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">DRINKWARE</div>
+          <div class="prod-card__name">Artisan Ceramic Mug</div>
+          <div class="prod-card__flavor">Seafoam &bull; 12oz</div>
+        </div>
+        <div class="prod-card__footer">
+          <div><span class="prod-card__price">&#x20B9;999</span></div>
+          <button class="atc-btn" onclick="addToCart('Artisan Ceramic Mug',999,this)">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__img-wrap"><img src="images/SCR_Blue_Vessel_SummerBlues_72DPI.png" alt="Tumbler" class="prod-card__img"></div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">DRINKWARE</div>
+          <div class="prod-card__name">Insulated Travel Tumbler</div>
+          <div class="prod-card__flavor">Coastal Blue &bull; 16oz</div>
+        </div>
+        <div class="prod-card__footer">
+          <div><span class="prod-card__price-old">&#x20B9;1,499</span><span class="prod-card__price">&#x20B9;1,199</span></div>
+          <button class="atc-btn" onclick="addToCart('Insulated Travel Tumbler',1199,this)">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__img-wrap"><img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Glass Tumbler" class="prod-card__img"></div>
+        <div class="prod-card__body">
+          <div class="prod-card__meta">DRINKWARE</div>
+          <div class="prod-card__name">Borosilicate Glass Tumbler</div>
+          <div class="prod-card__flavor">Clear &bull; 14oz</div>
+        </div>
+        <div class="prod-card__footer">
+          <div><span class="prod-card__price">&#x20B9;899</span></div>
+          <button class="atc-btn" onclick="addToCart('Borosilicate Glass Tumbler',899,this)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     LOCATION
+=========================== -->
+<section class="section section--dark" id="location">
+  <div class="container">
+    <div class="loc-grid">
+      <div>
+        <div class="loc-badge">Visit the Cafe</div>
+        <h2 class="loc-title">Daily Drip Cafe,<br>Titwala, Thane</h2>
+        <p class="loc-desc">Come experience freshly brewed specialty coffee in a warm, welcoming cafe space. Our baristas are always ready to help you discover your next favourite brew.</p>
+        <div class="loc-card">
+          <div class="loc-row">
+            <div class="loc-icon-wrap"><div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div></div>
+            <div>
+              <div class="loc-lbl">Address</div>
+              <div class="loc-val">Shop Number 7, Building 40 Regency,<br>Ganpati Mandir Road, Titwala,<br>Thane &ndash; 421605, Maharashtra</div>
+            </div>
+          </div>
+          <div class="loc-row">
+            <div class="loc-icon-wrap"><div class="loc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div>
+              <div class="loc-lbl">Opening Hours</div>
+              <div class="loc-val">Monday &ndash; Sunday: 8:00 AM &ndash; 11:00 PM</div>
+            </div>
+          </div>
+          <div class="loc-row" style="margin-bottom:0;">
+            <div class="loc-icon-wrap"><div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14l.92 2.92z"/></svg></div></div>
+            <div>
+              <div class="loc-lbl">Phone</div>
+              <div class="loc-val">+91 98200 00000</div>
+            </div>
+          </div>
+        </div>
+        <div class="loc-btns">
+          <a href="https://www.justdial.com/Thane/Daily-Drip-Cafe-Titwala/022PXX22-XX22-250905121815-R4Y6_BZDET" target="_blank" rel="noopener" class="btn btn--primary btn--sm">View on Justdial</a>
+          <a href="https://maps.google.com/?q=Titwala+Thane+Maharashtra+421605" target="_blank" rel="noopener" class="btn btn--outline btn--sm">Get Directions</a>
+        </div>
+      </div>
+      <div class="loc-map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.7!2d73.248!3d19.295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be796!2sTitwala!5e0!3m2!1sen!2sin!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Daily Drip Cafe location map"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     TESTIMONIALS
+=========================== -->
+<section class="section section--white">
+  <div class="container">
+    <div class="sec-hdr sec-hdr--c">
+      <p class="sec-eyebrow">Customer Love</p>
+      <h2 class="sec-title">What Our Guests Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">"Best coffee in Titwala, no contest. The pour-over using the Ethiopian beans is absolutely exceptional. The baristas really know their craft."</p>
+        <div class="testi-author">Rahul M.</div>
+        <div class="testi-loc">Titwala, Thane</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">"I've been ordering the monthly coffee subscription for 6 months now. The beans are always fresh and the variety is amazing. Worth every rupee."</p>
+        <div class="testi-author">Priya S.</div>
+        <div class="testi-loc">Kalyan, Thane</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">"The Nitro Cold Brew is something else — creamy, smooth, no sugar needed. The cafe space is cozy and the team is always welcoming. My go-to spot!"</p>
+        <div class="testi-author">Ankit V.</div>
+        <div class="testi-loc">Thane West</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     NEWSLETTER
+=========================== -->
+<section class="newsletter">
+  <div class="container">
+    <p class="sec-eyebrow" style="text-align:center;margin-bottom:8px;">Stay Connected</p>
+    <h2 class="newsletter__title">Never Miss a Drop</h2>
+    <p class="newsletter__desc">Get the latest blends, special offers and cafe news straight to your inbox.</p>
+    <form class="newsletter__form" onsubmit="subscribeNL(event)">
+      <input type="email" class="newsletter__input" placeholder="your@email.com" required>
+      <button type="submit" class="newsletter__btn">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===========================
+     FOOTER
+=========================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">
+          <span class="footer__logo-name">Daily Drip</span>
+          <span class="footer__logo-sub">Caf&eacute;</span>
+        </div>
+        <p class="footer__desc">Specialty coffee roasted and brewed with love in Titwala, Thane. Freshness in every cup, warmth in every visit.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Instagram">In</a>
+          <a href="#" class="footer__social" aria-label="Facebook">Fb</a>
+          <a href="#" class="footer__social" aria-label="YouTube">Yt</a>
+          <a href="https://www.justdial.com/Thane/Daily-Drip-Cafe-Titwala/022PXX22-XX22-250905121815-R4Y6_BZDET" target="_blank" class="footer__social" aria-label="Justdial">Jd</a>
+        </div>
+        <div class="footer__addr">
+          Shop #7, Building 40 Regency,<br>
+          Ganpati Mandir Road, Titwala,<br>
+          Thane &ndash; 421605, Maharashtra<br>
+          +91 98200 00000<br>
+          hello@dailydripcafe.in
+        </div>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Shop</h4>
+        <ul class="footer__links">
+          <li><a href="#products" class="footer__link">Best Sellers</a></li>
+          <li><a href="#products" class="footer__link">Single Origin Beans</a></li>
+          <li><a href="#products" class="footer__link">Signature Blends</a></li>
+          <li><a href="#products" class="footer__link">Coffee Subscriptions</a></li>
+          <li><a href="#gear" class="footer__link">Brewing Gear</a></li>
+          <li><a href="#merch" class="footer__link">Cafe Merch</a></li>
+          <li><a href="#products" class="footer__link">Bundle Deals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Explore</h4>
+        <ul class="footer__links">
+          <li><a href="#menu" class="footer__link">Cafe Menu</a></li>
+          <li><a href="#location" class="footer__link">Visit Us</a></li>
+          <li><a href="#" class="footer__link">Brew Guides</a></li>
+          <li><a href="#" class="footer__link">Coffee Blog</a></li>
+          <li><a href="#" class="footer__link">Our Story</a></li>
+          <li><a href="#" class="footer__link">Bulk / Wholesale</a></li>
+          <li><a href="#" class="footer__link">Coffee Quiz</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Support</h4>
+        <ul class="footer__links">
+          <li><a href="#" class="footer__link">Contact Us</a></li>
+          <li><a href="#" class="footer__link">FAQ</a></li>
+          <li><a href="#" class="footer__link">Shipping Policy</a></li>
+          <li><a href="#" class="footer__link">Returns &amp; Refunds</a></li>
+          <li><a href="#" class="footer__link">Privacy Policy</a></li>
+          <li><a href="#" class="footer__link">Terms of Service</a></li>
+          <li><a href="https://www.justdial.com/Thane/Daily-Drip-Cafe-Titwala/022PXX22-XX22-250905121815-R4Y6_BZDET" target="_blank" class="footer__link">Justdial Listing</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer__hr">
+    <div class="footer__bottom">
+      <div class="footer__copy">&copy;2026 Daily Drip Cafe. All Rights Reserved. Titwala, Thane, Maharashtra.</div>
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Refund Policy</a>
+      </div>
+      <div class="footer__madeby">Made with care by <a href="https://aise360.com/" target="_blank" rel="noopener">aise360.com</a> &bull; 2026</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===========================
+     JAVASCRIPT
+=========================== -->
+<script>
+  /* === CART === */
+  let cart = [];
+
+  function addToCart(name, price, btn) {
+    const ex = cart.find(i => i.name === name);
+    if (ex) { ex.qty++; } else { cart.push({ name, price, qty: 1 }); }
+    updateCart();
+    showToast(name + ' added to cart');
+    btn.textContent = 'Added!';
+    btn.style.background = '#2d5016';
+    setTimeout(() => { btn.textContent = 'Add to Cart'; btn.style.background = ''; }, 1600);
+  }
+
+  function updateCart() {
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('cartBadge').textContent = cart.reduce((s, i) => s + i.qty, 0);
+    const body = document.getElementById('cartBody');
+    const foot = document.getElementById('cartFoot');
+    if (!cart.length) {
+      body.innerHTML = '<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><div class="cart-empty__text">Your cart is empty.</div></div>';
+      foot.style.display = 'none'; return;
+    }
+    let html = '';
+    cart.forEach((item, idx) => {
+      html += `<div class="cart-item"><div class="cart-item__body"><div class="cart-item__name">${item.name}</div><div class="cart-item__price">&#x20B9;${(item.price * item.qty).toLocaleString('en-IN')}</div><div class="cart-item__qty"><button class="qty-btn" onclick="changeQty(${idx},-1)">&minus;</button><span class="qty-num">${item.qty}</span><button class="qty-btn" onclick="changeQty(${idx},1)">+</button></div></div></div>`;
+    });
+    body.innerHTML = html;
+    document.getElementById('cartTotal').textContent = '&#x20B9;' + total.toLocaleString('en-IN');
+    foot.style.display = 'block';
+  }
+
+  function changeQty(idx, d) { cart[idx].qty += d; if (cart[idx].qty <= 0) cart.splice(idx, 1); updateCart(); }
+  function checkout() { showToast('Order placed! Thank you.'); cart = []; updateCart(); closeCart(); }
+
+  /* === TOAST === */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(window._tt);
+    window._tt = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  /* === MOBILE MENU === */
+  function closeMM() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('mobileOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleMS(id) { document.getElementById(id).classList.toggle('open'); }
+
+  document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.getElementById('mobileOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('mobileMenuClose').addEventListener('click', closeMM);
+  document.getElementById('mobileOverlay').addEventListener('click', closeMM);
+
+  /* === CART SIDEBAR === */
+  function closeCart() {
+    document.getElementById('cartSidebar').classList.remove('open');
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('cartToggle').addEventListener('click', () => {
+    document.getElementById('cartSidebar').classList.add('open');
+    document.getElementById('cartOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+  /* === PRODUCT FILTER === */
+  function filterProd(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.prod-card').forEach(c => {
+      const cats = c.dataset.cat || '';
+      c.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
+    });
+  }
+
+  /* === MENU TABS === */
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  /* === NEWSLETTER === */
+  function subscribeNL(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('input');
+    showToast(input.value + ' subscribed! Welcome.');
+    input.value = '';
+  }
+
+  /* === SCROLL-REVEAL === */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    obs.observe(el);
+  });
+</script>
+
+</body>
+</html>
