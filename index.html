@@ -16,7 +16,7 @@
     "@type": "LocalBusiness",
     "name": "Daily Drip Cafe",
     "url": "https://www.dailydripcafe.in",
-    "telephone": "+91 98200 00000",
+    "telephone": "+91 77383 14007",
     "priceRange": "₹₹",
     "address": {
       "@type": "PostalAddress",
@@ -673,6 +673,16 @@
       letter-spacing: 4px; text-transform: uppercase; white-space: nowrap;
     }
     .hero__visit:hover { opacity: 0.85; }
+    .wa-float {
+      position: fixed; right: 18px; bottom: 18px; z-index: 1500;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.06); }
+    .wa-float svg { width: 28px; height: 28px; }
 
     /* === REFERENCE-STYLE SECTIONS — light, airy, image-led === */
     .ref-section { background: var(--cream); padding: 72px 0; }
@@ -728,6 +738,55 @@
       .fav-card img { height: 300px; }
       .loc-showcase { grid-template-columns: 1fr; gap: 32px; }
       .menu-views { grid-template-columns: repeat(2,1fr); }
+    }
+    /* === OFFERS / GALLERY / STORY / FORMS === */
+    .offers-strip { background: var(--text); color: #fff; padding: 26px 0; overflow: hidden; }
+    .offers-track { display: flex; gap: 14px; overflow-x: auto; padding: 4px 24px; max-width: 1200px; margin: 0 auto; }
+    .offer-chip {
+      flex: 0 0 auto; background: #fff; color: var(--text); border-radius: 100px;
+      padding: 12px 20px; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .offer-chip b { background: var(--text); color: #fff; border-radius: 100px; padding: 2px 10px; }
+    .gal-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .gal-grid img {
+      width: 100%; height: 240px; object-fit: cover; border-radius: 8px; cursor: zoom-in;
+      background: var(--cream-dark);
+    }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.9);
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 84vh; border-radius: 10px; }
+    .lightbox__x { position: absolute; top: 16px; right: 22px; color: #fff; font-size: 32px; }
+    .story-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px; gap: 36px; align-items: center;
+    }
+    .story-split img { width: 100%; height: 420px; object-fit: cover; border-radius: 12px; }
+    .form-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px;
+      padding: 26px; max-width: 640px; margin: 0 auto;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; color: var(--text-muted); }
+    .field input, .field select, .field textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; font-size: 14px; font-family: inherit; background: #fff; color: var(--text);
+    }
+    .stars-input { display: flex; gap: 6px; font-size: 26px; cursor: pointer; }
+    .stars-input span { color: #ddd; }
+    .stars-input span.on { color: #e8a100; }
+    @media (max-width: 900px) {
+      .gal-grid { grid-template-columns: repeat(2,1fr); }
+      .gal-grid img { height: 170px; }
+      .story-split { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
     }
 
     /* ===========================
@@ -1794,10 +1853,12 @@
       <p class="sec-sub">All drinks crafted with freshly roasted Daily Drip beans. Visit us in Bandra West, Mumbai.</p>
     </div>
     <div class="menu-tabs-row">
-      <button class="menu-tab active" onclick="switchTab('espresso',this)">Espresso</button>
+      <button class="menu-tab active" onclick="switchTab('espresso',this)">Coffee</button>
       <button class="menu-tab" onclick="switchTab('filter',this)">Filter Coffee</button>
       <button class="menu-tab" onclick="switchTab('cold',this)">Cold Brew</button>
+      <button class="menu-tab" onclick="switchTab('beverages',this)">Beverages</button>
       <button class="menu-tab" onclick="switchTab('food',this)">Food</button>
+      <button class="menu-tab" onclick="switchTab('desserts',this)">Desserts</button>
     </div>
 
     <!-- Espresso -->
@@ -1967,6 +2028,139 @@
         </div>
       </div>
     </div>
+
+    <!-- Beverages -->
+    <div class="menu-panel" id="panel-beverages">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Mango Smoothie" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Mango Smoothie</div>
+            <div class="menu-item__desc">Thick Alphonso mango blended with milk and honey. Summer in a glass.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;179</span><span class="menu-item__tag">Cold</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Blue_Vessel_SummerBlues_72DPI.png" alt="Berry Lemonade" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Berry Mint Lemonade</div>
+            <div class="menu-item__desc">House lemonade with mixed berries and fresh mint over crushed ice.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;149</span><span class="menu-item__tag">Cooler</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_Coffee_CLIP_A.png" alt="Matcha Latte" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Matcha Latte</div>
+            <div class="menu-item__desc">Ceremonial-grade matcha whisked with steamed milk. Earthy, calm energy.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;219</span><span class="menu-item__tag menu-item__tag--hot">Hot / Iced</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Hot Chocolate" class="menu-item__img">
+          <div class="menu-item__body">
+            <div class="menu-item__name">Belgian Hot Chocolate</div>
+            <div class="menu-item__desc">Real couverture chocolate melted into steamed milk. Dense and cozy.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;199</span><span class="menu-item__tag menu-item__tag--hot">Hot</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="menu-panel" id="panel-desserts">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F370;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Sizzling Brownie with Ice Cream</div>
+            <div class="menu-item__desc">Warm chocolate brownie on a sizzler with vanilla scoop and chocolate sauce.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;229</span><span class="menu-item__tag">Signature</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F9C1;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Cheesecake Slice</div>
+            <div class="menu-item__desc">Baked New York style with berry compote. Creamy, rich, slow indulgence.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;199</span><span class="menu-item__tag">Chilled</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F95E;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Affogato</div>
+            <div class="menu-item__desc">Vanilla ice cream drowned in a double shot of hot espresso.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;189</span><span class="menu-item__tag">Coffee Dessert</span></div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__img" style="background:#f5ede0;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:var(--r-sm);">&#x1F36A;</div>
+          <div class="menu-item__body">
+            <div class="menu-item__name">Choco Chip Cookies (4 pc)</div>
+            <div class="menu-item__desc">Buttery cookies loaded with dark chocolate chips. Baked fresh in-cafe.</div>
+            <div class="menu-item__row"><span class="menu-item__price">&#x20B9;149</span><span class="menu-item__tag">Bakery</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px;">
+      <a href="https://wa.me/917738314007?text=Hi!%20Please%20share%20the%20full%20menu." target="_blank" rel="noopener" class="btn btn--primary">Full Menu on WhatsApp</a>
+      <a href="tel:+917738314007" class="btn btn--outline" style="color:var(--text);border-color:var(--text);margin-left:10px;">Call to Order</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     SPECIAL OFFERS
+=========================== -->
+<div class="offers-strip">
+  <div class="offers-track">
+    <span class="offer-chip"><b>-15%</b> Happy Hours 4–7 PM, Mon–Fri</span>
+    <span class="offer-chip"><b>COMBO</b> Coffee + Croissant @ ₹249</span>
+    <span class="offer-chip"><b>2+1</b> Cold Brews every Sunday</span>
+    <span class="offer-chip"><b>STUDENT</b> 10% off with ID</span>
+    <a class="offer-chip" href="https://wa.me/917738314007?text=Hi!%20I%20want%20today's%20offer." target="_blank" rel="noopener" style="text-decoration:none;"><b>→</b> Claim on WhatsApp</a>
+  </div>
+</div>
+
+<!-- ===========================
+     GALLERY / AMBIENCE
+=========================== -->
+<section class="ref-section" id="gallery" style="background:#fff;">
+  <p class="ref-eyebrow">Cafe Ambience</p>
+  <h2 class="ref-title">Inside Daily Drip</h2>
+  <p style="text-align:center;color:var(--text-muted);max-width:560px;margin:0 auto 26px;padding:0 24px;">Cozy corners, warm lights and slow brews — seating for work, dates and adda near Bandstand.</p>
+  <div class="gal-grid">
+    <img src="images/LaborDay2026_BG_Desktop.jpg" alt="Cafe interior seating" onclick="openLB(this.src)">
+    <img src="images/EL_Puente_BG_2025.jpg" alt="Coffee bar" onclick="openLB(this.src)">
+    <img src="images/SCR_Coffee_CLIP_A.png" alt="Espresso pour" onclick="openLB(this.src)">
+    <img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Signature sipper" onclick="openLB(this.src)">
+    <img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Iced drinks" onclick="openLB(this.src)">
+    <img src="images/SCR_Blue_Vessel_SummerBlues_72DPI.png" alt="Brew vessel" onclick="openLB(this.src)">
+    <img src="images/SCR_Hair_Bender_72DPI.png" alt="House beans" onclick="openLB(this.src)">
+    <img src="images/EL_Puente_BG_2025_1.jpg" alt="Cafe atmosphere" onclick="openLB(this.src)">
+  </div>
+</section>
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <span class="lightbox__x">&times;</span>
+  <img id="lightboxImg" src="" alt="Gallery preview">
+</div>
+
+<!-- ===========================
+     OUR STORY
+=========================== -->
+<section class="ref-section" id="story">
+  <p class="ref-eyebrow">Our Story</p>
+  <h2 class="ref-title">Brewed Slow, Served Warm</h2>
+  <div class="story-split">
+    <img src="images/EL_Puente_BG_2025_1.jpg" alt="Daily Drip Cafe story">
+    <div>
+      <p style="font-size:17px;line-height:1.7;margin-bottom:14px;">Daily Drip Cafe started with one belief — <b>great coffee should feel like home.</b> Next to Seabird Building on B.J. Road, Bandstand, we roast small batches, bake fresh every morning and remember your usual.</p>
+      <p style="color:var(--text-muted);line-height:1.7;margin-bottom:14px;">Our philosophy is simple: honest beans, slow brewing, cozy seating and fair prices from ₹99. Whether it is a quick espresso before a Bandstand walk or a long brunch with friends — this is your corner.</p>
+      <p style="line-height:1.7;margin-bottom:20px;">✦ Small-batch roasted &nbsp; ✦ Fresh desserts daily &nbsp; ✦ Work-friendly seating</p>
+      <a href="#location" class="btn btn--primary">Visit Us in Bandra West</a>
+    </div>
   </div>
 </section>
 
@@ -2100,7 +2294,7 @@
             <div class="loc-icon-wrap"><div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14l.92 2.92z"/></svg></div></div>
             <div>
               <div class="loc-lbl">Phone</div>
-              <div class="loc-val">+91 98200 00000</div>
+              <div class="loc-val"><a href="tel:+917738314007" style="color:inherit;">+91 77383 14007</a><br><a href="https://wa.me/917738314007?text=Hi%20Daily%20Drip%20Cafe!%20I%20want%20to%20order." target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">WhatsApp Us</a></div>
             </div>
           </div>
         </div>
@@ -2119,13 +2313,14 @@
 <!-- ===========================
      TESTIMONIALS
 =========================== -->
-<section class="section section--white">
+<section class="section section--white" id="reviews">
   <div class="container">
     <div class="sec-hdr sec-hdr--c">
-      <p class="sec-eyebrow">Customer Love</p>
+      <p class="sec-eyebrow">Customer Love ⭐ 4.9</p>
       <h2 class="sec-title">What Our Guests Say</h2>
+      <p class="sec-sub">Real reviews from Bandra coffee lovers.</p>
     </div>
-    <div class="testi-grid">
+    <div class="testi-grid" id="testiGrid">
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="testi-text">"Best coffee in Bandra, no contest. The pour-over using the Ethiopian beans is absolutely exceptional. The baristas really know their craft."</p>
@@ -2134,16 +2329,73 @@
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">"I've been ordering the monthly coffee subscription for 6 months now. The beans are always fresh and the variety is amazing. Worth every rupee."</p>
+        <p class="testi-text">"Cozy seating near Bandstand, quick service and that sizzling brownie! My weekend spot now."</p>
         <div class="testi-author">Priya S.</div>
-        <div class="testi-loc">Kalyan, Thane</div>
+        <div class="testi-loc">Bandra West</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">"The Nitro Cold Brew is something else — creamy, smooth, no sugar needed. The cafe space is cozy and the team is always welcoming. My go-to spot!"</p>
+        <p class="testi-text">"The Nitro Cold Brew is something else — creamy, smooth, no sugar needed. My go-to spot!"</p>
         <div class="testi-author">Ankit V.</div>
-        <div class="testi-loc">Thane West</div>
+        <div class="testi-loc">Bandra, Mumbai</div>
       </div>
+    </div>
+    <div style="text-align:center;margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.google.com/maps?q=19.053086,72.822224" target="_blank" rel="noopener" class="btn btn--outline" style="color:var(--text);border-color:var(--text);">View All Reviews</a>
+      <a href="#feedback" class="btn btn--primary">Write a Review</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     FEEDBACK FORM
+=========================== -->
+<section class="ref-section" id="feedback" style="background:#fff;">
+  <p class="ref-eyebrow">Customer Feedback</p>
+  <h2 class="ref-title">Share Your Experience</h2>
+  <div class="form-card">
+    <form onsubmit="submitFeedback(event)">
+      <div class="field">
+        <label>Your Rating</label>
+        <div class="stars-input" id="starsInput">
+          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Name</label><input id="fbName" required placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input id="fbEmail" type="email" required placeholder="you@email.com"></div>
+      </div>
+      <div class="field"><label>Your Review</label><textarea id="fbText" rows="4" required placeholder="How was the coffee, food, ambience?"></textarea></div>
+      <button class="btn btn--primary" style="width:100%;justify-content:center;" type="submit">Submit Review</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===========================
+     CONTACT / INQUIRY
+=========================== -->
+<section class="ref-section" id="contact">
+  <p class="ref-eyebrow">Contact / Inquiry</p>
+  <h2 class="ref-title">Say Hello</h2>
+  <div class="story-split">
+    <div>
+      <p style="margin-bottom:12px;">📍 2, B.J. Road, Next to Seabird Building, Bandstand, Bandra West, Mumbai 400050</p>
+      <p style="margin-bottom:12px;">📞 <a href="tel:+917738314007">+91 77383 14007</a> &nbsp; • &nbsp; <a href="https://wa.me/917738314007">WhatsApp</a></p>
+      <p style="margin-bottom:12px;">✉️ <a href="mailto:hello@dailydripcafe.in">hello@dailydripcafe.in</a></p>
+      <p style="margin-bottom:12px;">🕗 Open Daily: 8:00 AM – 11:00 PM</p>
+      <p style="margin-bottom:18px;">📸 <a href="#">Instagram</a> &nbsp; <a href="#">Facebook</a> &nbsp; <a href="#">YouTube</a></p>
+      <a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+    <div class="form-card">
+      <form onsubmit="submitInquiry(event)">
+        <div class="form-row">
+          <div class="field"><label>Name</label><input id="qName" required placeholder="Your name"></div>
+          <div class="field"><label>Phone</label><input id="qPhone" required placeholder="+91 ..."></div>
+        </div>
+        <div class="field"><label>Email</label><input id="qEmail" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Message</label><textarea id="qMsg" rows="4" required placeholder="Table booking, bulk order, feedback..."></textarea></div>
+        <button class="btn btn--primary" style="width:100%;justify-content:center;" type="submit">Send Inquiry</button>
+      </form>
     </div>
   </div>
 </section>
@@ -2185,8 +2437,9 @@
           2, B.J. Road, Next to Seabird Building,<br>
           Ranwar, Bandstand, Bandra West,<br>
           Mumbai &ndash; 400050, Maharashtra<br>
-          +91 98200 00000<br>
-          hello@dailydripcafe.in
+          <a href="tel:+917738314007" style="color:inherit;">+91 77383 14007</a><br>
+          <a href="https://wa.me/917738314007" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">WhatsApp: +91 77383 14007</a><br>
+          <a href="mailto:hello@dailydripcafe.in" style="color:inherit;">hello@dailydripcafe.in</a>
         </div>
       </div>
       <div>
@@ -2206,18 +2459,18 @@
         <ul class="footer__links">
           <li><a href="#menu" class="footer__link">Cafe Menu</a></li>
           <li><a href="#location" class="footer__link">Visit Us</a></li>
-          <li><a href="#" class="footer__link">Brew Guides</a></li>
-          <li><a href="#" class="footer__link">Coffee Blog</a></li>
-          <li><a href="#" class="footer__link">Our Story</a></li>
-          <li><a href="#" class="footer__link">Bulk / Wholesale</a></li>
-          <li><a href="#" class="footer__link">Coffee Quiz</a></li>
+          <li><a href="#gallery" class="footer__link">Gallery</a></li>
+          <li><a href="#reviews" class="footer__link">Reviews</a></li>
+          <li><a href="#story" class="footer__link">Our Story</a></li>
+          <li><a href="#contact" class="footer__link">Bulk / Wholesale</a></li>
+          <li><a href="#menu" class="footer__link">Coffee Quiz</a></li>
         </ul>
       </div>
       <div>
         <h4 class="footer__col-title">Support</h4>
         <ul class="footer__links">
-          <li><a href="#" class="footer__link">Contact Us</a></li>
-          <li><a href="#" class="footer__link">FAQ</a></li>
+          <li><a href="#contact" class="footer__link">Contact Us</a></li>
+          <li><a href="#feedback" class="footer__link">FAQ</a></li>
           <li><a href="#" class="footer__link">Shipping Policy</a></li>
           <li><a href="#" class="footer__link">Returns &amp; Refunds</a></li>
           <li><a href="#" class="footer__link">Privacy Policy</a></li>
@@ -2363,6 +2616,74 @@
     input.value = '';
   }
 
+  /* === LIGHTBOX === */
+  function openLB(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLB() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+  /* === FEEDBACK (rating + local reviews) === */
+  let fbRating = 5;
+  (function() {
+    const box = document.getElementById('starsInput');
+    if (!box) return;
+    const stars = box.querySelectorAll('span');
+    function paint(v) { stars.forEach(s => s.classList.toggle('on', +s.dataset.v <= v)); }
+    stars.forEach(s => s.addEventListener('click', () => { fbRating = +s.dataset.v; paint(fbRating); }));
+    paint(5);
+    try {
+      const saved = JSON.parse(localStorage.getItem('dd_reviews') || '[]');
+      const grid = document.getElementById('testiGrid');
+      saved.forEach(r => {
+        const d = document.createElement('div');
+        d.className = 'testi-card';
+        d.innerHTML = '<div class="testi-stars">' + '★'.repeat(r.rating) + '</div><p class="testi-text"></p><div class="testi-author"></div><div class="testi-loc">Verified Guest</div>';
+        d.querySelector('.testi-text').textContent = '"' + r.text + '"';
+        d.querySelector('.testi-author').textContent = r.name;
+        grid.prepend(d);
+      });
+    } catch (err) {}
+  })();
+  function submitFeedback(e) {
+    e.preventDefault();
+    const name = document.getElementById('fbName').value.trim();
+    const text = document.getElementById('fbText').value.trim();
+    if (!name || !text) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('dd_reviews') || '[]');
+      saved.unshift({ name, text, rating: fbRating });
+      localStorage.setItem('dd_reviews', JSON.stringify(saved.slice(0, 20)));
+    } catch (err) {}
+    const grid = document.getElementById('testiGrid');
+    const d = document.createElement('div');
+    d.className = 'testi-card';
+    d.innerHTML = '<div class="testi-stars">' + '★'.repeat(fbRating) + '</div><p class="testi-text"></p><div class="testi-author"></div><div class="testi-loc">Verified Guest</div>';
+    d.querySelector('.testi-text').textContent = '"' + text + '"';
+    d.querySelector('.testi-author').textContent = name;
+    grid.prepend(d);
+    e.target.reset();
+    showToast('Thanks ' + name + '! Review posted.');
+    document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* === CONTACT INQUIRY via WhatsApp === */
+  function submitInquiry(e) {
+    e.preventDefault();
+    const n = document.getElementById('qName').value.trim();
+    const p = document.getElementById('qPhone').value.trim();
+    const m = document.getElementById('qMsg').value.trim();
+    const msg = 'Hi Daily Drip Cafe! Name: ' + n + ', Phone: ' + p + ', Message: ' + m;
+    window.open('https://wa.me/917738314007?text=' + encodeURIComponent(msg), '_blank');
+    showToast('Opening WhatsApp... we will reply soon!');
+    e.target.reset();
+  }
+
   /* === SCROLL-REVEAL === */
   const obs = new IntersectionObserver(entries => {
     entries.forEach(en => {
@@ -2370,12 +2691,16 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card, .fav-card, .loc-showcase__card').forEach(el => {
+  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card, .fav-card, .loc-showcase__card, .gal-grid img, .form-card').forEach(el => {
     el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
     el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
     obs.observe(el);
   });
 </script>
+
+<a href="https://wa.me/917738314007?text=Hi%20Daily%20Drip%20Cafe!%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.2-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.1-.5-.2z"/></svg>
+</a>
 
 </body>
 </html>
