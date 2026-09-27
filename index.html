@@ -459,13 +459,14 @@
       height: 100vh; height: 100svh;
       background: #fff;
       z-index: 2001;
-      transform: translateX(100%);
-      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+      transform: translateX(40px);
+      opacity: 0; visibility: hidden;
+      transition: transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.28s ease, visibility 0s linear 0.38s;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
     }
-    .mobile-menu.open { left: 0; transform: translateX(0); }
+    .mobile-menu.open { left: 0; transform: translateX(0); opacity: 1; visibility: visible; transition: transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.28s ease; }
     .mobile-menu__hdr {
       display: flex;
       align-items: center;
@@ -683,6 +684,39 @@
     }
     .wa-float:hover { transform: scale(1.06); }
     .wa-float svg { width: 28px; height: 28px; }
+
+    /* === BUTTER-SMOOTH, LOW-END SAFE MOTION === */
+    :root { --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1); }
+    html { scroll-behavior: smooth; }
+    /* GPU-only reveal: no layout thrash, unobserved after show */
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    /* Hamburger morphs to X */
+    .hdr__hamburger span { transition: transform 0.32s var(--ease-out), opacity 0.2s; transform-origin: center; }
+    .hdr__hamburger.open span:first-child { transform: translateY(4.2px) rotate(45deg); }
+    .hdr__hamburger.open span:last-child { transform: translateY(-4.2px) rotate(-45deg); }
+    /* Menu panel: slide + fade, links stagger up */
+    .mobile-menu__nav .m-link {
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+    }
+    .mobile-menu.open .mobile-menu__nav .m-link { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(1) { transition-delay: 0.06s; }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(2) { transition-delay: 0.11s; }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(3) { transition-delay: 0.16s; }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(4) { transition-delay: 0.21s; }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(5) { transition-delay: 0.26s; }
+    .mobile-menu.open .mobile-menu__nav .m-link:nth-child(6) { transition-delay: 0.31s; }
+    .mobile-menu__close { transition: transform 0.35s var(--ease-out), opacity 0.2s; }
+    .mobile-menu.open .mobile-menu__close { transform: rotate(90deg); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .rv { opacity: 1 !important; transform: none !important; }
+      .mobile-menu { transform: none !important; }
+      .hero__video { display: none; }
+      .hero__bg { display: block !important; }
+    }
 
     /* === REFERENCE-STYLE SECTIONS — light, airy, image-led === */
     .ref-section { background: var(--cream); padding: 72px 0; }
@@ -1247,6 +1281,7 @@
       .hero__btns { flex-direction: column; align-items: center; gap: 10px; }
       .hero__btns .btn { width: 100%; max-width: 260px; justify-content: center; padding: 13px 20px; }
       .hero__visit { font-size: 11px; letter-spacing: 3px; bottom: 22px; }
+      .hdr--solid { backdrop-filter: none; -webkit-backdrop-filter: none; }
       .prod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .coll-grid { grid-template-columns: 1fr; }
       .footer__grid { grid-template-columns: 1fr; }
@@ -2564,6 +2599,7 @@
   function closeMM() {
     document.getElementById('mobileMenu').classList.remove('open');
     document.getElementById('mobileOverlay').classList.remove('open');
+    document.getElementById('mobileMenuBtn').classList.remove('open');
     document.body.style.overflow = '';
   }
   function toggleMS(id) { document.getElementById(id).classList.toggle('open'); }
@@ -2571,6 +2607,7 @@
   document.getElementById('mobileMenuBtn').addEventListener('click', () => {
     document.getElementById('mobileMenu').classList.add('open');
     document.getElementById('mobileOverlay').classList.add('open');
+    document.getElementById('mobileMenuBtn').classList.add('open');
     document.body.style.overflow = 'hidden';
   });
   document.getElementById('mobileMenuClose').addEventListener('click', closeMM);
@@ -2684,18 +2721,34 @@
     e.target.reset();
   }
 
-  /* === SCROLL-REVEAL === */
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'translateY(0)'; }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  /* === SCROLL-REVEAL (class-based, unobserves after show, skips reduced-motion) === */
+  (function() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card, .fav-card, .loc-showcase__card, .gal-grid img, .form-card');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('in'));
+      return;
+    }
+    els.forEach(el => el.classList.add('rv'));
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => obs.observe(el));
+  })();
 
-  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card, .fav-card, .loc-showcase__card, .gal-grid img, .form-card').forEach(el => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
-    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
-    obs.observe(el);
-  });
+  /* === HERO VIDEO: pause off-screen to save battery on low-end mobiles === */
+  (function() {
+    const vid = document.querySelector('.hero__video');
+    if (!vid || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { vid.play && vid.play().catch(() => {}); }
+        else { vid.pause && vid.pause(); }
+      });
+    }, { threshold: 0.05 }).observe(vid);
+  })();
 </script>
 
 <a href="https://wa.me/917738314007?text=Hi%20Daily%20Drip%20Cafe!%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
