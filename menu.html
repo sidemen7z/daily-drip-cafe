@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Menu (61 Dishes) | Daily Drip Cafe, Bandra West</title>
+  <meta name="description" content="Full food menu of Daily Drip Cafe — 61 dishes: morning bakery, breakfast, artisan pizzas, toasts, small plates, salads, sandwiches, pasta, specials, desserts. 2, B.J. Road, Bandstand, Bandra West. Call +91 77383 14007.">
+  <link rel="icon" href="images/favicon-32x32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { max-width: 100%; overflow-x: clip; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #2b2220; background: #fdf9f6; line-height: 1.6; }
+    img, video { max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    /* Header — solid, sticky, light */
+    .top { position: sticky; top: 0; z-index: 100; background: rgba(253,249,246,0.97); border-bottom: 1px solid #efe0d6; }
+    .top__in { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { line-height: 1.1; }
+    .logo b { display: block; font-size: 17px; font-weight: 800; letter-spacing: 3px; }
+    .logo span { display: block; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #8a7d76; }
+    .nav { display: flex; align-items: center; gap: 4px; }
+    .nav a { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 8px 12px; white-space: nowrap; }
+    .nav a:hover { opacity: 0.6; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 26px; border-radius: 100px; font-size: 13px; font-weight: 700; border: 2px solid transparent; }
+    .btn--dark { background: #2b2220; color: #fff; }
+    .btn--wa { background: #25D366; color: #fff; }
+    .btn--sm { padding: 9px 18px; font-size: 12px; }
+    /* Page hero */
+    .hero { background: #f6ece5; padding: 44px 0 30px; text-align: center; }
+    .hero p.eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; color: #8a7d76; margin-bottom: 10px; }
+    .hero h1 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    .hero p.sub { color: #8a7d76; max-width: 560px; margin: 10px auto 0; font-size: 15px; }
+    .hero__video { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 14px; background: #000; display: block; margin-top: 24px; }
+    /* Sticky filter bar */
+    .filters { position: sticky; top: 64px; z-index: 90; background: rgba(253,249,246,0.97); border-bottom: 1px solid #efe0d6; padding: 12px 0; }
+    .search { width: 100%; border: 1px solid #efe0d6; border-radius: 100px; padding: 13px 22px; font-size: 14px; font-family: inherit; background: #fff; color: #2b2220; margin-bottom: 10px; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: 0 0 auto; border: 1.5px solid #efe0d6; background: #fff; border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; color: #8a7d76; font-family: inherit; }
+    .chip.active { background: #2b2220; color: #fff; border-color: #2b2220; }
+    /* Grid */
+    .count { font-size: 12px; color: #8a7d76; letter-spacing: 1px; text-transform: uppercase; margin: 18px 0 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; padding-bottom: 8px; }
+    .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); display: flex; flex-direction: column; }
+    .card__img { width: 100%; height: 190px; object-fit: cover; background: #f6ece5; display: block; }
+    .card__body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .card__cat { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #b8952a; }
+    .card__name { font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .card__desc { font-size: 13px; color: #8a7d76; line-height: 1.55; flex: 1; }
+    .card__order { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; }
+    .more { text-align: center; padding: 26px 0 6px; }
+    /* Footer */
+    footer { background: #2b2220; color: rgba(255,255,255,0.8); margin-top: 40px; padding: 40px 0 30px; font-size: 14px; }
+    footer b { color: #fff; }
+    footer a:hover { opacity: 0.7; }
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 200; width: 54px; height: 54px; border-radius: 50%; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .wa-float svg { width: 28px; height: 28px; }
+    @media (max-width: 640px) {
+      .nav a.hide-m { display: none; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .card__img { height: 135px; }
+      .card__name { font-size: 13px; }
+      .card__desc { font-size: 11.5px; }
+      .filters { top: 64px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero__video { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top__in">
+    <a class="logo" href="index.html"><b>DAILY DRIP</b><span>COFFEE • DESSERTS • CAFE</span></a>
+    <nav class="nav">
+      <a class="hide-m" href="index.html">Home</a>
+      <a class="hide-m" href="index.html#location">Contact</a>
+      <a href="tel:+917738314007">Call</a>
+      <a class="btn btn--wa btn--sm" href="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20order." target="_blank" rel="noopener">Order</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Bandra West • Coffee • Desserts • Cafe</p>
+    <h1>Full Food Menu</h1>
+    <p class="sub">All 61 dishes, baked and cooked fresh in-cafe every day. Coffee &amp; drinks menu is on the <a href="index.html#menu" style="text-decoration:underline;font-weight:700;">home page</a>.</p>
+    <video class="hero__video" id="menuVideo" muted loop playsinline preload="none" poster="menu_images/01_butter_croissant.jpg">
+      <source src="images/menu-bg-food.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<div class="filters">
+  <div class="wrap">
+    <input class="search" id="q" type="search" placeholder="Search 61 dishes — try 'burrata', 'pizza', 'pancakes'..." autocomplete="off">
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button class="btn btn--dark" id="moreBtn">Show More</button></div>
+  <div style="text-align:center;padding:10px 0 6px;">
+    <a class="btn btn--wa" href="https://wa.me/917738314007?text=Hi!%20Please%20share%20prices%20for%20the%20food%20menu." target="_blank" rel="noopener">Ask Prices on WhatsApp</a>
+    <p style="margin-top:14px;color:#8a7d76;font-size:13px;">2, B.J. Road, Bandstand, Bandra West, Mumbai 400050 • Open daily 8 AM – 11 PM • <a href="tel:+917738314007" style="text-decoration:underline;">+91 77383 14007</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Daily Drip Cafe</b> — Bandra West, Mumbai<br>
+    2, B.J. Road, Next to Seabird Building, Bandstand, Bandra West, Mumbai 400050<br>
+    <a href="tel:+917738314007">+91 77383 14007</a> • <a href="https://wa.me/917738314007">WhatsApp</a> • <a href="mailto:hello@dailydripcafe.in">hello@dailydripcafe.in</a><br>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/917738314007?text=Hi%20Daily%20Drip%20Cafe!%20I%20want%20to%20order." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.2-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.1-.5-.2z"/></svg>
+</a>
+
+<script>
+var CATS = ["Morning Bakery","Breakfast","Artisan Pizzas","Artisan Toasts","Small Plates","Salads","Sandwiches & Wraps","Pasta & Bowls","House Specialties","Desserts"];
+var MENU = [
+["bakery","Butter Croissant","Perfectly baked French butter croissant — deeply golden flaky layers, airy inside, served with cultured butter.","menu_images/01_butter_croissant.jpg"],
+["bakery","Pain au Chocolat","Crisp laminated golden pastry with a 70% dark chocolate center, cut open to reveal melted chocolate.","menu_images/02_pain_au_chocolat.jpg"],
+["bakery","Almond & Pistachio Croissant","Golden laminated pastry with toasted pistachios and delicate almond frangipane, sliced slightly open.","menu_images/03_almond_pistachio_croissant.jpg"],
+["bakery","Vanilla Custard Danish","Flaky Danish filled with silky vanilla custard, seasonal fresh berries and powdered sugar.","menu_images/04_vanilla_custard_danish.jpg"],
+["bakery","Sea Salt Chocolate Cookie","Thick brown-butter cookie, dark chocolate chunks, glossy ganache, Maldon sea salt crystals.","menu_images/05_sea_salt_chocolate_cookie.jpg"],
+["breakfast","Eggs Your Way","Sunny-side-up eggs with grilled sourdough and charred tomato, golden runny yolks, herbs.","menu_images/06_eggs_your_way.jpg"],
+["breakfast","Stuffed Omelette","Fluffy golden omelette with a daily-changing gourmet filling, herbs and grilled sourdough.","menu_images/07_stuffed_omelette.jpg"],
+["breakfast","Scrambled Eggs","Silky soft scrambled eggs on toasted sourdough, herbs, cracked pepper, butter sheen.","menu_images/08_scrambled_eggs.jpg"],
+["breakfast","Turkish Eggs","Poached eggs over whipped labneh, Aleppo chilli butter, dill and grilled sourdough.","menu_images/09_turkish_eggs.jpg"],
+["breakfast","Daily Drip Benedict","Eggs Benedict on house brioche, smoked turkey ham, poached egg, hollandaise, chives.","menu_images/10_daily_drip_benedict.jpg"],
+["breakfast","Avocado Royale","Hass avocado on sourdough with whipped feta, zaatar, lemon zest and fresh herbs.","menu_images/11_avocado_royale.jpg"],
+["breakfast","Potato Rosti Florentine","Crisp golden potato rosti with wilted spinach and Parmesan cream.","menu_images/12_potato_rosti_florentine.jpg"],
+["breakfast","Shakshuka Verde","Baked eggs in roasted green tomatoes, herbs, feta, rock-salt focaccia.","menu_images/13_shakshuka_verde.jpg"],
+["breakfast","Lemon & Ricotta French Toast","Golden French toast, whipped ricotta, blueberry compote, candied lemon, maple syrup.","menu_images/French_toast_with_blueberry_compote_20260927171635.jpg"],
+["breakfast","Pistachio & Rose Pancakes","Fluffy pancakes, pistachio creme, rose Chantilly, toasted pistachios, blossom honey.","menu_images/Pancakes_topped_with_pistachio_c_20260927171635.jpg"],
+["pizza","Margherita Classica","Neapolitan style — blistered crust, San Marzano tomato, mozzarella, basil, olive oil.","menu_images/Margherita_pizza_on_stone_table_20260927171635.jpg"],
+["pizza","Truffle Fungi","Wild mushrooms, mozzarella, shaved black truffle, herbs, blistered airy crust.","menu_images/Artisan_pizza_with_wild_mushrooms_20260927171635.jpg"],
+["pizza","Burrata & Pesto","Creamy burrata in the center, basil pesto, cherry tomatoes, blistered crust.","menu_images/Pizza_with_burrata_and_pesto_20260927171635.jpg"],
+["pizza","Mortadella Pistachio","Thin mortadella, mozzarella and crushed toasted pistachios.","menu_images/Gourmet_pizza_with_mortadella_pi_20260927171635.jpg"],
+["pizza","Harissa Chicken Pizza","Harissa chicken, roasted peppers, feta and harissa oil, charred crust.","menu_images/Artisan_pizza_with_harissa_chicken_20260927171635.jpg"],
+["toast","Burrata & Roasted Tomatoes","House sourdough, burrata, roasted heirloom tomatoes, basil oil, aged balsamic.","menu_images/Sourdough_toast_with_burrata_and_20260927171635.jpg"],
+["toast","Wild Mushroom Tartine","Sauteed wild mushrooms, truffle mascarpone, thyme and Pecorino on sourdough.","menu_images/Sourdough_tartine_with_wild_mush_20260927171635.jpg"],
+["toast","Smoked Salmon Toast","Smoked salmon, dill creme fraiche, cucumber, capers and pickled shallots.","menu_images/Smoked_salmon_sourdough_plating_20260927171635.jpg"],
+["toast","Roast Chicken & Aioli Toast","Pulled roast chicken, garlic aioli, watercress and Parmesan on grilled sourdough.","menu_images/Chicken_toast_with_garlic_aioli_20260927171635.jpg"],
+["toast","Crab & Avocado Toast","Fresh crab, avocado, preserved lemon, chives and lemon oil.","menu_images/Sourdough_topped_with_crab_and_20260927171635.jpg"],
+["toast","Levantine Labneh Toast","Whipped labneh, roasted peppers, olives, dukkah, mint and olive oil.","menu_images/Sourdough_topped_with_labneh_and_20260927171635.jpg"],
+["toast","Keema & Eggs on Toast","Spiced lamb keema with two fried eggs and coriander on sourdough.","menu_images/Sourdough_toast_with_lamb_keema_20260927171635.jpg"],
+["small","Whipped Stracciatella","Silky stracciatella, confit tomatoes, basil and warm focaccia.","menu_images/Stracciatella_cheese_with_tomatoes_20260927171635.jpg"],
+["small","Patatas Bravas","Crispy golden potatoes with smoked paprika aioli and Manchego.","menu_images/Patatas_bravas_with_aioli_20260927171635.jpg"],
+["small","Truffle Corn Ribs","Charred corn ribs with Parmesan, lime zest and chilli.","menu_images/Charred_corn_ribs_on_plate_20260927171635.jpg"],
+["small","Chicken Karaage","Crispy karaage with yuzu kosho mayo and pickled cucumber.","menu_images/Crispy_chicken_karaage_with_mayo_20260927171635.jpg"],
+["small","Baked Camembert","Molten Camembert with honeycomb, walnuts and grilled sourdough.","menu_images/Baked_Camembert_with_honeycomb_a_20260927171635.jpg"],
+["small","Spiced Lamb Kofta","Chargrilled kofta with date-onion chutney, fattoush and mint.","menu_images/Chargrilled_lamb_kofta_with_chutney_20260927171635.jpg"],
+["small","Chicken Shish Taouk","Grilled skewers with hummus, zaatar oil and warm flatbread.","menu_images/Grilled_chicken_skewers_with_hummus_20260927171635.jpg"],
+["small","Prawns a la Plancha","Garlic-herb prawns with parsley, sourdough and anchovy butter.","menu_images/Garlic_herb_prawns_on_plate_20260927171635.jpg"],
+["salad","Halloumi & Watermelon","Grilled halloumi, watermelon, cucumber, mint, pistachios, lime dressing.","menu_images/Halloumi_salad_with_watermelon_20260927171635.jpg"],
+["salad","Pear, Goat Cheese & Pistachio","Pear, whipped goat cheese, pistachios, rocket, mint, orange vinaigrette.","menu_images/Salad_with_pear_and_goat_20260927171635.jpg"],
+["salad","Burrata & Heritage Tomatoes","Burrata, heirloom tomatoes, olive crumble, basil pesto, olive oil.","menu_images/Burrata_with_heirloom_tomatoes_20260927171635.jpg"],
+["salad","Charred Chicken Caesar","Charred chicken, baby gem, Parmesan, anchovy Caesar, sourdough crisps.","menu_images/Chicken_Caesar_salad_served_20260927171635.jpg"],
+["salad","Ancient Grain Bowl","Quinoa, freekeh, roasted vegetables, hummus, herbs, tahini dressing.","menu_images/Ancient_grain_bowl_with_vegetables_20260927171635.jpg"],
+["sandwich","Grilled Chicken Ciabatta","Grilled chicken, pesto, provolone, rocket — with rosemary sea-salt fries.","menu_images/Grilled_chicken_sandwich_with_fries_20260927171635.jpg"],
+["sandwich","Truffle Mushroom Melt","Truffle mushrooms, Fontina and Gruyere, caramelised onions, golden bread.","menu_images/Toasted_sandwich_with_mushrooms__20260927171635.jpg"],
+["sandwich","Roast Chicken Brioche","Roast chicken thigh, caramelised onions, mustard aioli, rocket, soft brioche.","menu_images/Chicken_brioche_sandwich_present_20260927171635.jpg"],
+["sandwich","Harissa Chicken Sandwich","Grilled chicken, peppers, zaatar, feta and harissa aioli in toasted bread.","menu_images/Grilled_chicken_sandwich_with_pe_20260927171635.jpg"],
+["sandwich","Harissa Lamb Wrap","Spiced lamb, hummus, pickled onions, cucumber, herbs and tahini.","menu_images/Lamb_flatbread_wrap_cut_open_20260927171635.jpg"],
+["sandwich","Grilled Chicken Pesto Wrap","Roast chicken, pesto, mozzarella, peppers and rocket, sliced diagonally.","menu_images/Grilled_chicken_wrap_sliced_diag_20260927171635.jpg"],
+["sandwich","Halloumi & Avocado Wrap","Grilled halloumi, avocado, peppers, greens and basil pesto.","menu_images/Toasted_wrap_filled_with_halloumi_20260927171635.jpg"],
+["pasta","Rigatoni Alfredo","Creamy rigatoni with wild mushrooms, Parmesan and cracked pepper.","menu_images/Creamy_rigatoni_Alfredo_with_mus_20260927171635.jpg"],
+["pasta","Orecchiette","Sun-dried tomato pesto, whipped mascarpone and fresh basil.","menu_images/Orecchiette_pasta_with_tomato_pesto_20260927171635.jpg"],
+["pasta","Bucatini Pesto","Bucatini in basil pesto with toasted almonds and Parmesan.","menu_images/Bucatini_pasta_with_pesto_20260927171635.jpg"],
+["pasta","Harissa Chicken Bowl","Lemon couscous, harissa chicken, roasted vegetables, garlic yogurt, herbs.","menu_images/Gourmet_chicken_couscous_bowl_20260927171635.jpg"],
+["pasta","Falafel & Tahini Bowl","Herb falafel, tabbouleh, hummus, pickled cabbage, creamy tahini.","menu_images/Falafel_bowl_with_hummus_and_20260927171635.jpg"],
+["pasta","Tuna Poke Bowl","Yellowfin tuna, edamame, sprouts, shimeji, cucumber, ginger-sesame.","menu_images/Yellowfin_tuna_poke_bowl_20260927171635.jpg"],
+["special","Buttermilk Chicken Schnitzel","Golden crispy schnitzel with herb butter, rocket, lemon and Parmesan.","menu_images/Chicken_schnitzel_with_herb_butter_20260927171635.jpg"],
+["special","Grilled Seabass","Crisp-skin seabass, brown butter, capers, crushed potatoes, lemon.","menu_images/Grilled_seabass_with_potatoes_an_20260927171635.jpg"],
+["special","Roasted Cauliflower Steak","Caramelized cauliflower, tahini, dukkah, pomegranate and herbs.","menu_images/Roasted_cauliflower_steak_with_t_20260927171635.jpg"],
+["dessert","Basque Cheesecake","Burnt top, creamy center, vanilla bean and sea salt.","menu_images/Burnt_Basque_cheesecake_served_20260927171635.jpg"],
+["dessert","Classic Tiramisu","Espresso-soaked mascarpone, cocoa dusting, chocolate shavings.","menu_images/Individual_tiramisu_with_cocoa_d_20260927171635.jpg"],
+["dessert","Dark Chocolate Cremeux","Silky dark chocolate, hazelnut praline, cocoa nibs, sea salt.","menu_images/Chocolate_cremeux_with_hazelnut_20260927171635.jpg"],
+["dessert","Pistachio Tres Leches","Milk-soaked cake, rose cream, pistachios and cardamom.","menu_images/Pistachio_tres_leches_cake_slices_20260927171635.jpg"],
+["dessert","Affogato al Caffe","Vanilla gelato drowned in a double espresso.","menu_images/Espresso_pouring_over_vanilla_ge_20260927171635.jpg"]
+];
+var CATKEY = {"bakery":0,"breakfast":1,"pizza":2,"toast":3,"small":4,"salad":5,"sandwich":6,"pasta":7,"special":8,"dessert":9};
+var PAGE = 12, shown = PAGE, cat = -1;
+var grid = document.getElementById('grid'), count = document.getElementById('count'),
+    moreBtn = document.getElementById('moreBtn'), chipsBox = document.getElementById('chips'),
+    searchBox = document.getElementById('q');
+chipsBox.innerHTML = '<button class="chip active" data-c="-1">All 61</button>' + CATS.map(function(t,i){return '<button class="chip" data-c="'+i+'">'+t+'</button>';}).join('');
+chipsBox.addEventListener('click', function(e){
+  var b = e.target.closest('.chip'); if(!b) return;
+  cat = +b.dataset.c; shown = PAGE;
+  chipsBox.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});
+  b.classList.add('active'); render();
+});
+searchBox.addEventListener('input', function(){ shown = PAGE; render(); });
+moreBtn.addEventListener('click', function(){ shown += 12; render(); });
+function filtered(){
+  var q = searchBox.value.toLowerCase().trim();
+  return MENU.filter(function(m){
+    if(cat !== -1 && CATKEY[m[0]] !== cat) return false;
+    if(q && (m[1]+' '+m[2]).toLowerCase().indexOf(q) === -1) return false;
+    return true;
+  });
+}
+function render(){
+  var list = filtered(), slice = list.slice(0, shown);
+  count.textContent = 'Showing ' + slice.length + ' of ' + list.length + ' dishes';
+  grid.innerHTML = slice.map(function(m){
+    return '<div class="card"><img loading="lazy" decoding="async" src="'+m[3]+'" alt="'+m[1]+'" onerror="this.onerror=null;this.src=\'images/SCR_Coffee_CLIP_A.png\'">'+
+    '<div class="card__body"><div class="card__cat">'+CATS[CATKEY[m[0]]]+'</div>'+
+    '<div class="card__name">'+m[1]+'</div><div class="card__desc">'+m[2]+'</div>'+
+    '<a class="card__order" target="_blank" rel="noopener" href="https://wa.me/917738314007?text='+encodeURIComponent('Hi! I want to order: '+m[1])+'">Order on WhatsApp</a>'+
+    '</div></div>';
+  }).join('') || '<p style="color:#8a7d76;">No dishes match — try another search.</p>';
+  moreBtn.style.display = shown >= list.length ? 'none' : '';
+  moreBtn.textContent = 'Show More (' + (list.length - slice.length) + ' remaining)';
+}
+render();
+if('IntersectionObserver' in window){
+  var v = document.getElementById('menuVideo');
+  new IntersectionObserver(function(es){es.forEach(function(en){ if(en.isIntersecting){v.play&&v.play().catch(function(){});} else {v.pause&&v.pause();} });},{threshold:0.05}).observe(v);
+}
+</script>
+</body>
+</html>
