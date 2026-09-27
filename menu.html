@@ -221,8 +221,9 @@ function filtered(){
 function render(){
   var list = filtered(), slice = list.slice(0, shown);
   count.textContent = 'Showing ' + slice.length + ' of ' + list.length + ' dishes';
-  grid.innerHTML = slice.map(function(m){
-    return '<div class="card"><img loading="lazy" decoding="async" src="'+m[3]+'" alt="'+m[1]+'" onerror="this.onerror=null;this.src=\'images/SCR_Coffee_CLIP_A.png\'">'+
+  grid.innerHTML = slice.map(function(m, idx){
+    var eager = idx < 4 ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"';
+    return '<div class="card"><img'+eager+' decoding="async" src="'+m[3]+'" alt="'+m[1]+'" onerror="this.onerror=null;this.src=\'images/SCR_Coffee_CLIP_A.png\'">'+
     '<div class="card__body"><div class="card__cat">'+CATS[CATKEY[m[0]]]+'</div>'+
     '<div class="card__name">'+m[1]+'</div><div class="card__desc">'+m[2]+'</div>'+
     '<a class="card__order" target="_blank" rel="noopener" href="https://wa.me/917738314007?text='+encodeURIComponent('Hi! I want to order: '+m[1])+'">Order on WhatsApp</a>'+
