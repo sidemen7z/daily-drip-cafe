@@ -215,16 +215,16 @@
       justify-content: center;
     }
 
-    /* Mobile hamburger */
+    /* Mobile hamburger — thin double-line like reference */
     .hdr__hamburger {
       display: none;
       flex-direction: column;
-      gap: 5px;
+      gap: 7px;
       padding: 8px;
-      margin-right: 4px;
+      margin-right: 0;
     }
     .hdr__hamburger span {
-      width: 20px; height: 2px;
+      width: 26px; height: 1.5px;
       background: #fff;
       border-radius: 2px;
       display: block;
@@ -454,67 +454,76 @@
     .mobile-overlay.open { display: block; opacity: 1; }
     .mobile-menu {
       position: fixed;
-      top: 0; left: -100%;
-      width: min(340px, 90vw);
-      height: 100vh;
-      background: var(--hdr);
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh; height: 100svh;
+      background: #fff;
       z-index: 2001;
-      transition: left 0.32s cubic-bezier(0.4,0,0.2,1);
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
     }
-    .mobile-menu.open { left: 0; }
+    .mobile-menu.open { left: 0; transform: translateX(0); }
     .mobile-menu__hdr {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 20px;
+      border-bottom: none;
     }
     .mobile-menu__close {
-      color: rgba(255,255,255,0.6);
-      font-size: 22px;
+      color: #111;
+      font-size: 28px;
+      font-weight: 300;
       line-height: 1;
     }
-    .mobile-menu__close:hover { color: #fff; }
-    .mobile-menu__nav { padding: 12px 20px; flex: 1; }
+    .mobile-menu__close:hover { color: #111; opacity: 0.6; }
+    .mobile-menu__nav { padding: 40px 20px 20px; flex: 1; text-align: center; }
     .m-link {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 0;
-      color: rgba(255,255,255,0.85);
-      font-size: 17px;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: block;
+      padding: 12px 0;
+      color: #111;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-bottom: none;
     }
-    .m-link:hover { color: var(--coffee-light); }
-    .m-sub { display: none; padding: 6px 0 6px 14px; }
+    .m-link:hover { color: #111; opacity: 0.6; }
+    .m-sub { display: none; padding: 6px 0; text-align: center; }
     .m-sub.open { display: block; }
     .m-sub a {
       display: block;
       padding: 9px 0;
-      color: rgba(255,255,255,0.55);
-      font-size: 14px;
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
-    .m-sub a:hover { color: var(--coffee-light); }
+    .m-sub a:hover { color: #111; }
     .mobile-menu__foot {
-      padding: 16px 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      border-top: none;
+      text-align: center;
     }
     .mobile-menu__cta {
-      display: block;
+      display: inline-block;
       text-align: center;
-      background: var(--coffee-light);
-      color: var(--hdr);
-      padding: 13px;
+      background: var(--text);
+      color: #fff;
+      padding: 13px 34px;
       border-radius: var(--r-full);
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       margin-bottom: 12px;
     }
     .mobile-menu__addr {
       font-size: 12px;
-      color: rgba(255,255,255,0.4);
+      color: var(--text-muted);
       line-height: 1.65;
     }
 
@@ -615,13 +624,14 @@
     .hero__video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
+      object-fit: cover; object-position: center center;
       z-index: 0;
+      background: #000;
     }
     .hero__bg {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
+      object-fit: cover; object-position: center center;
       display: none; /* fallback only if video fails */
     }
     .hero__overlay {
@@ -1129,12 +1139,26 @@
     .footer__legal a:hover { color: rgba(255,255,255,0.65); }
 
     /* ===========================
-       RESPONSIVE
+       RESPONSIVE — mobile like dailydripcoffeedesserts ref
     =========================== */
     @media (max-width: 1024px) {
       .hdr__nav { display: none; }
+      .hdr__right-link { display: none; }
       .hdr__quiz-btn { display: none; }
       .hdr__hamburger { display: flex; }
+      .hdr__bar {
+        grid-template-columns: 1fr auto auto;
+        height: 64px;
+        padding: 0 16px;
+      }
+      .hdr__left { order: 3; margin-left: 4px; }
+      .hdr__logo-link { order: 1; justify-content: flex-start; }
+      .hdr__logo { text-align: left; }
+      .hdr__logo-name { font-size: 18px; letter-spacing: 3px; }
+      .hdr__logo-sub { font-size: 8px; letter-spacing: 2px; }
+      .hdr__right { order: 2; justify-content: flex-end; }
+      .hdr__right .hdr__icon-btn { display: none; }
+      .hdr__right #cartToggle { display: flex; }
       .split { grid-template-columns: 1fr; }
       .split__content { padding: 40px 32px; }
       .coll-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1147,8 +1171,23 @@
     @media (max-width: 600px) {
       .container { padding: 0 18px; }
       .section { padding: 52px 0; }
-      .hero { height: 86vh; min-height: 520px; }
-      .hero__content { padding: 0 22px 84px; }
+      .hero {
+        height: 100svh;
+        min-height: 560px;
+        align-items: flex-end;
+        background: #000;
+      }
+      .hero__video, .hero__bg {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center center;
+      }
+      .hero__content { padding: 0 20px 92px; }
+      .hero__eyebrow { font-size: 10px; letter-spacing: 3px; }
+      .hero__title { font-size: 34px; letter-spacing: 2px; line-height: 1.1; }
+      .hero__sub { font-size: 14px; max-width: 320px; }
+      .hero__btns { flex-direction: column; align-items: center; gap: 10px; }
+      .hero__btns .btn { width: 100%; max-width: 260px; justify-content: center; padding: 13px 20px; }
+      .hero__visit { font-size: 11px; letter-spacing: 3px; bottom: 22px; }
       .prod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .coll-grid { grid-template-columns: 1fr; }
       .footer__grid { grid-template-columns: 1fr; }
@@ -1172,7 +1211,7 @@
     <!-- Left: Hamburger + Nav -->
     <div class="hdr__left">
       <button class="hdr__hamburger" id="mobileMenuBtn" aria-label="Open menu">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
 
       <nav class="hdr__nav">
@@ -1354,31 +1393,28 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu__hdr">
-    <div style="font-family:var(--font-display); line-height:1.0;">
-      <div style="font-size:20px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff;">Daily Drip</div>
-      <div style="font-size:12px; font-style:italic; letter-spacing:3px; color:var(--coffee-light);">Caf&eacute;</div>
+    <div style="font-family:var(--font-body); line-height:1.0; text-align:left;">
+      <div style="font-size:19px; font-weight:800; letter-spacing:4px; text-transform:uppercase; color:#111;">Daily Drip</div>
+      <div style="font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#555; margin-top:2px;">Coffee &bull; Desserts &bull; Cafe</div>
     </div>
-    <button class="mobile-menu__close" id="mobileMenuClose">&#x2715;</button>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Close menu">&#x2715;</button>
+    </div>
   </div>
   <nav class="mobile-menu__nav">
-    <a href="#products" class="m-link" onclick="closeMM()">Shop Coffee</a>
-    <button class="m-link" onclick="toggleMS('ms-menu')" style="width:100%;text-align:left;background:none;border:none;font-family:inherit;font-size:17px;font-weight:500;color:rgba(255,255,255,0.85);border-bottom:1px solid rgba(255,255,255,0.06);">
-      Cafe Menu <span>+</span>
-    </button>
-    <div class="m-sub" id="ms-menu">
-      <a href="#menu" onclick="closeMM()">Espresso Drinks</a>
-      <a href="#menu" onclick="closeMM()">Filter Coffee</a>
-      <a href="#menu" onclick="closeMM()">Cold Brew</a>
-      <a href="#menu" onclick="closeMM()">Food</a>
-    </div>
     <a href="#location" class="m-link" onclick="closeMM()">Locations</a>
-    <a href="#gear" class="m-link" onclick="closeMM()">Brew Gear</a>
-    <a href="#merch" class="m-link" onclick="closeMM()">Merch</a>
-    <a href="#" class="m-link" onclick="closeMM()">Learn</a>
+    <a href="#menu" class="m-link" onclick="closeMM()">Menu</a>
+    <a href="#menu" class="m-link" onclick="closeMM()">Order Online</a>
+    <a href="#products" class="m-link" onclick="closeMM()">Shop</a>
+    <a href="#location" class="m-link" onclick="closeMM()">Contact</a>
+    <a href="mailto:hello@dailydripcafe.in" class="m-link" onclick="closeMM()">Hiring</a>
   </nav>
   <div class="mobile-menu__foot">
-    <a href="#menu" class="mobile-menu__cta" onclick="closeMM()">Order Now</a>
-    <div class="mobile-menu__addr">2, B.J. Road, Next to Seabird Building,<br>Bandstand, Bandra West,<br>Mumbai – 400050, Maharashtra</div>
+    <div style="display:flex;justify-content:center;gap:18px;margin-bottom:14px;">
+      <a href="#" aria-label="Instagram" style="color:#111;font-size:13px;font-weight:700;letter-spacing:2px;">IG</a>
+      <a href="#" aria-label="Facebook" style="color:#111;font-size:13px;font-weight:700;letter-spacing:2px;">FB</a>
+    </div>
+    <div class="mobile-menu__addr">2, B.J. Road, Bandstand, Bandra West,<br>Mumbai – 400050</div>
   </div>
 </div>
 
@@ -2216,6 +2252,17 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    /* Use mobile poster so hero first-paint fits phones */
+    const vid = document.querySelector('.hero__video');
+    const bg = document.querySelector('.hero__bg');
+    function fitPoster() {
+      const mobile = window.innerWidth <= 600;
+      const src = mobile ? 'images/LaborDay2026_BG_Mobile.jpg' : 'images/LaborDay2026_BG_Desktop.jpg';
+      if (vid) vid.setAttribute('poster', src);
+      if (bg) { bg.setAttribute('src', src); }
+    }
+    window.addEventListener('resize', fitPoster);
+    fitPoster();
   })();
 
   /* === CART === */
