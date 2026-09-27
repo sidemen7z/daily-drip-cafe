@@ -42,17 +42,19 @@
     :root {
       --hdr: #1a1514;
       --hdr-border: rgba(255,255,255,0.1);
-      --cream: #f0ece6;
-      --cream-dark: #e8e3dc;
-      --coffee-dark: #1f1815;
-      --coffee-medium: #3c2a21;
-      --coffee-light: #c5a880;
+      --cream: #fdf9f6;
+      --cream-dark: #f6ece5;
+      --blush: #f3c6b3;
+      --blush-soft: #fbe9df;
+      --coffee-dark: #2b2220;
+      --coffee-medium: #5a463c;
+      --coffee-light: #d9a985;
       --coffee-gold: #b8952a;
       --coffee-green: #2d5016;
       --accent-red: #c1440e;
-      --text: #1f1815;
-      --text-muted: #6b6158;
-      --border: #ddd8d1;
+      --text: #2b2220;
+      --text-muted: #8a7d76;
+      --border: #efe0d6;
       --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
       --shadow-md: 0 8px 28px rgba(0,0,0,0.12);
       --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
@@ -73,18 +75,29 @@
     ul { list-style: none; }
 
     /* ===========================
-       HEADER
+       HEADER — transparent over hero like Daily Drip Desserts ref
     =========================== */
     .hdr {
-      position: sticky; top: 0; z-index: 1000;
-      background: var(--hdr);
+      position: absolute; top: 0; left: 0; right: 0; z-index: 1000;
+      background: transparent;
+      transition: background var(--t), box-shadow var(--t);
     }
+    .hdr--solid {
+      position: fixed;
+      background: rgba(253,249,246,0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .hdr--solid .hdr__nav-link, .hdr--solid .hdr__logo-name,
+    .hdr--solid .hdr__icon-btn { color: var(--text) !important; }
+    .hdr--solid .hdr__logo-sub { color: var(--text-muted) !important; }
+    .hdr--solid .hdr__hamburger span { background: var(--text); }
     .hdr__bar {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      height: 60px;
-      padding: 0 24px;
+      height: 76px;
+      padding: 0 32px;
       max-width: 1600px;
       margin: 0 auto;
     }
@@ -117,17 +130,27 @@
     }
     .hdr__nav-item { position: relative; }
     .hdr__nav-link {
-      color: rgba(255,255,255,0.85);
-      font-size: 14px;
-      font-weight: 500;
+      color: rgba(255,255,255,0.92);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       padding: 6px 14px;
       border-radius: var(--r-sm);
       transition: var(--t);
       display: block;
       white-space: nowrap;
     }
-    .hdr__nav-link:hover, .hdr__nav-item.is-open .hdr__nav-link { color: #fff; }
-    .hdr__nav-link--active { color: var(--coffee-light) !important; }
+    .hdr__nav-link:hover, .hdr__nav-item.is-open .hdr__nav-link { color: #fff; opacity: 0.8; }
+    .hdr__nav-link--active { color: #fff !important; }
+    /* Reference theme uses simple text nav — hide mega dropdowns */
+    .mega, .dropdown { display: none !important; }
+    .hdr__right-link {
+      color: rgba(255,255,255,0.92);
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 10px; white-space: nowrap;
+    }
+    .hdr__right-link:hover { opacity: 0.8; }
 
     /* Center logo */
     .hdr__logo-link {
@@ -139,23 +162,23 @@
       line-height: 1.0;
     }
     .hdr__logo-name {
-      font-family: var(--font-display);
+      font-family: var(--font-body);
       font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 3px;
+      font-weight: 800;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: #fff;
       display: block;
     }
     .hdr__logo-sub {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 400;
-      font-style: italic;
-      letter-spacing: 4px;
-      color: var(--coffee-light);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
       display: block;
-      margin-top: -1px;
+      margin-top: 2px;
     }
 
     /* Right side */
@@ -581,10 +604,13 @@
     =========================== */
     .hero {
       position: relative;
-      height: 580px;
+      height: 94vh;
+      min-height: 620px;
       overflow: hidden;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
     }
     .hero__video {
       position: absolute; inset: 0;
@@ -600,31 +626,99 @@
     }
     .hero__overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(120deg, rgba(26,21,20,0.82) 0%, rgba(26,21,20,0.35) 60%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.05) 55%, rgba(0,0,0,0.5) 100%);
     }
     .hero__content {
       position: relative; z-index: 1;
-      max-width: 1400px; margin: 0 auto;
-      padding: 0 60px; width: 100%;
+      max-width: 900px; margin: 0 auto;
+      padding: 0 24px 96px; width: 100%;
+      text-align: center;
     }
     .hero__eyebrow {
       font-size: 11px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--coffee-light); margin-bottom: 14px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: #fff; margin-bottom: 14px; opacity: 0.95;
     }
     .hero__title {
-      font-family: var(--font-heading);
-      font-size: clamp(44px, 6vw, 82px);
-      color: #fff; line-height: 0.95;
-      margin-bottom: 20px;
-      max-width: 520px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: clamp(36px, 5vw, 64px);
+      color: #fff; line-height: 1.05;
+      margin-bottom: 16px;
+      max-width: 800px;
+      margin-left: auto; margin-right: auto;
     }
     .hero__sub {
-      font-size: 17px; color: rgba(255,255,255,0.82);
-      margin-bottom: 32px; max-width: 420px;
+      font-size: 16px; color: rgba(255,255,255,0.9);
+      margin-bottom: 28px; max-width: 520px;
+      margin-left: auto; margin-right: auto;
       line-height: 1.55;
     }
-    .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .hero__visit {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      z-index: 2; color: #fff; font-size: 12px; font-weight: 800;
+      letter-spacing: 4px; text-transform: uppercase; white-space: nowrap;
+    }
+    .hero__visit:hover { opacity: 0.85; }
+
+    /* === REFERENCE-STYLE SECTIONS — light, airy, image-led === */
+    .ref-section { background: var(--cream); padding: 72px 0; }
+    .ref-eyebrow {
+      text-align: center; font-size: 11px; font-weight: 800;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .ref-title {
+      text-align: center; font-family: var(--font-body); font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase; font-size: clamp(22px,3vw,32px);
+      margin-bottom: 36px;
+    }
+    .fav-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 22px;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .fav-card { text-align: center; }
+    .fav-card img {
+      width: 100%; height: 380px; object-fit: cover; border-radius: 6px;
+      background: var(--cream-dark);
+    }
+    .fav-card h3 {
+      margin-top: 16px; font-size: 14px; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    .fav-card a:hover img { opacity: 0.94; }
+    .loc-showcase {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .loc-showcase__card { text-align: center; padding: 0 18px; }
+    .loc-showcase__card img {
+      width: 100%; height: 420px; object-fit: cover; border-radius: 6px;
+      background: var(--cream-dark);
+    }
+    .loc-showcase__card h3 {
+      margin: 18px 0 6px; font-size: 20px; font-weight: 800; letter-spacing: 3px;
+    }
+    .loc-showcase__card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+    .menu-views {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .menu-views a {
+      background: #fff; border: 1px solid var(--border); border-radius: 100px;
+      padding: 14px 10px; text-align: center; font-size: 12px; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase; transition: var(--t);
+    }
+    .menu-views a:hover { background: var(--text); color: #fff; border-color: var(--text); }
+    @media (max-width: 900px) {
+      .fav-grid { grid-template-columns: 1fr; }
+      .fav-card img { height: 300px; }
+      .loc-showcase { grid-template-columns: 1fr; gap: 32px; }
+      .menu-views { grid-template-columns: repeat(2,1fr); }
+    }
 
     /* ===========================
        BUTTONS
@@ -1053,8 +1147,8 @@
     @media (max-width: 600px) {
       .container { padding: 0 18px; }
       .section { padding: 52px 0; }
-      .hero { height: 460px; }
-      .hero__content { padding: 0 22px; }
+      .hero { height: 86vh; min-height: 520px; }
+      .hero__content { padding: 0 22px 84px; }
       .prod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .coll-grid { grid-template-columns: 1fr; }
       .footer__grid { grid-template-columns: 1fr; }
@@ -1085,7 +1179,7 @@
 
         <!-- SHOP mega dropdown -->
         <div class="hdr__nav-item" id="nav-shop">
-          <a href="#products" class="hdr__nav-link hdr__nav-link--active">Shop</a>
+          <a href="#location" class="hdr__nav-link">Locations</a>
           <div class="mega">
             <!-- Featured -->
             <div class="mega__featured">
@@ -1169,12 +1263,12 @@
 
         <!-- LOCATIONS -->
         <div class="hdr__nav-item">
-          <a href="#location" class="hdr__nav-link">Locations</a>
+          <a href="#menu" class="hdr__nav-link">Menu</a>
         </div>
 
         <!-- LEARN dropdown -->
         <div class="hdr__nav-item" id="nav-learn">
-          <a href="#" class="hdr__nav-link">Learn</a>
+          <a href="#menu" class="hdr__nav-link">Order Online</a>
           <div class="dropdown">
             <div class="dropdown__col">
               <div class="mega__col-title">Explore</div>
@@ -1233,17 +1327,17 @@
     <a href="#" class="hdr__logo-link">
       <div class="hdr__logo">
         <span class="hdr__logo-name">Daily Drip</span>
-        <span class="hdr__logo-sub">Caf&eacute;</span>
+        <span class="hdr__logo-sub">Coffee &bull; Desserts &bull; Cafe</span>
       </div>
     </a>
 
     <!-- Right: Icons -->
     <div class="hdr__right">
-      <a href="#" class="hdr__icon-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      </a>
-      <a href="#" class="hdr__icon-btn" aria-label="Account">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <a href="#products" class="hdr__right-link">Shop</a>
+      <a href="#location" class="hdr__right-link">Contact</a>
+      <a href="mailto:hello@dailydripcafe.in" class="hdr__right-link">Hiring</a>
+      <a href="#" class="hdr__icon-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
       </a>
       <button class="hdr__icon-btn" id="cartToggle" aria-label="Cart">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -1319,16 +1413,79 @@
     poster="images/LaborDay2026_BG_Desktop.jpg">
     <source src="images/hero_video.mp4" type="video/mp4">
   </video>
-  <img src="images/LaborDay2026_BG_Desktop.jpg" alt="Daily Drip Cafe" class="hero__bg">
+  <img src="images/LaborDay2026_BG_Desktop.jpg" alt="Daily Drip Cafe - Bandra West" class="hero__bg">
   <div class="hero__overlay"></div>
   <div class="hero__content">
-    <p class="hero__eyebrow">Bandra's Finest Specialty Cafe</p>
+    <p class="hero__eyebrow">Bandra West &bull; Coffee &bull; Desserts &bull; Cafe</p>
     <h1 class="hero__title">Fresh Brews,<br>Every Day.</h1>
-    <p class="hero__sub">Handcrafted specialty coffee roasted in small batches. Pour-overs, cold brews and espresso from &#x20B9;99.</p>
+    <p class="hero__sub">Handcrafted specialty coffee, desserts and brunch at 2, B.J. Road, Bandstand, Bandra West.</p>
     <div class="hero__btns">
       <a href="#menu" class="btn btn--primary">See Our Menu</a>
       <a href="#products" class="btn btn--outline">Buy Beans Online</a>
     </div>
+  </div>
+  <a href="#location" class="hero__visit">Visit Our Location</a>
+</section>
+
+<!-- DRIP FAVORITES — reference-style image trio -->
+<section class="ref-section" id="favorites">
+  <p class="ref-eyebrow">Coffee &bull; Desserts &bull; Cafe</p>
+  <h2 class="ref-title">Drip Favorites</h2>
+  <div class="fav-grid">
+    <div class="fav-card">
+      <a href="#menu"><img src="images/SCR_GlassTumbler_72DPI_V2.png" alt="Cold brews to go at Daily Drip Bandra West"></a>
+      <h3>Cold Brews To Go</h3>
+    </div>
+    <div class="fav-card">
+      <a href="#menu"><img src="images/SCR_Coffee_CLIP_A.png" alt="Signature espresso drinks"></a>
+      <h3>Signature Espresso</h3>
+    </div>
+    <div class="fav-card">
+      <a href="#menu"><img src="images/SCR_BirdSong_Sipper_1534x1534_72DPI.png" alt="Desserts and brunch cups"></a>
+      <h3>Desserts &amp; Brunch</h3>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px;">
+    <a href="#menu" class="btn btn--primary">Explore Our Menu</a>
+  </div>
+</section>
+
+<!-- LOCATION SHOWCASE — single Bandra West cafe -->
+<section class="ref-section" id="visit" style="background:#fff;">
+  <p class="ref-eyebrow">Visit Us</p>
+  <h2 class="ref-title">Bandra West</h2>
+  <div class="loc-showcase">
+    <div class="loc-showcase__card">
+      <a href="#location"><img src="images/LaborDay2026_BG_Desktop.jpg" alt="Daily Drip Cafe Bandstand Bandra West storefront"></a>
+      <h3>BANDSTAND</h3>
+      <p>2, B.J. Road, Next to Seabird Building,<br>Ranwar, Bandstand, Bandra West,<br>Mumbai 400050<br><br>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:700;">Get Directions</a></p>
+    </div>
+    <div class="loc-showcase__card">
+      <a href="#location"><img src="images/EL_Puente_BG_2025.jpg" alt="Inside Daily Drip Cafe"></a>
+      <h3>CAFE HOURS</h3>
+      <p>Monday – Sunday<br>8:00 AM – 11:00 PM<br><br>Brunch &bull; Pastries &bull; Specialty Coffee<br><br>
+      <a href="#location" style="text-decoration:underline;font-weight:700;">Learn More</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU VIEWS — quick links like reference -->
+<section class="ref-section" id="menu-views">
+  <p class="ref-eyebrow">Menu Views</p>
+  <h2 class="ref-title">What We Serve</h2>
+  <div class="menu-views">
+    <a href="#menu">Coffee</a>
+    <a href="#menu">Frappes &amp; Smoothies</a>
+    <a href="#menu">Matcha Lattes</a>
+    <a href="#menu">Teas &amp; Lemonades</a>
+    <a href="#menu">Crepes</a>
+    <a href="#menu">Pancakes</a>
+    <a href="#menu">Bites To Eat</a>
+    <a href="#menu">Desserts</a>
+  </div>
+  <div style="text-align:center;margin-top:28px;">
+    <a href="#menu" class="btn btn--outline" style="color:var(--text);border-color:var(--text);">Explore The Menu</a>
   </div>
 </section>
 
@@ -2050,6 +2207,17 @@
      JAVASCRIPT
 =========================== -->
 <script>
+  /* === TRANSPARENT HEADER -> SOLID ON SCROLL (reference theme) === */
+  (function() {
+    const hdr = document.getElementById('hdr');
+    function onScroll() {
+      if (window.scrollY > 40) hdr.classList.add('hdr--solid');
+      else hdr.classList.remove('hdr--solid');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
   /* === CART === */
   let cart = [];
 
@@ -2155,7 +2323,7 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card').forEach(el => {
+  document.querySelectorAll('.prod-card, .menu-item, .coll-card, .testi-card, .fav-card, .loc-showcase__card').forEach(el => {
     el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
     el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
     obs.observe(el);
