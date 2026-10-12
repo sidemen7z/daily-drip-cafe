@@ -13,16 +13,19 @@
     try {
       var vids = v.videos || [];
       var hv0 = document.getElementById("hv0"), hv1 = document.getElementById("hv1");
-      if (vids[0] && vids[0].url && hv0) {
-        hv0.querySelector("source").src = vids[0].url;
-        if (vids[0].poster) hv0.poster = vids[0].poster;
-        hv0.load();
+      function swapVideo(el, item) {
+        if (!el || !item || !item.url) return;
+        var src = el.querySelector("source");
+        // Skip if the cloud URL matches what's already loading — avoids
+        // re-downloading and restarting the hero film (page-load jank).
+        if (src && src.getAttribute("src") === item.url) return;
+        if (src) src.src = item.url;
+        if (item.poster) el.poster = item.poster;
+        el.load();
+        if (el.classList.contains("active")) { el.play && el.play().catch(function () {}); }
       }
-      if (vids[1] && vids[1].url && hv1) {
-        hv1.querySelector("source").src = vids[1].url;
-        if (vids[1].poster) hv1.poster = vids[1].poster;
-        hv1.load();
-      }
+      if (vids[0]) swapVideo(hv0, vids[0]);
+      if (vids[1]) swapVideo(hv1, vids[1]);
     } catch (e) { /* keep local fallback */ }
   });
 
