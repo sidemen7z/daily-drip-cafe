@@ -180,7 +180,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
         <button class="btn btn--dark" id="saveHero">Save homepage films</button>
         <button class="btn btn--ghost" id="reloadHero">Reload from cloud</button>
       </div>
-      <p class="hint">Keep hero films under <b>8 MB</b> for fast mobile load. Videos live in the <b>media</b> bucket and stream on the homepage automatically.</p>
+      <p class="hint">Keep hero films under <b>8 MB</b> for fast mobile load. Videos are stored securely and stream on the homepage automatically.</p>
       <div id="mediaCards" class="cards"></div>
     </section>
 
@@ -258,11 +258,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
       <p class="sub">Every file in cloud storage. Copy a URL for use on the site, or delete what you no longer need.</p>
       <div class="row">
         <select id="libFolder" style="max-width:260px">
-          <option value="">All files (root)</option>
-          <option value="compressed">compressed (WebP uploads)</option>
-          <option value="menu">menu (dish images)</option>
-          <option value="videos">videos</option>
-          <option value="verify">verify (tests)</option>
+          <option value="">All files</option>
+          <option value="compressed">Optimised photos</option>
+          <option value="menu">Dish photos</option>
+          <option value="videos">Videos</option>
         </select>
         <button class="btn btn--ghost btn--sm" id="libGo">Browse</button>
       </div>
@@ -275,7 +274,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
       <p class="sub">Every image is recompressed in this browser to <b>WebP, max 1600px, maximum 250KB</b> before it reaches cloud storage. Raw files are never uploaded, so storage never exhausts.</p>
       <div class="grid2">
         <div><label class="f">Choose image</label><input type="file" id="upFile" accept="image/*">
-        <label class="f">Bucket</label><select id="upBucket"><option value="media">media (recommended)</option><option value="images">images</option></select>
+        <label class="f">Library</label><select id="upBucket"><option value="media">Main library (recommended)</option><option value="images">Photo library</option></select>
         <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="butter-croissant"></div>
         <div><label class="f">Preview</label><img id="upPrev" style="width:100%;border-radius:12px;background:var(--cream2);min-height:140px;object-fit:cover" alt="">
         <p class="hint" id="upInfo">No file chosen yet.</p></div>
@@ -296,9 +295,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
     <!-- SETTINGS -->
     <section class="panel" id="pane-settings" hidden>
       <h3>Settings and diagnostics</h3>
-      <p class="sub">Connection check, storage rules and access. Source of truth for the database: supabase/schema.sql in the repo.</p>
-      <div class="row"><button class="btn btn--dark btn--sm" id="checkBtn">Run connection check</button></div>
-      <div class="log" id="log">Ready. Run a connection check to verify project, buckets and tables.</div>
+      <p class="sub">Check that everything is online and saving correctly.</p>
+      <div class="row"><button class="btn btn--dark btn--sm" id="checkBtn">Run system check</button></div>
+      <div class="log" id="log">Ready. Run a system check to verify the connection and content.</div>
       <hr class="divider">
       <h3 style="font-size:18px">Access</h3>
       <p class="sub">To change the login, edit ADMIN_ID and ADMIN_PASS at the top of admin.html and push again.</p>
@@ -591,21 +590,23 @@ $("vidGo").onclick = async ()=>{
 function log(msg, cls){ const d=document.createElement("div"); if(cls)d.className=cls; d.textContent="› "+msg; $("log").appendChild(d); }
 $("checkBtn").onclick = async ()=>{
   $("log").innerHTML="";
-  log("Project: "+cfg.url+" · image cap "+MAX_KB+"KB WebP","inf");
-  for (const b of ["media","images"]){
-    const r = await sb.storage.from(b).list("",{limit:1});
-    log(r.error ? "bucket "+b+": "+r.error.message : "bucket "+b+": OK", r.error?"err":"ok");
+  log("Daily Drip cloud · images auto-optimised to "+MAX_KB+"KB","inf");
+  const libs = [["media","Main library"],["images","Photo library"]];
+  for (const lb of libs){
+    const r = await sb.storage.from(lb[0]).list("",{limit:1});
+    log(r.error ? lb[1]+": "+r.error.message : lb[1]+": OK", r.error?"err":"ok");
   }
-  for (const t of ["site_settings","home_media","menu_items"]){
-    const r = await sb.from(t).select("*",{count:"exact",head:true});
-    log(r.error ? t+": "+r.error.message : t+": "+r.count+" rows", r.error?"err":"ok");
+  const tabs = [["site_settings","Site content"],["home_media","Homepage films"],["menu_items","Menu dishes"]];
+  for (const t of tabs){
+    const r = await sb.from(t[0]).select("*",{count:"exact",head:true});
+    log(r.error ? t[1]+": "+r.error.message : t[1]+": "+r.count+" items", r.error?"err":"ok");
   }
-  log("Rule: every image passes the WebP compressor — raw uploads never reach storage.","inf");
+  log("Rule: every image is optimised automatically before upload — nothing large ever reaches storage.","inf");
 };
 
 async function boot(){
   try{
-    $("connChip").textContent = "Connected to Supabase";
+    $("connChip").textContent = "Live · All systems online";
     $("connChip").classList.add("ok");
     await loadHero(); await loadContent(); await loadPopup(); await loadMenu();
   }catch(e){ $("connChip").textContent = "Connection failed"; toast("Connection failed", e.message, "err"); }
