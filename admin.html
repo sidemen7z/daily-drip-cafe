@@ -131,8 +131,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
 <div id="app">
   <header class="top"><div class="top__in">
     <div class="brand"><b>DAILY DRIP</b><span>ADMIN CONSOLE</span></div>
-    <span class="chip ok">Sub-250KB WebP enforced</span>
-    <span class="chip" id="connChip">Connecting…</span>
     <span class="top__sp"></span>
     <a class="btn btn--ghost btn--sm" href="index.html">View site</a>
     <button class="btn btn--dark btn--sm" id="logoutBtn">Sign out</button>
@@ -605,10 +603,8 @@ $("checkBtn").onclick = async ()=>{
 
 async function boot(){
   try{
-    $("connChip").textContent = "Live · All systems online";
-    $("connChip").classList.add("ok");
     await loadHero(); await loadContent(); await loadPopup(); await loadMenu();
-  }catch(e){ $("connChip").textContent = "Connection failed"; toast("Connection failed", e.message, "err"); }
+  }catch(e){ toast("Connection failed", e.message, "err"); }
 }
 </script>
 </body>
