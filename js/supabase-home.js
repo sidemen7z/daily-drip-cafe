@@ -53,12 +53,20 @@
       var cta = document.getElementById("offerCta");
       cta.textContent = v.cta_text || "View Menu";
       cta.href = v.cta_url || "menu.html";
-      if (v.image) { var im = document.getElementById("offerImg"); im.src = v.image; im.hidden = false; }
+      var card = document.getElementById("offerCard");
+      if (v.image) {
+        document.getElementById("offerImg").src = v.image;
+        document.getElementById("offerMedia").hidden = false;
+        card.classList.remove("noimg");
+      } else {
+        document.getElementById("offerMedia").hidden = true;
+        card.classList.add("noimg");
+      }
       var modal = document.getElementById("offerModal");
       setTimeout(function () { modal.hidden = false; }, 2500);
-      document.getElementById("offerClose").onclick = function () {
-        modal.hidden = true; sessionStorage.setItem("dd_offer_seen", "1");
-      };
+      function dismiss() { modal.hidden = true; sessionStorage.setItem("dd_offer_seen", "1"); }
+      document.getElementById("offerClose").onclick = dismiss;
+      document.getElementById("offerNo").onclick = dismiss;
       modal.addEventListener("click", function (e) {
         if (e.target === modal) { modal.hidden = true; sessionStorage.setItem("dd_offer_seen", "1"); }
       });
