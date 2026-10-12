@@ -62,7 +62,37 @@ img,video{max-width:100%}a{color:inherit;text-decoration:none}button{font-family
 .stat small{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--muted)}
 .stat b{display:block;font-size:30px;margin-top:2px}.stat b em{font-style:normal;font-size:13px;color:var(--gold)}
 .stat span{font-size:12px;color:var(--muted)}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;position:sticky;top:65px;z-index:40;background:var(--cream);padding:10px 0}
+.tab{padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.tab:hover{border-color:var(--text);color:var(--text);transform:translateY(-1px)}
+.tab.on{background:var(--bark);color:#fff;border-color:var(--bark)}
+.stat.link{cursor:pointer;transition:.2s}
+.stat.link:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.1);border-color:var(--gold)}
+.stat.link:hover b{color:var(--gold)}
+.panel{animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.btn:active{transform:scale(.98)}
+input[type=text]:hover,input[type=url]:hover,input[type=password]:hover,select:hover,textarea:hover{border-color:#dccbbc}
+.tbl thead th{position:sticky;top:0;background:#fff}
+.tbl tbody tr{transition:background .15s}
+.tbl tbody tr:hover{background:#fffaf5}
+.tbl input[type=checkbox]{width:20px;height:20px;accent-color:var(--green);cursor:pointer}
+/* dropzone */
+.drop{border:2px dashed #dccbbc;border-radius:14px;background:#fffdf9;padding:26px 18px;text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.over{border-color:var(--gold);background:var(--blush-soft)}
+.drop b{display:block;font-size:14px;margin-bottom:2px}
+.drop span{font-size:12px;color:var(--muted)}
+.drop input{display:none}
+/* spinner */
+.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite;vertical-align:-2px}
+@keyframes rot{to{transform:rotate(360deg)}}
+/* confirm dialog */
+.dlg{position:fixed;inset:0;z-index:400;background:rgba(10,6,5,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+.dlg[hidden]{display:none}
+.dlg__card{background:#fdf9f5;border-radius:18px;max-width:400px;width:100%;padding:30px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:fadeUp .25s ease}
+.dlg__card h4{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
+.dlg__card p{color:var(--muted);font-size:13.5px;margin-bottom:20px}
+.dlg__btns{display:flex;gap:10px;justify-content:center}
 .tab{padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
 .tab:hover{border-color:var(--text);color:var(--text)}
 .tab.on{background:var(--bark);color:#fff;border-color:var(--bark)}
@@ -143,10 +173,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
     </div>
 
     <div class="stats">
-      <div class="stat"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on the Menu page</span></div>
-      <div class="stat"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b><span>hero + food + steam films</span></div>
-      <div class="stat"><small>LAST COMPRESSED</small><b id="stLast">–</b><span>original vs WebP size</span></div>
-      <div class="stat"><small>STORAGE SAVED</small><b id="stSaved">–</b><span>this session, via compression</span></div>
+      <div class="stat link" data-goto="menu"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on the Menu page · open</span></div>
+      <div class="stat link" data-goto="home"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b><span>hero + food + steam films · open</span></div>
+      <div class="stat"><small>LAST COMPRESSED</small><b id="stLast">–</b><span>original vs optimised size</span></div>
+      <div class="stat link" data-goto="upload"><small>STORAGE SAVED</small><b id="stSaved">–</b><span>this session · upload</span></div>
     </div>
 
     <div class="tabs">
@@ -231,6 +261,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
         <button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button>
       </div>
       <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Category</th><th>Image URL</th><th>Live</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
+      <p class="hint" id="menuCount"></p>
       <hr class="divider">
       <h3 style="font-size:18px">Add new dish</h3>
       <div class="grid2">
@@ -270,7 +301,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
       <h3>Upload with auto compression</h3>
       <p class="sub">Every image is recompressed in this browser to <b>WebP, max 1600px, maximum 250KB</b> before it reaches cloud storage. Raw files are never uploaded, so storage never exhausts.</p>
       <div class="grid2">
-        <div><label class="f">Choose image</label><input type="file" id="upFile" accept="image/*">
+        <div><label class="f">Choose image</label>
+        <div class="drop" id="upDrop"><input type="file" id="upFile" accept="image/*"><b>Drop a photo here or click to browse</b><span>JPG, PNG or WebP — auto-optimised under 250KB</span></div>
         <label class="f">Library</label><select id="upBucket"><option value="media">Main library (recommended)</option><option value="images">Photo library</option></select>
         <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="butter-croissant"></div>
         <div><label class="f">Preview</label><img id="upPrev" style="width:100%;border-radius:12px;background:var(--cream2);min-height:140px;object-fit:cover" alt="">
@@ -302,6 +334,17 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
   </div>
 </div>
 
+<div class="dlg" id="dlg" hidden>
+<div class="dlg__card">
+<h4 id="dlgTitle">Are you sure?</h4>
+<p id="dlgMsg"></p>
+<div class="dlg__btns">
+<button class="btn btn--ghost" id="dlgNo">Keep it</button>
+<button class="btn btn--dark" id="dlgYes">Yes, delete</button>
+</div>
+</div>
+</div>
+
 <div id="toasts"></div>
 
 <script>
@@ -331,7 +374,12 @@ function unlock(){ $("gate").style.display = "none"; $("app").style.display = "b
 if (sessionStorage.getItem("dd_admin") === "1") unlock();
 function tryLogin(){
   const id = $("gateId").value.trim(), pw = $("gatePass").value;
-  if (id === ADMIN_ID && pw === ADMIN_PASS){ sessionStorage.setItem("dd_admin","1"); unlock(); }
+  if (id === ADMIN_ID && pw === ADMIN_PASS){
+    $("gateGo").disabled = true;
+    $("gateGo").innerHTML = '<span class="spin"></span> Signing in…';
+    sessionStorage.setItem("dd_admin","1");
+    setTimeout(unlock, 450);
+  }
   else $("gateMsg").textContent = "Incorrect ID or password. Please try again.";
 }
 $("gateGo").onclick = tryLogin;
@@ -339,10 +387,13 @@ $("gateGo").onclick = tryLogin;
 $("logoutBtn").onclick = ()=>{ sessionStorage.removeItem("dd_admin"); location.reload(); };
 
 /* Tabs */
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on")); t.classList.add("on");
-  ["home","content","offers","menu","library","upload","settings"].forEach(k=>$("pane-"+k).hidden = (k!==t.dataset.t));
-});
+function gotoTab(k){
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on", x.dataset.t===k));
+  ["home","content","offers","menu","library","upload","settings"].forEach(x=>$("pane-"+x).hidden = (x!==k));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>gotoTab(t.dataset.t));
+document.querySelectorAll(".stat.link").forEach(s=>s.onclick=()=>gotoTab(s.dataset.goto));
 
 /* WebP sub-250KB compressor */
 function loadImage(file){ return new Promise((res,rej)=>{ const u=URL.createObjectURL(file); const im=new Image();
@@ -473,6 +524,8 @@ function renderMenu(){
     '<td><input type="checkbox" class="mact" data-id="'+m.id+'" '+(m.active?'checked':'')+' style="width:18px;height:18px"></td>'+
     '<td style="white-space:nowrap"><button class="btn btn--dark btn--sm" onclick="saveDish('+m.id+',this)">Save</button> '+
     '<button class="btn btn--ghost btn--sm" onclick="delDish('+m.id+')">Delete</button></td></tr>').join("");
+  const live = MENU.filter(m=>m.active).length;
+  $("menuCount").textContent = "Showing "+list.length+" of "+MENU.length+" dishes · "+live+" live on the site";
 }
 window.saveDish = async (id,btn)=>{
   const url = document.querySelector('.murl[data-id="'+id+'"]').value.trim();
@@ -483,7 +536,8 @@ window.saveDish = async (id,btn)=>{
   toast("Dish #"+id+" saved", "Menu updated.", "ok"); loadMenu();
 };
 window.delDish = async id=>{
-  if(!confirm("Delete dish #"+id+" permanently?")) return;
+  const dish = (MENU.find(m=>m.id===id)||{}).name || ("#"+id);
+  if(!await confirmDlg("Delete this dish?", dish+" will be removed from the menu permanently.")) return;
   const { error } = await sb.from("menu_items").delete().eq("id",id);
   if (error) return toast("Delete failed", error.message, "err");
   toast("Dish deleted", "#"+id+" removed from the menu.", "ok"); loadMenu();
@@ -535,13 +589,35 @@ $("libGo").onclick = async ()=>{
 };
 window.delFile = async btn=>{
   const path = btn.getAttribute("data-p");
-  if(!confirm("Delete "+path+"?")) return;
+  if(!await confirmDlg("Delete this file?", path)) return;
   const { error } = await sb.storage.from("media").remove([path]);
   if (error) return toast("Delete failed", error.message, "err");
   toast("File deleted", path, "ok"); $("libGo").click();
 };
 
-/* Upload */
+/* Upload dropzone (click or drag-and-drop) */
+(function(){
+  const dz = $("upDrop"), fi = $("upFile");
+  if(!dz || !fi) return;
+  dz.addEventListener("click", ()=>fi.click());
+  ["dragenter","dragover"].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add("over"); }));
+  ["dragleave","drop"].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.remove("over"); }));
+  dz.addEventListener("drop", e=>{
+    if(e.dataTransfer.files && e.dataTransfer.files[0]){ fi.files = e.dataTransfer.files; fi.onchange({target:fi}); }
+  });
+})();
+
+/* Styled confirm dialog (replaces browser popups) */
+function confirmDlg(title, msg){
+  return new Promise(res=>{
+    $("dlgTitle").textContent = title; $("dlgMsg").textContent = msg;
+    $("dlg").hidden = false;
+    $("dlgYes").onclick = ()=>{ $("dlg").hidden = true; res(true); };
+    $("dlgNo").onclick = ()=>{ $("dlg").hidden = true; res(false); };
+  });
+}
+$("dlg").addEventListener("click", e=>{ if(e.target===$("dlg")){ $("dlg").hidden = true; } });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("dlg").hidden) $("dlg").hidden = true; });
 $("upFile").onchange = e=>{
   const f = e.target.files[0]; if(!f) return;
   $("upPrev").src = URL.createObjectURL(f);
@@ -603,6 +679,9 @@ $("checkBtn").onclick = async ()=>{
 
 async function boot(){
   try{
+    $("stMenu").textContent = "…"; $("stMedia").textContent = "…";
+    $("menuRows").innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:26px">Loading dishes…</td></tr>';
+    $("mediaCards").innerHTML = "";
     await loadHero(); await loadContent(); await loadPopup(); await loadMenu();
   }catch(e){ toast("Connection failed", e.message, "err"); }
 }
