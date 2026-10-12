@@ -1,7 +1,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.py
+# keep supabase helper scripts in git
+!supabase/*.py
 .env
 .DS_Store
 Thumbs.db
