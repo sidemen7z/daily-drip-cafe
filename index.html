@@ -145,9 +145,9 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <div class="hero__shade"></div>
 <div class="hero__grid">
 <div>
-<p class="hero__eyebrow">BANDRA WEST • MUMBAI</p>
-<h1 class="hero__title">More Than<br>Just <em>Coffee</em></h1>
-<p class="hero__script">Good coffee. Great food.<br>Better conversations.</p>
+<p class="hero__eyebrow" id="heroEyebrow">BANDRA WEST • MUMBAI</p>
+<h1 class="hero__title" id="heroTitle">More Than<br>Just <em>Coffee</em></h1>
+<p class="hero__script" id="heroScript">Good coffee. Great food.<br>Better conversations.</p>
 <div class="hero__btns">
 <a href="menu.html" class="btn btn--peach">Explore Menu →</a>
 <a href="#story" class="btn btn--outline">Our Story</a>
@@ -236,7 +236,7 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <div class="space__txt">
 <p class="space__eyebrow">OUR SPACE</p>
 <h2 class="space__title">A Café<br>for the Curious</h2>
-<p>Daily Drip is a cozy, warm café in the heart of Bandra West — specialty coffee, globally inspired food and a welcoming space for everyone. Work, chill or catch up over fresh bakes.</p>
+<p id="storyPara">Daily Drip is a cozy, warm café in the heart of Bandra West — specialty coffee, globally inspired food and a welcoming space for everyone. Work, chill or catch up over fresh bakes.</p>
 <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a href="#visit" class="btn btn--dark">Our Story →</a><a href="menu.html" class="btn btn--ghost-dark">See Menu</a></div>
 </div>
 <div class="space__media">
@@ -282,6 +282,28 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 </footer>
 
 <a class="wa" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi%20Daily%20Drip!%20I%20want%20to%20order." aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>
+
+<!-- Offer popup (managed from Admin Console → Offers and Popup) -->
+<div class="offer" id="offerModal" hidden>
+<div class="offer__card">
+<button class="offer__x" id="offerClose" aria-label="Close">×</button>
+<img class="offer__img" id="offerImg" src="" alt="" hidden>
+<p class="offer__badge" id="offerBadge"></p>
+<h3 class="offer__title" id="offerTitle"></h3>
+<p class="offer__msg" id="offerMsg"></p>
+<a class="btn btn--dark" id="offerCta" href="menu.html">View Menu</a>
+</div>
+</div>
+<style>
+.offer{position:fixed;inset:0;z-index:120;background:rgba(10,6,5,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
+.offer[hidden]{display:none}
+.offer__card{position:relative;background:#fdf9f5;border-radius:18px;max-width:420px;width:100%;padding:34px 30px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.offer__x{position:absolute;top:10px;right:14px;font-size:26px;line-height:1;color:#8a7d76}
+.offer__img{width:100%;border-radius:12px;margin-bottom:14px}
+.offer__badge{font-size:10px;font-weight:800;letter-spacing:3px;color:#c9a227}
+.offer__title{font-family:'Playfair Display',serif;font-size:26px;margin:8px 0}
+.offer__msg{color:#8a7d76;font-size:14px;margin-bottom:18px}
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>

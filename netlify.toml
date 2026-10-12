@@ -3,6 +3,12 @@
   publish = "."
   command = ""
 
+# Admin Console shortcut: /admin serves the console (no login walls on CDN).
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
 # Cache food photos + films for a year (filenames are content-hashed).
 [[headers]]
   for = "/menu_images/*"

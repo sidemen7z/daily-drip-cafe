@@ -3,376 +3,613 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Drip — Admin Panel</title>
+<title>Admin Console | Daily Drip Cafe</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="images/favicon-32x32.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0f1216;--panel:#171c23;--panel2:#1e2530;--line:rgba(255,255,255,.09);--gold:#d4af37;--gold2:#f3cf65;--txt:#f2f4f7;--mut:#9aa3b2;--green:#22c55e;--red:#ef4444;--r:14px}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
-a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-.top{position:sticky;top:0;z-index:50;background:rgba(15,18,22,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top__in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.logo b{letter-spacing:3px;font-size:16px}.logo span{font-size:10px;color:var(--gold);letter-spacing:2px;font-weight:700}
-.badge{font-size:11px;font-weight:800;letter-spacing:1px;background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.5);color:#7deda0;padding:6px 12px;border-radius:100px}
-.badge.warn{background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.5);color:var(--gold2)}
-.top__sp{flex:1}.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--panel2);color:var(--txt);cursor:pointer;transition:.2s}
-.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
-.btn--gold{background:var(--gold);color:#111;border-color:var(--gold)}
-.btn--danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5);color:#fca5a5}
-.btn--sm{padding:7px 12px;font-size:12px;border-radius:8px}
+:root{
+--espresso:#141010;--bark:#1d1715;--cream:#fdf9f5;--cream2:#f6ece4;
+--blush:#f3c6b3;--blush-soft:#fbe9de;--peach:#e9b48c;
+--forest:#15261e;--gold:#c9a227;--text:#2b2220;--muted:#8a7d76;--border:#efe0d4;
+--green:#1c7a3d;--red:#b3261e;--r:14px;
+}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+img,video{max-width:100%}a{color:inherit;text-decoration:none}button{font-family:inherit}
+/* ---------- LOGIN ---------- */
+#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000}
+#gate video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#gate .shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,6,5,.82) 0%,rgba(10,6,5,.55) 50%,rgba(10,6,5,.35) 100%)}
+.gate__card{position:relative;z-index:2;background:rgba(253,249,245,.98);border-radius:20px;padding:44px 42px;max-width:430px;width:calc(100% - 40px);box-shadow:0 30px 80px rgba(0,0,0,.5);text-align:center}
+.gate__eyebrow{font-size:10px;font-weight:800;letter-spacing:4px;color:var(--gold)}
+.gate__card h1{font-family:'Playfair Display',serif;font-size:34px;margin:8px 0 2px}
+.gate__card h1 em{color:var(--gold);font-style:italic}
+.gate__sub{color:var(--muted);font-size:13.5px;margin-bottom:22px}
+.gate__card label{display:block;text-align:left;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 0 6px}
+.gate__card input{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit;background:#fff;color:var(--text)}
+.gate__card input:focus{outline:none;border-color:var(--gold)}
+.gate__btn{width:100%;margin-top:22px;background:var(--bark);color:#fff;border:none;border-radius:100px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:.25s}
+.gate__btn:hover{background:#000;transform:translateY(-1px)}
+.gate__err{color:var(--red);font-size:13px;font-weight:600;min-height:20px;margin-top:12px}
+.gate__foot{margin-top:14px;font-size:12px;color:var(--muted)}
+.gate__foot a{text-decoration:underline;font-weight:700}
+.gate__hint{margin-top:10px;font-size:11.5px;color:var(--muted);background:var(--blush-soft);border-radius:10px;padding:8px}
+/* ---------- APP ---------- */
+#app{display:none;min-height:100vh}
+.top{position:sticky;top:0;z-index:60;background:rgba(253,249,245,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top__in{max-width:1220px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{line-height:1.05}.brand b{display:block;font-size:16px;font-weight:800;letter-spacing:3px}.brand span{display:block;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+.chip{font-size:11px;font-weight:700;padding:6px 13px;border-radius:100px;border:1px solid var(--border);background:#fff;color:var(--muted);white-space:nowrap}
+.chip.ok{background:#e7f4ec;border-color:#bfe3cd;color:var(--green)}
+.top__sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;border:1.5px solid transparent;cursor:pointer;transition:.22s;white-space:nowrap}
+.btn--dark{background:var(--bark);color:#fff}.btn--dark:hover{background:#000;transform:translateY(-1px)}
+.btn--ghost{border-color:var(--bark);color:var(--bark);background:transparent}.btn--ghost:hover{background:var(--bark);color:#fff}
+.btn--sm{padding:8px 16px;font-size:12px}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
-.stat small{color:var(--mut);font-size:11px;letter-spacing:1.5px;font-weight:800}
-.stat b{display:block;font-size:26px;margin-top:4px}.stat b em{font-style:normal;color:var(--gold2);font-size:14px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
-.tab{padding:10px 18px;border-radius:100px;border:1px solid var(--line);background:var(--panel);color:var(--mut);font-weight:700;font-size:13px;cursor:pointer}
-.tab.on{background:var(--gold);color:#111;border-color:var(--gold)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:22px}
-.panel h2{font-size:17px;margin-bottom:4px}.panel p.sub{color:var(--mut);font-size:13px;margin-bottom:16px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 24px 70px}
+.pagehead{padding:30px 0 6px;display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pagehead h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px)}
+.pagehead p{color:var(--muted);font-size:14px}
+.script{font-family:'Caveat',cursive;font-size:22px;color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 22px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.stat small{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--muted)}
+.stat b{display:block;font-size:30px;margin-top:2px}.stat b em{font-style:normal;font-size:13px;color:var(--gold)}
+.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
+.tab:hover{border-color:var(--text);color:var(--text)}
+.tab.on{background:var(--bark);color:#fff;border-color:var(--bark)}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.panel h3{font-family:'Playfair Display',serif;font-size:22px}
+.panel p.sub{color:var(--muted);font-size:13.5px;margin:4px 0 18px;max-width:720px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-label.f{display:block;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--mut);margin:12px 0 6px;text-transform:uppercase}
-input[type=text],input[type=url],input[type=password],select,textarea{width:100%;background:#0c0f13;border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:11px 13px;font-size:14px;font-family:inherit}
-textarea{min-height:74px;resize:vertical}
+label.f{display:block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase}
+input[type=text],input[type=url],input[type=password],select,textarea{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:11px;color:var(--text);padding:11px 14px;font-size:14px;font-family:inherit}
+textarea{min-height:80px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
-.hint{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.55}
-.hint b{color:var(--gold2)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:14px}
-.card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-.card img,.card video{width:100%;height:150px;object-fit:cover;background:#000;display:block}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+.hint b{color:var(--text)}
+.switchrow{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;font-weight:600}
+.switchrow input{width:20px;height:20px;accent-color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:16px}
+.card{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.card img,.card video{width:100%;height:140px;object-fit:cover;background:#000;display:block}
 .card__b{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
-.card__b b{font-size:14px}.card__b small{color:var(--mut);font-size:12px;word-break:break-all}
-.pill{font-size:10px;font-weight:800;letter-spacing:1px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
-.pill.ok{background:rgba(34,197,94,.18);color:#7deda0}.pill.off{background:rgba(255,255,255,.1);color:var(--mut)}
-.kb{font-size:11px;font-weight:800;color:var(--gold2)}
-.kb.over{color:#fca5a5}
-.progress{height:8px;background:#0c0f13;border-radius:8px;overflow:hidden;margin-top:10px;border:1px solid var(--line)}
-.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .2s}
-.log{background:#0c0f13;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;max-height:220px;overflow:auto;margin-top:12px;font-family:ui-monospace,monospace;line-height:1.7}
-.log .ok{color:#7deda0}.log .err{color:#fca5a5}.log .inf{color:var(--mut)}
-#gate{position:fixed;inset:0;background:rgba(5,6,8,.96);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
-.gate__box{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px;max-width:400px;width:100%;text-align:center}
-.gate__box h1{letter-spacing:3px;font-size:20px}.gate__box p{color:var(--mut);font-size:13px;margin:8px 0 18px}
+.card__b b{font-size:14px}.card__b small{color:var(--muted);font-size:11.5px;word-break:break-all}
+.pill{font-size:10px;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.pill.ok{background:#e7f4ec;color:var(--green)}.pill.off{background:var(--cream2);color:var(--muted)}
+.kb{font-size:12px;font-weight:800;color:var(--green)}
+.progress{height:9px;background:var(--cream2);border-radius:8px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--peach));transition:width .2s}
 table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
-.tbl th{text-align:left;font-size:10px;letter-spacing:1.5px;color:var(--mut);padding:8px;border-bottom:1px solid var(--line)}
-.tbl td{padding:8px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
-.tbl img{width:56px;height:42px;object-fit:cover;border-radius:8px}
-@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+.tbl th{text-align:left;font-size:10px;letter-spacing:1.5px;color:var(--muted);padding:9px 8px;border-bottom:2px solid var(--border);text-transform:uppercase}
+.tbl td{padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl img{width:64px;height:46px;object-fit:cover;border-radius:8px;background:var(--cream2)}
+.tbl input,.tbl select{padding:8px 10px;font-size:13px}
+.log{background:var(--bark);color:#e8ddd2;border-radius:12px;padding:14px 16px;font-size:12px;max-height:240px;overflow:auto;margin-top:12px;font-family:ui-monospace,monospace;line-height:1.8}
+.log .ok{color:#8fe3a8}.log .err{color:#ff9d94}.log .inf{color:#c9b8a6}
+/* toasts */
+#toasts{position:fixed;right:20px;top:76px;z-index:300;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 40px))}
+.toast{background:var(--bark);color:#fff;border-radius:12px;padding:14px 18px;font-size:13.5px;box-shadow:0 14px 40px rgba(0,0,0,.3);display:flex;gap:10px;align-items:flex-start;animation:slidein .3s ease}
+.toast.ok{border-left:5px solid #35c26e}.toast.err{border-left:5px solid #ff6b62}.toast.inf{border-left:5px solid var(--gold)}
+.toast b{display:block;font-size:13px}.toast span{opacity:.75;font-size:12px}
+@keyframes slidein{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+.toast.out{transition:.3s;opacity:0;transform:translateX(30px)}
+.divider{border:none;border-top:1px solid var(--border);margin:22px 0}
+@media(max-width:820px){.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.panel{padding:20px}.gate__card{padding:34px 26px}}
 </style>
 </head>
 <body>
-<div class="top"><div class="top__in">
-  <div class="logo"><b>DAILY DRIP</b><span>ADMIN PANEL</span></div>
-  <span class="badge">✓ Sub-250KB WebP enforced</span>
-  <span class="badge warn">Farooq rule: no raw uploads</span>
-  <span class="top__sp"></span>
-  <span id="conn" class="hint">connecting…</span>
-  <a class="btn btn--sm" href="index.html">← View site</a>
-  <button class="btn btn--sm btn--danger" id="logoutBtn">Lock</button>
-</div></div>
 
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><small>MENU DISHES</small><b id="stMenu">–</b></div>
-    <div class="stat"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b></div>
-    <div class="stat"><small>LAST COMPRESSED</small><b id="stLast">–</b></div>
-    <div class="stat"><small>STORAGE SAVED</small><b id="stSaved">–</b></div>
+<!-- LOGIN -->
+<div id="gate">
+  <video autoplay muted loop playsinline preload="metadata" poster="menu_images/01_butter_croissant.webp"><source src="images/bombay-luxury-cafe.mp4" type="video/mp4"></video>
+  <div class="shade"></div>
+  <div class="gate__card">
+    <div class="gate__eyebrow">BANDRA WEST · MUMBAI</div>
+    <h1>Daily <em>Drip</em></h1>
+    <p class="gate__sub">Admin Console — manage films, menu, offers and popups.<br>Authorised access only.</p>
+    <label for="gateId">ADMIN ID</label>
+    <input type="text" id="gateId" placeholder="Enter admin ID" autocomplete="username">
+    <label for="gatePass">PASSWORD</label>
+    <input type="password" id="gatePass" placeholder="Enter password" autocomplete="current-password">
+    <button class="gate__btn" id="gateGo">Sign in to Console</button>
+    <div class="gate__err" id="gateMsg"></div>
+    <div class="gate__hint">Default access — ID: <b>admin</b> · Password: <b>dailydrip2026</b>. Change both in admin.html (ADMIN_ID / ADMIN_PASS).</div>
+    <div class="gate__foot"><a href="index.html">Back to website</a></div>
   </div>
+</div>
 
-  <div class="tabs">
-    <button class="tab on" data-t="home">🏠 Home videos</button>
-    <button class="tab" data-t="menu">🍽 Menu images</button>
-    <button class="tab" data-t="upload">⬆ Upload + compress</button>
-    <button class="tab" data-t="settings">⚙ Settings</button>
-  </div>
+<!-- APP -->
+<div id="app">
+  <header class="top"><div class="top__in">
+    <div class="brand"><b>DAILY DRIP</b><span>ADMIN CONSOLE</span></div>
+    <span class="chip ok">Sub-250KB WebP enforced</span>
+    <span class="chip" id="connChip">Connecting…</span>
+    <span class="top__sp"></span>
+    <a class="btn btn--ghost btn--sm" href="index.html">View site</a>
+    <button class="btn btn--dark btn--sm" id="logoutBtn">Sign out</button>
+  </div></header>
 
-  <!-- HOME -->
-  <section class="panel" id="pane-home">
-    <h2>Homepage films & images</h2>
-    <p class="sub">Change hero videos, food film, steam loop, space video. Changes go live instantly (site reads Supabase first, local files as fallback).</p>
-    <div class="grid2">
-      <div><label class="f">Hero film 1 (mp4 / URL)</label><input type="text" id="hero1" placeholder="images/bombay-mumbai-view.mp4 or https://…">
-      <label class="f">Poster (image)</label><input type="text" id="hero1poster" placeholder="menu_images/01_butter_croissant.webp"></div>
-      <div><label class="f">Hero film 2 (mp4 / URL)</label><input type="text" id="hero2" placeholder="images/bombay-luxury-cafe.mp4 or https://…">
-      <label class="f">Poster (image)</label><input type="text" id="hero2poster" placeholder="menu_images/03_almond_pistachio_croissant.webp"></div>
+  <div class="wrap">
+    <div class="pagehead">
+      <div><h2>Good day, Admin.</h2><p>Everything on the homepage and menu can be changed from here. Changes go live instantly.</p></div>
+      <div class="script">Good coffee. Great food. Better conversations.</div>
     </div>
-    <div class="grid2">
-      <div><label class="f">Food montage film</label><input type="text" id="foodfilm" placeholder="images/food-montage.mp4"></div>
-      <div><label class="f">Steam loop / Space video</label><input type="text" id="steamfilm" placeholder="images/steam.mp4"></div>
-    </div>
-    <div class="row">
-      <button class="btn btn--gold" id="saveHero">💾 Save homepage films</button>
-      <button class="btn" id="reloadHero">↻ Reload from cloud</button>
-    </div>
-    <p class="hint">Tip: upload a new <b>.mp4</b> in the <b>Upload tab</b> (videos go to the <b>media</b> bucket, no WebP needed), then paste its public URL here. Keep hero films under ~8&nbsp;MB for fast mobile load.</p>
-    <div id="mediaCards" class="cards"></div>
-  </section>
 
-  <!-- MENU -->
-  <section class="panel" id="pane-menu" hidden>
-    <h2>Menu dishes (61)</h2>
-    <p class="sub">Edit image per dish. Best flow: compress in Upload tab → copy URL → paste here → Save. Or use quick-replace below.</p>
-    <div class="row">
-      <input type="text" id="menuSearch" placeholder="Search dishes — burrata, pizza…" style="max-width:320px">
-      <select id="menuCat" style="max-width:220px"><option value="">All categories</option></select>
-      <button class="btn btn--sm" id="reloadMenu">↻ Reload</button>
+    <div class="stats">
+      <div class="stat"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on the Menu page</span></div>
+      <div class="stat"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b><span>hero + food + steam films</span></div>
+      <div class="stat"><small>LAST COMPRESSED</small><b id="stLast">–</b><span>original vs WebP size</span></div>
+      <div class="stat"><small>STORAGE SAVED</small><b id="stSaved">–</b><span>this session, via compression</span></div>
     </div>
-    <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Image URL</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
-    <div class="panel" style="background:var(--panel2);margin:16px 0 0">
-      <h2 style="font-size:14px">Quick replace dish image (auto-compress)</h2>
-      <p class="sub">Pick a dish, choose a photo — it is compressed to WebP &lt;250KB, uploaded, and linked automatically.</p>
+
+    <div class="tabs">
+      <button class="tab on" data-t="home">Home Films</button>
+      <button class="tab" data-t="content">Site Content</button>
+      <button class="tab" data-t="offers">Offers and Popup</button>
+      <button class="tab" data-t="menu">Menu Manager</button>
+      <button class="tab" data-t="library">Media Library</button>
+      <button class="tab" data-t="upload">Upload</button>
+      <button class="tab" data-t="settings">Settings</button>
+    </div>
+
+    <!-- HOME FILMS -->
+    <section class="panel" id="pane-home">
+      <h3>Homepage films</h3>
+      <p class="sub">Hero films, food montage, steam loop and space video. Paste an mp4 URL or upload in the Upload tab and paste the public URL here.</p>
+      <div class="grid2">
+        <div><label class="f">Hero film 1 (mp4 or URL)</label><input type="text" id="hero1" placeholder="images/bombay-mumbai-view.mp4">
+        <label class="f">Poster image</label><input type="text" id="hero1poster" placeholder="menu_images/01_butter_croissant.webp"></div>
+        <div><label class="f">Hero film 2 (mp4 or URL)</label><input type="text" id="hero2" placeholder="images/bombay-luxury-cafe.mp4">
+        <label class="f">Poster image</label><input type="text" id="hero2poster" placeholder="menu_images/03_almond_pistachio_croissant.webp"></div>
+      </div>
+      <div class="grid2">
+        <div><label class="f">Food montage film</label><input type="text" id="foodfilm" placeholder="images/food-montage.mp4"></div>
+        <div><label class="f">Steam loop / Space video</label><input type="text" id="steamfilm" placeholder="images/steam.mp4"></div>
+      </div>
+      <div class="row">
+        <button class="btn btn--dark" id="saveHero">Save homepage films</button>
+        <button class="btn btn--ghost" id="reloadHero">Reload from cloud</button>
+      </div>
+      <p class="hint">Keep hero films under <b>8 MB</b> for fast mobile load. Videos live in the <b>media</b> bucket and stream on the homepage automatically.</p>
+      <div id="mediaCards" class="cards"></div>
+    </section>
+
+    <!-- SITE CONTENT -->
+    <section class="panel" id="pane-content" hidden>
+      <h3>Site content</h3>
+      <p class="sub">Homepage headline, eyebrow line and welcome note. Saved to the cloud and applied on the homepage on next visit.</p>
+      <div class="grid2">
+        <div><label class="f">Eyebrow line</label><input type="text" id="cEyebrow" placeholder="BANDRA WEST • MUMBAI"></div>
+        <div><label class="f">Welcome note (script line)</label><input type="text" id="cScript" placeholder="Good coffee. Great food."></div>
+      </div>
+      <div class="grid2">
+        <div><label class="f">Headline — first line</label><input type="text" id="cTitleA" placeholder="More Than"></div>
+        <div><label class="f">Headline — second line</label><input type="text" id="cTitleB" placeholder="Just"></div>
+      </div>
+      <div><label class="f">Headline — accent word (italic gold)</label><input type="text" id="cAccent" placeholder="Coffee" style="max-width:340px"></div>
+      <div><label class="f">Our space paragraph</label><textarea id="cStory" placeholder="Daily Drip is a cozy, warm cafe in the heart of Bandra West…"></textarea></div>
+      <div class="row">
+        <button class="btn btn--dark" id="saveContent">Save site content</button>
+        <button class="btn btn--ghost" id="reloadContent">Reload from cloud</button>
+      </div>
+    </section>
+
+    <!-- OFFERS + POPUP -->
+    <section class="panel" id="pane-offers" hidden>
+      <h3>Offers and welcome popup</h3>
+      <p class="sub">A popup card on the homepage. Use it for festive offers, new launches or events. Turn it off anytime without deleting the text.</p>
+      <div class="switchrow"><input type="checkbox" id="pActive"> <label for="pActive">Show popup on homepage</label></div>
+      <div class="grid2">
+        <div><label class="f">Badge line</label><input type="text" id="pBadge" placeholder="FESTIVE OFFER"></div>
+        <div><label class="f">Button text</label><input type="text" id="pCta" placeholder="View Menu"></div>
+      </div>
+      <div><label class="f">Popup title</label><input type="text" id="pTitle" placeholder="Monsoon Special — 15% off artisan pizzas"></div>
+      <div><label class="f">Popup message</label><textarea id="pMsg" placeholder="This weekend only. Show this popup at the counter or order on WhatsApp."></textarea></div>
+      <div><label class="f">Button link</label><input type="text" id="pUrl" placeholder="menu.html"></div>
+      <div><label class="f">Popup image (optional, auto-compress in Upload tab first)</label><input type="text" id="pImg" placeholder="https://…/offer.webp"></div>
+      <div class="row">
+        <button class="btn btn--dark" id="savePopup">Save offer popup</button>
+        <button class="btn btn--ghost" id="reloadPopup">Reload from cloud</button>
+        <button class="btn btn--ghost" id="previewPopup">Preview popup</button>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="panel" id="pane-menu" hidden>
+      <h3>Menu manager</h3>
+      <p class="sub">All dishes live on the Menu page. Edit inline, replace images, add new dishes or hide seasonal items.</p>
+      <div class="row">
+        <input type="text" id="menuSearch" placeholder="Search dishes — burrata, pizza…" style="max-width:300px">
+        <select id="menuCat" style="max-width:230px"><option value="">All categories</option></select>
+        <button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button>
+      </div>
+      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Category</th><th>Image URL</th><th>Live</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
+      <hr class="divider">
+      <h3 style="font-size:18px">Add new dish</h3>
+      <div class="grid2">
+        <div><label class="f">Dish name</label><input type="text" id="nName" placeholder="Truffle Arancini">
+        <label class="f">Category</label><select id="nCat"></select></div>
+        <div><label class="f">Description</label><textarea id="nDesc" placeholder="Crisp risotto balls, parmesan cream…"></textarea>
+        <label class="f">Image URL (upload in Upload tab first)</label><input type="text" id="nImg" placeholder="https://…/dish.webp"></div>
+      </div>
+      <div class="row"><button class="btn btn--dark" id="addDish">Add dish to menu</button></div>
+      <hr class="divider">
+      <h3 style="font-size:18px">Quick image replace (auto-compress)</h3>
+      <p class="sub">Pick a dish, choose a photo — it is compressed to WebP under 250KB, uploaded and linked in one step.</p>
       <div class="grid2"><div><label class="f">Dish</label><select id="qrDish"></select></div>
       <div><label class="f">New photo</label><input type="file" id="qrFile" accept="image/*"></div></div>
       <div class="progress"><i id="qrBar"></i></div>
-      <div class="row"><button class="btn btn--gold" id="qrGo">Compress + upload + link</button><span class="hint" id="qrMsg"></span></div>
-    </div>
-  </section>
+      <div class="row"><button class="btn btn--dark" id="qrGo">Compress, upload and link</button><span class="hint" id="qrMsg"></span></div>
+    </section>
 
-  <!-- UPLOAD -->
-  <section class="panel" id="pane-upload" hidden>
-    <h2>Upload with auto WebP compression</h2>
-    <p class="sub">Every image is recompressed in-browser to <b>WebP, max 1600px, ≤250KB</b> before it touches Supabase. Nothing raw is ever uploaded — this is what stops the bucket from exhausting.</p>
-    <div class="grid2">
-      <div><label class="f">Choose image</label><input type="file" id="upFile" accept="image/*">
-      <label class="f">Bucket</label><select id="upBucket"><option value="media">media (recommended)</option><option value="images">images</option></select>
-      <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="auto: dish-name_timestamp.webp"></div>
-      <div><label class="f">Preview</label><img id="upPrev" style="width:100%;border-radius:12px;background:#000;min-height:120px;object-fit:cover" alt="">
-      <p class="hint" id="upInfo">No file chosen yet.</p></div>
-    </div>
-    <div class="progress"><i id="upBar"></i></div>
-    <div class="row">
-      <button class="btn btn--gold" id="upGo" disabled>Compress & upload</button>
-      <button class="btn" id="upCopy" disabled>Copy public URL</button>
-      <span class="hint" id="upMsg"></span>
-    </div>
-    <label class="f">Or upload a video (.mp4, ≤25MB — videos are NOT WebP-compressed)</label>
-    <div class="row"><input type="file" id="vidFile" accept="video/mp4,video/webm"><button class="btn" id="vidGo">Upload video</button><span class="hint" id="vidMsg"></span></div>
-    <div class="progress"><i id="vidBar"></i></div>
-  </section>
+    <!-- LIBRARY -->
+    <section class="panel" id="pane-library" hidden>
+      <h3>Media library</h3>
+      <p class="sub">Every file in cloud storage. Copy a URL for use on the site, or delete what you no longer need.</p>
+      <div class="row">
+        <select id="libFolder" style="max-width:260px">
+          <option value="">All files (root)</option>
+          <option value="compressed">compressed (WebP uploads)</option>
+          <option value="menu">menu (dish images)</option>
+          <option value="videos">videos</option>
+          <option value="verify">verify (tests)</option>
+        </select>
+        <button class="btn btn--ghost btn--sm" id="libGo">Browse</button>
+      </div>
+      <div id="libCards" class="cards"></div>
+    </section>
 
-  <!-- SETTINGS -->
-  <section class="panel" id="pane-settings" hidden>
-    <h2>Connection & storage check</h2>
-    <p class="sub">Verify Supabase project, buckets, and table counts. SQL source of truth: <b>supabase/schema.sql</b>.</p>
-    <div class="row"><button class="btn" id="checkBtn">Run connection check</button></div>
-    <div class="log" id="log">Ready. Click “Run connection check”.</div>
-  </section>
+    <!-- UPLOAD -->
+    <section class="panel" id="pane-upload" hidden>
+      <h3>Upload with auto compression</h3>
+      <p class="sub">Every image is recompressed in this browser to <b>WebP, max 1600px, maximum 250KB</b> before it reaches cloud storage. Raw files are never uploaded, so storage never exhausts.</p>
+      <div class="grid2">
+        <div><label class="f">Choose image</label><input type="file" id="upFile" accept="image/*">
+        <label class="f">Bucket</label><select id="upBucket"><option value="media">media (recommended)</option><option value="images">images</option></select>
+        <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="butter-croissant"></div>
+        <div><label class="f">Preview</label><img id="upPrev" style="width:100%;border-radius:12px;background:var(--cream2);min-height:140px;object-fit:cover" alt="">
+        <p class="hint" id="upInfo">No file chosen yet.</p></div>
+      </div>
+      <div class="progress"><i id="upBar"></i></div>
+      <div class="row">
+        <button class="btn btn--dark" id="upGo" disabled>Compress and upload</button>
+        <button class="btn btn--ghost" id="upCopy" disabled>Copy public URL</button>
+        <span class="hint" id="upMsg"></span>
+      </div>
+      <hr class="divider">
+      <h3 style="font-size:18px">Video upload (mp4, up to 25MB)</h3>
+      <p class="sub">Videos are not compressed. Keep hero films small and fast (720p recommended).</p>
+      <div class="row"><input type="file" id="vidFile" accept="video/mp4,video/webm"><button class="btn btn--dark btn--sm" id="vidGo">Upload video</button><span class="hint" id="vidMsg"></span></div>
+      <div class="progress"><i id="vidBar"></i></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="panel" id="pane-settings" hidden>
+      <h3>Settings and diagnostics</h3>
+      <p class="sub">Connection check, storage rules and access. Source of truth for the database: supabase/schema.sql in the repo.</p>
+      <div class="row"><button class="btn btn--dark btn--sm" id="checkBtn">Run connection check</button></div>
+      <div class="log" id="log">Ready. Run a connection check to verify project, buckets and tables.</div>
+      <hr class="divider">
+      <h3 style="font-size:18px">Access</h3>
+      <p class="sub">To change the login, edit ADMIN_ID and ADMIN_PASS at the top of admin.html and push again.</p>
+    </section>
+  </div>
 </div>
 
-<div id="gate"><div class="gate__box">
-  <h1>DAILY DRIP</h1>
-  <p>Admin access — enter password to manage videos & images.<br>(default: <b>dailydrip2026</b> — change ADMIN_PASS below)</p>
-  <input type="password" id="gatePass" placeholder="Admin password">
-  <div class="row" style="justify-content:center"><button class="btn btn--gold" id="gateGo">Unlock admin</button></div>
-  <p class="hint" id="gateMsg"></p>
-</div></div>
+<div id="toasts"></div>
 
 <script>
-const ADMIN_PASS = "dailydrip2026";           // <-- change me
-const MAX_KB = (window.DAILY_DRIP_SUPABASE||{}).MAX_IMAGE_KB || 250;
+/* Access — change both and re-push */
+const ADMIN_ID = "admin";
+const ADMIN_PASS = "dailydrip2026";
+const MAX_KB = (window.DAILY_DRIP_SUPABASE || {}).MAX_IMAGE_KB || 250;
 const cfg = window.DAILY_DRIP_SUPABASE;
 const sb = window.supabase.createClient(cfg.url, cfg.anonKey);
 const $ = id => document.getElementById(id);
-let lastFile = null, lastURL = "", savedBytes = 0;
+let lastURL = "", savedBytes = 0;
 
-/* ---- gate ---- */
-if (sessionStorage.getItem("dd_admin")==="1") $("gate").style.display="none";
-$("gateGo").onclick = () => {
-  if ($("gatePass").value === ADMIN_PASS) { sessionStorage.setItem("dd_admin","1"); $("gate").style.display="none"; boot(); }
-  else $("gateMsg").textContent = "Wrong password.";
-};
-$("logoutBtn").onclick = () => { sessionStorage.removeItem("dd_admin"); location.reload(); };
-$("gatePass").addEventListener("keydown", e=>{ if(e.key==="Enter") $("gateGo").click(); });
+/* Toasts */
+function toast(title, sub, kind){
+  kind = kind || "ok";
+  const t = document.createElement("div");
+  t.className = "toast " + kind;
+  t.innerHTML = "<div><b></b><span></span></div>";
+  t.querySelector("b").textContent = title;
+  t.querySelector("span").textContent = sub || "";
+  $("toasts").appendChild(t);
+  setTimeout(()=>{ t.classList.add("out"); setTimeout(()=>t.remove(), 350); }, 4200);
+}
 
-/* ---- tabs ---- */
+/* Gate: ID + password */
+function unlock(){ $("gate").style.display = "none"; $("app").style.display = "block"; boot(); }
+if (sessionStorage.getItem("dd_admin") === "1") unlock();
+function tryLogin(){
+  const id = $("gateId").value.trim(), pw = $("gatePass").value;
+  if (id === ADMIN_ID && pw === ADMIN_PASS){ sessionStorage.setItem("dd_admin","1"); unlock(); }
+  else $("gateMsg").textContent = "Incorrect ID or password. Please try again.";
+}
+$("gateGo").onclick = tryLogin;
+[$("gateId"), $("gatePass")].forEach(el=>el.addEventListener("keydown", e=>{ if(e.key==="Enter") tryLogin(); }));
+$("logoutBtn").onclick = ()=>{ sessionStorage.removeItem("dd_admin"); location.reload(); };
+
+/* Tabs */
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
   document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on")); t.classList.add("on");
-  ["home","menu","upload","settings"].forEach(k=>$("pane-"+k).hidden = (k!==t.dataset.t));
+  ["home","content","offers","menu","library","upload","settings"].forEach(k=>$("pane-"+k).hidden = (k!==t.dataset.t));
 });
 
-/* ---- Farooq rule: WebP sub-250KB compressor ---- */
+/* WebP sub-250KB compressor */
 function loadImage(file){ return new Promise((res,rej)=>{ const u=URL.createObjectURL(file); const im=new Image();
   im.onload=()=>{URL.revokeObjectURL(u);res(im)}; im.onerror=rej; im.src=u; }); }
 async function compressToWebP(file, maxKB){
   const img = await loadImage(file);
   let w = img.naturalWidth, h = img.naturalHeight;
-  const scale0 = Math.min(1, 1600/Math.max(w,h));
-  w = Math.round(w*scale0); h = Math.round(h*scale0);
+  const s0 = Math.min(1, 1600/Math.max(w,h));
+  w = Math.round(w*s0); h = Math.round(h*s0);
   const origKB = file.size/1024;
-  for (let attempt=0; attempt<4; attempt++){
+  for (let a=0; a<4; a++){
     for (const q of [0.82,0.72,0.62,0.52,0.42,0.32]){
       const c = document.createElement("canvas"); c.width=w; c.height=h;
       c.getContext("2d").drawImage(img,0,0,w,h);
       const blob = await new Promise(r=>c.toBlob(r,"image/webp",q));
       if (blob && blob.size/1024 <= maxKB) return {blob, kb:blob.size/1024, origKB, w, h, q};
     }
-    w = Math.round(w*0.8); h = Math.round(h*0.8);   // shrink & retry
+    w = Math.round(w*0.8); h = Math.round(h*0.8);
   }
-  // last resort: smallest we could make (caller decides to block)
   const c = document.createElement("canvas"); c.width=w; c.height=h;
   c.getContext("2d").drawImage(img,0,0,w,h);
   const blob = await new Promise(r=>c.toBlob(r,"image/webp",0.3));
   return {blob, kb:blob.size/1024, origKB, w, h, q:0.3, over:true};
 }
 const fmtKB = kb => kb>1024 ? (kb/1024).toFixed(2)+" MB" : kb.toFixed(0)+" KB";
+function trackSaving(origKB, kb){
+  savedBytes += Math.max(0,(origKB-kb))*1024;
+  $("stLast").innerHTML = fmtKB(kb)+' <em>was '+fmtKB(origKB)+'</em>';
+  $("stSaved").innerHTML = (savedBytes/1048576).toFixed(2)+' <em>MB</em>';
+}
 
-/* ---- upload tab ---- */
-$("upFile").onchange = async e => {
-  const f = e.target.files[0]; if(!f) return;
-  $("upPrev").src = URL.createObjectURL(f);
-  $("upInfo").innerHTML = `Original: <b>${fmtKB(f.size/1024)}</b> (${f.type||"image"}) → will compress to <b>WebP ≤ ${MAX_KB}KB</b>`;
-  $("upGo").disabled = false; $("upMsg").textContent = "";
-};
-$("upGo").onclick = async () => {
-  const f = $("upFile").files[0]; if(!f) return;
-  $("upGo").disabled = true; $("upBar").style.width = "15%";
-  $("upMsg").textContent = "Compressing to WebP…";
-  try {
-    const r = await compressToWebP(f, MAX_KB);
-    $("upBar").style.width = "55%";
-    if (r.over || r.kb > MAX_KB){ $("upMsg").textContent = `⚠ Smallest possible is ${fmtKB(r.kb)} — still over ${MAX_KB}KB. Try a smaller photo.`; $("upGo").disabled=false; return; }
-    savedBytes += Math.max(0, (r.origKB - r.kb))*1024;
-    $("stLast").innerHTML = `${fmtKB(r.kb)} <em>was ${fmtKB(r.origKB)}</em>`;
-    $("stSaved").innerHTML = (savedBytes/1048576).toFixed(2)+" <em>MB</em>";
-    const base = ($("upName").value.trim() || f.name.replace(/\.[^.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"-")) + `_${Date.now()}.webp`;
-    const path = `compressed/${base}`;
-    $("upMsg").textContent = `Uploading ${fmtKB(r.kb)} (q=${r.q}, ${r.w}×${r.h})…`;
-    const { error } = await sb.storage.from($("upBucket").value).upload(path, r.blob, {contentType:"image/webp", upsert:false});
-    if (error) throw error;
-    const { data } = sb.storage.from($("upBucket").value).getPublicUrl(path);
-    lastURL = data.publicUrl; lastFile = path;
-    $("upBar").style.width = "100%";
-    $("upMsg").innerHTML = `✅ Uploaded <b>${fmtKB(r.kb)}</b> (saved ${fmtKB(r.origKB-r.kb)}). URL ready → <button class="btn btn--sm" onclick="navigator.clipboard.writeText('${lastURL}')">Copy</button>`;
-    $("upCopy").disabled = false;
-    log(`IMG ${path} — ${fmtKB(r.origKB)} → ${fmtKB(r.kb)}`, "ok");
-  } catch(err){ $("upMsg").textContent = "❌ "+err.message; log("upload: "+err.message,"err"); }
-  $("upGo").disabled = false;
-};
-$("upCopy").onclick = () => { if(lastURL) navigator.clipboard.writeText(lastURL); };
-
-/* ---- video upload (no compression, size-guarded) ---- */
-$("vidGo").onclick = async () => {
-  const f = $("vidFile").files[0]; if(!f) return;
-  if (f.size > 25*1048576){ $("vidMsg").textContent = "⚠ Over 25MB — compress the video first (720p, faststart)."; return; }
-  $("vidMsg").textContent = "Uploading…"; $("vidBar").style.width="30%";
-  const path = `videos/${Date.now()}_${f.name.replace(/\s+/g,"-")}`;
-  const { error } = await sb.storage.from("media").upload(path, f, {contentType:f.type||"video/mp4"});
-  if (error){ $("vidMsg").textContent = "❌ "+error.message; return; }
-  const { data } = sb.storage.from("media").getPublicUrl(path);
-  $("vidBar").style.width="100%";
-  $("vidMsg").innerHTML = `✅ <a href="${data.publicUrl}" target="_blank" style="text-decoration:underline">Open video</a> — <button class="btn btn--sm" onclick="navigator.clipboard.writeText('${data.publicUrl}')">Copy URL</button> then paste into Home tab.`;
-  log("VID "+path+" "+fmtKB(f.size/1024), "ok");
-};
-
-/* ---- home films ---- */
+/* Home films */
 async function loadHero(){
   const { data } = await sb.from("site_settings").select("value").eq("key","hero").single();
-  const v = data?.value||{};
-  const vids = v.videos||[];
-  $("hero1").value = vids[0]?.url||""; $("hero1poster").value = vids[0]?.poster||"";
-  $("hero2").value = vids[1]?.url||""; $("hero2poster").value = vids[1]?.poster||"";
-  $("foodfilm").value = v.food_film||""; $("steamfilm").value = v.steam_film||"";
-  const { data:media } = await sb.from("home_media").select("*").order("sort");
-  $("stMedia").textContent = media?.length||"0";
-  $("mediaCards").innerHTML = (media||[]).map(m=>`
-    <div class="card">${m.kind==="video"
-      ? `<video src="${m.url}" muted playsinline preload="none" poster="${m.poster||""}"></video>`
-      : `<img src="${m.url}" loading="lazy" alt="">`}
-      <div class="card__b"><b>${m.title||m.slot}</b><small>${m.slot} · ${m.url}</small>
-      <div class="row"><span class="pill ${m.active?"ok":"off"}">${m.active?"live":"hidden"}</span>
-      <button class="btn btn--sm" onclick="fillSlot('${m.slot}','${m.url}')">Use URL</button></div></div></div>`).join("");
+  const v = (data && data.value) || {};
+  const vids = v.videos || [];
+  $("hero1").value = (vids[0]&&vids[0].url)||""; $("hero1poster").value = (vids[0]&&vids[0].poster)||"";
+  $("hero2").value = (vids[1]&&vids[1].url)||""; $("hero2poster").value = (vids[1]&&vids[1].poster)||"";
+  $("foodfilm").value = v.food_film||""; $("steamfilm").value = v.steam_film||v.space_video||"";
+  const m = await sb.from("home_media").select("*").order("sort");
+  const media = m.data || [];
+  $("stMedia").textContent = media.length;
+  $("mediaCards").innerHTML = media.map(x=>
+    '<div class="card">' + (x.kind==="video"
+      ? '<video src="'+x.url+'" muted playsinline preload="none" poster="'+(x.poster||'')+'"></video>'
+      : '<img src="'+x.url+'" loading="lazy" alt="">') +
+    '<div class="card__b"><b>'+(x.title||x.slot)+'</b><small>'+x.slot+' · '+x.url+'</small>' +
+    '<div class="row"><span class="pill '+(x.active?'ok':'off')+'">'+(x.active?'Live':'Hidden')+'</span>' +
+    '<button class="btn btn--ghost btn--sm" data-slot="'+x.slot+'" data-url="'+x.url+'" onclick="fillSlot(this)">Use URL</button></div></div></div>').join("");
 }
-window.fillSlot = (slot,url)=>{ if(slot==="hero1")$("hero1").value=url; if(slot==="hero2")$("hero2").value=url;
-  if(slot==="menu_film")$("foodfilm").value=url; if(slot==="menu_bg"||slot==="space")$("steamfilm").value=url; window.scrollTo({top:0,behavior:"smooth"}); };
+window.fillSlot = btn=>{
+  const slot = btn.getAttribute("data-slot"), url = btn.getAttribute("data-url");
+  if(slot==="hero1")$("hero1").value=url; if(slot==="hero2")$("hero2").value=url;
+  if(slot==="menu_film")$("foodfilm").value=url; if(slot==="menu_bg"||slot==="space")$("steamfilm").value=url;
+  window.scrollTo({top:0,behavior:"smooth"});
+};
 $("saveHero").onclick = async ()=>{
   const val = { videos:[
     {slot:"hero1",url:$("hero1").value.trim(),poster:$("hero1poster").value.trim(),active:true},
     {slot:"hero2",url:$("hero2").value.trim(),poster:$("hero2poster").value.trim(),active:true}],
-    food_film:$("foodfilm").value.trim(), steam_film:$("steamfilm").value.trim(),
-    space_video:$("steamfilm").value.trim() };
+    food_film:$("foodfilm").value.trim(), steam_film:$("steamfilm").value.trim(), space_video:$("steamfilm").value.trim() };
   const { error } = await sb.from("site_settings").upsert({key:"hero",value:val});
-  if (error) return alert(error.message);
-  await sb.from("home_media").upsert([
-    {slot:"hero1",kind:"video",url:val.videos[0].url,poster:val.videos[0].poster,title:"Hero film 1",sort:0,active:true},
-    {slot:"hero2",kind:"video",url:val.videos[1].url,poster:val.videos[1].poster,title:"Hero film 2",sort:1,active:true}],{onConflict:"id"});
-  alert("✅ Homepage films saved — open index.html to see them live."); loadHero();
+  if (error) return toast("Could not save films", error.message, "err");
+  toast("Homepage films saved", "The site picks them up instantly.", "ok"); loadHero();
 };
-$("reloadHero").onclick = loadHero;
+$("reloadHero").onclick = ()=>{ loadHero(); toast("Reloaded", "Latest homepage films loaded from cloud.", "inf"); };
 
-/* ---- menu ---- */
+/* Site content */
+async function loadContent(){
+  const { data } = await sb.from("site_settings").select("value").eq("key","content").single();
+  const v = (data && data.value) || {};
+  $("cEyebrow").value=v.eyebrow||""; $("cScript").value=v.script||"";
+  $("cTitleA").value=v.title_a||""; $("cTitleB").value=v.title_b||""; $("cAccent").value=v.accent||"";
+  $("cStory").value=v.story||"";
+}
+$("saveContent").onclick = async ()=>{
+  const val = { eyebrow:$("cEyebrow").value.trim(), script:$("cScript").value.trim(),
+    title_a:$("cTitleA").value.trim(), title_b:$("cTitleB").value.trim(),
+    accent:$("cAccent").value.trim(), story:$("cStory").value.trim() };
+  const { error } = await sb.from("site_settings").upsert({key:"content",value:val});
+  if (error) return toast("Could not save content", error.message, "err");
+  toast("Site content saved", "Homepage headline and story updated.", "ok");
+};
+$("reloadContent").onclick = loadContent;
+
+/* Offers + popup */
+async function loadPopup(){
+  const { data } = await sb.from("site_settings").select("value").eq("key","popup").single();
+  const v = (data && data.value) || {};
+  $("pActive").checked = !!v.active; $("pBadge").value=v.badge||"";
+  $("pTitle").value=v.title||""; $("pMsg").value=v.message||"";
+  $("pCta").value=v.cta_text||""; $("pUrl").value=v.cta_url||""; $("pImg").value=v.image||"";
+}
+$("savePopup").onclick = async ()=>{
+  const val = { active:$("pActive").checked, badge:$("pBadge").value.trim(), title:$("pTitle").value.trim(),
+    message:$("pMsg").value.trim(), cta_text:$("pCta").value.trim(), cta_url:$("pUrl").value.trim(), image:$("pImg").value.trim() };
+  const { error } = await sb.from("site_settings").upsert({key:"popup",value:val});
+  if (error) return toast("Could not save popup", error.message, "err");
+  toast(val.active ? "Popup is live" : "Popup saved (hidden)", val.active ? "Visitors will see it on the homepage." : "Turn on the switch to show it.", "ok");
+};
+$("reloadPopup").onclick = loadPopup;
+$("previewPopup").onclick = ()=>{
+  toast($("pTitle").value || "Popup preview", $("pMsg").value || "This is how the message reads.", "inf");
+};
+
+/* Menu */
 let MENU=[];
+const CATS = ["Morning Bakery","Breakfast","Artisan Pizzas","Artisan Toasts","Small Plates","Salads","Sandwiches & Wraps","Pasta & Bowls","House Specialties","Desserts"];
 async function loadMenu(){
   const { data, error } = await sb.from("menu_items").select("*").order("sort");
-  if (error) return alert(error.message);
+  if (error) return toast("Menu load failed", error.message, "err");
   MENU = data||[]; $("stMenu").textContent = MENU.length;
   const cats = [...new Set(MENU.map(m=>m.category))];
-  $("menuCat").innerHTML = `<option value="">All categories</option>`+cats.map(c=>`<option>${c}</option>`).join("");
-  $("qrDish").innerHTML = MENU.map(m=>`<option value="${m.id}">#${m.id} — ${m.name}</option>`).join("");
+  $("menuCat").innerHTML = '<option value="">All categories</option>'+cats.map(c=>'<option>'+c+'</option>').join("");
+  $("nCat").innerHTML = (cats.length?cats:CATS).map(c=>'<option>'+c+'</option>').join("");
+  $("qrDish").innerHTML = MENU.map(m=>'<option value="'+m.id+'">#'+m.id+' — '+m.name+'</option>').join("");
   renderMenu();
 }
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
 function renderMenu(){
   const q = ($("menuSearch").value||"").toLowerCase(), c = $("menuCat").value;
-  const list = MENU.filter(m=>(!c||m.category===c)&&(!q||(m.name+" "+m.description).toLowerCase().includes(q))).slice(0,60);
-  $("menuRows").innerHTML = list.map(m=>`<tr>
-    <td><img src="${m.image_url}" loading="lazy" onerror="this.src='menu_images/01_butter_croissant.webp'"></td>
-    <td><b>#${m.id} ${m.name}</b><br><small style="color:var(--mut)">${m.category}</small></td>
-    <td><input type="text" value="${m.image_url}" data-id="${m.id}" class="murl" style="min-width:220px"></td>
-    <td><button class="btn btn--sm btn--gold" onclick="saveDish(${m.id},this)">Save</button></td></tr>`).join("");
+  const list = MENU.filter(m=>(!c||m.category===c)&&(!q||(m.name+" "+m.description).toLowerCase().includes(q))).slice(0,80);
+  $("menuRows").innerHTML = list.map(m=>'<tr>'+
+    '<td><img src="'+esc(m.image_url)+'" loading="lazy" onerror="this.src=\'menu_images/01_butter_croissant.webp\'"></td>'+
+    '<td><b>#'+m.id+' '+esc(m.name)+'</b></td>'+
+    '<td><select class="mcat" data-id="'+m.id+'">'+CATS.map(x=>'<option'+(x===m.category?' selected':'')+'>'+x+'</option>').join("")+'</select></td>'+
+    '<td><input type="text" class="murl" data-id="'+m.id+'" value="'+esc(m.image_url)+'" style="min-width:200px"></td>'+
+    '<td><input type="checkbox" class="mact" data-id="'+m.id+'" '+(m.active?'checked':'')+' style="width:18px;height:18px"></td>'+
+    '<td style="white-space:nowrap"><button class="btn btn--dark btn--sm" onclick="saveDish('+m.id+',this)">Save</button> '+
+    '<button class="btn btn--ghost btn--sm" onclick="delDish('+m.id+')">Delete</button></td></tr>').join("");
 }
 window.saveDish = async (id,btn)=>{
-  const inp = document.querySelector(`.murl[data-id="${id}"]`);
-  const { error } = await sb.from("menu_items").update({image_url:inp.value.trim()}).eq("id",id);
-  btn.textContent = error ? "❌" : "✓ Saved"; setTimeout(()=>btn.textContent="Save",1500);
+  const url = document.querySelector('.murl[data-id="'+id+'"]').value.trim();
+  const cat = document.querySelector('.mcat[data-id="'+id+'"]').value;
+  const act = document.querySelector('.mact[data-id="'+id+'"]').checked;
+  const { error } = await sb.from("menu_items").update({image_url:url,category:cat,active:act}).eq("id",id);
+  if (error) return toast("Save failed", error.message, "err");
+  toast("Dish #"+id+" saved", "Menu updated.", "ok"); loadMenu();
+};
+window.delDish = async id=>{
+  if(!confirm("Delete dish #"+id+" permanently?")) return;
+  const { error } = await sb.from("menu_items").delete().eq("id",id);
+  if (error) return toast("Delete failed", error.message, "err");
+  toast("Dish deleted", "#"+id+" removed from the menu.", "ok"); loadMenu();
 };
 $("menuSearch").oninput = renderMenu; $("menuCat").onchange = renderMenu; $("reloadMenu").onclick = loadMenu;
-
-/* quick-replace with auto compress */
+$("addDish").onclick = async ()=>{
+  const name=$("nName").value.trim(); if(!name) return toast("Name required", "Give the new dish a name.", "err");
+  const row = { category:$("nCat").value, name, description:$("nDesc").value.trim(),
+    image_url:$("nImg").value.trim()||"menu_images/01_butter_croissant.webp", sort:MENU.length, active:true };
+  const { error } = await sb.from("menu_items").insert(row);
+  if (error) return toast("Add failed", error.message, "err");
+  $("nName").value=""; $("nDesc").value=""; $("nImg").value="";
+  toast("Dish added", name+" is now on the menu.", "ok"); loadMenu();
+};
 $("qrGo").onclick = async ()=>{
-  const f = $("qrFile").files[0]; if(!f) return alert("Choose a photo first.");
+  const f = $("qrFile").files[0]; if(!f) return toast("No photo", "Choose a photo first.", "err");
   const id = +$("qrDish").value;
   $("qrMsg").textContent = "Compressing…"; $("qrBar").style.width="20%";
   const r = await compressToWebP(f, MAX_KB);
-  if (r.over || r.kb > MAX_KB){ $("qrMsg").textContent = `⚠ Still ${fmtKB(r.kb)} — pick a smaller photo.`; return; }
-  const path = `menu/${id}_${Date.now()}.webp`;
-  $("qrBar").style.width="60%"; $("qrMsg").textContent=`Uploading ${fmtKB(r.kb)}…`;
+  if (r.over || r.kb > MAX_KB){ $("qrMsg").textContent = "Still "+fmtKB(r.kb)+" — pick a smaller photo."; return; }
+  trackSaving(r.origKB, r.kb);
+  const path = "menu/"+id+"_"+Date.now()+".webp";
+  $("qrBar").style.width="60%"; $("qrMsg").textContent="Uploading "+fmtKB(r.kb)+"…";
   const { error:upErr } = await sb.storage.from("media").upload(path, r.blob, {contentType:"image/webp"});
-  if (upErr){ $("qrMsg").textContent = "❌ "+upErr.message; return; }
-  const { data } = sb.storage.from("media").getPublicUrl(path);
-  const { error:dbErr } = await sb.from("menu_items").update({image_url:data.publicUrl, image_path:path}).eq("id",id);
+  if (upErr){ $("qrMsg").textContent = upErr.message; return; }
+  const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
+  const { error:dbErr } = await sb.from("menu_items").update({image_url:pub, image_path:path}).eq("id",id);
   $("qrBar").style.width="100%";
-  $("qrMsg").textContent = dbErr ? "❌ "+dbErr.message : `✅ Dish #${id} updated — ${fmtKB(r.origKB)} → ${fmtKB(r.kb)}`;
-  if(!dbErr) loadMenu();
+  if (dbErr){ $("qrMsg").textContent = dbErr.message; return; }
+  $("qrMsg").textContent = "Dish #"+id+" updated — "+fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".";
+  toast("Dish image replaced", fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".", "ok"); loadMenu();
 };
 
-/* ---- settings / check ---- */
+/* Library */
+$("libGo").onclick = async ()=>{
+  const folder = $("libFolder").value;
+  const { data, error } = await sb.storage.from("media").list(folder, {limit:60});
+  if (error) return toast("Library failed", error.message, "err");
+  const files = (data||[]).filter(x=>x.id!==null && x.name!==".emptyFolderPlaceholder");
+  $("libCards").innerHTML = files.length ? files.map(x=>{
+    const path = folder ? folder+"/"+x.name : x.name;
+    const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
+    const isVid = /\.(mp4|webm|mov)$/i.test(x.name);
+    return '<div class="card">'+(isVid?'<video src="'+pub+'" muted playsinline preload="none"></video>':'<img src="'+pub+'" loading="lazy" alt="">')+
+    '<div class="card__b"><b>'+x.name+'</b><small>'+path+' · '+fmtKB((x.metadata&&x.metadata.size||0)/1024)+'</small>'+
+    '<div class="row"><button class="btn btn--ghost btn--sm" data-u="'+pub+'" onclick="navigator.clipboard.writeText(this.getAttribute(\'data-u\'));toast(\'URL copied\',\'Paste it anywhere on the site.\',\'inf\')">Copy URL</button>'+
+    '<button class="btn btn--ghost btn--sm" data-p="'+path+'" onclick="delFile(this)">Delete</button></div></div></div>';
+  }).join("") : '<p class="hint">No files in this folder yet.</p>';
+};
+window.delFile = async btn=>{
+  const path = btn.getAttribute("data-p");
+  if(!confirm("Delete "+path+"?")) return;
+  const { error } = await sb.storage.from("media").remove([path]);
+  if (error) return toast("Delete failed", error.message, "err");
+  toast("File deleted", path, "ok"); $("libGo").click();
+};
+
+/* Upload */
+$("upFile").onchange = e=>{
+  const f = e.target.files[0]; if(!f) return;
+  $("upPrev").src = URL.createObjectURL(f);
+  $("upInfo").innerHTML = "Original: <b>"+fmtKB(f.size/1024)+"</b> — will compress to <b>WebP, max "+MAX_KB+"KB</b>.";
+  $("upGo").disabled = false; $("upMsg").textContent = "";
+};
+$("upGo").onclick = async ()=>{
+  const f = $("upFile").files[0]; if(!f) return;
+  $("upGo").disabled = true; $("upBar").style.width = "15%"; $("upMsg").textContent = "Compressing to WebP…";
+  try{
+    const r = await compressToWebP(f, MAX_KB);
+    $("upBar").style.width = "55%";
+    if (r.over || r.kb > MAX_KB){ $("upMsg").textContent = "Smallest possible is "+fmtKB(r.kb)+" — still over limit. Try a smaller photo."; $("upGo").disabled=false; return; }
+    trackSaving(r.origKB, r.kb);
+    const base = ($("upName").value.trim() || f.name.replace(/\.[^.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"-")) + "_"+Date.now()+".webp";
+    const path = "compressed/"+base;
+    $("upMsg").textContent = "Uploading "+fmtKB(r.kb)+" ("+r.w+"x"+r.h+")…";
+    const { error } = await sb.storage.from($("upBucket").value).upload(path, r.blob, {contentType:"image/webp"});
+    if (error) throw error;
+    lastURL = sb.storage.from($("upBucket").value).getPublicUrl(path).data.publicUrl;
+    $("upBar").style.width = "100%";
+    $("upMsg").textContent = "Uploaded "+fmtKB(r.kb)+" (saved "+fmtKB(r.origKB-r.kb)+"). URL ready — use Copy.";
+    $("upCopy").disabled = false;
+    toast("Image uploaded", fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".", "ok");
+  }catch(err){ $("upMsg").textContent = err.message; toast("Upload failed", err.message, "err"); }
+  $("upGo").disabled = false;
+};
+$("upCopy").onclick = ()=>{ if(lastURL){ navigator.clipboard.writeText(lastURL); toast("URL copied","Paste it into any image field.","inf"); } };
+$("vidGo").onclick = async ()=>{
+  const f = $("vidFile").files[0]; if(!f) return;
+  if (f.size > 25*1048576) return toast("Video too large","Keep videos under 25MB (720p recommended).","err");
+  $("vidMsg").textContent = "Uploading…"; $("vidBar").style.width="30%";
+  const path = "videos/"+Date.now()+"_"+f.name.replace(/\s+/g,"-");
+  const { error } = await sb.storage.from("media").upload(path, f, {contentType:f.type||"video/mp4"});
+  if (error){ $("vidMsg").textContent = error.message; return; }
+  const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
+  lastURL = pub; $("vidBar").style.width="100%";
+  $("vidMsg").textContent = "Uploaded. Copy the URL and paste it into Home Films.";
+  toast("Video uploaded","Copy the URL into Home Films to use it.","ok");
+};
+
+/* Settings */
 function log(msg, cls){ const d=document.createElement("div"); if(cls)d.className=cls; d.textContent="› "+msg; $("log").appendChild(d); }
 $("checkBtn").onclick = async ()=>{
   $("log").innerHTML="";
-  log(`Project: ${cfg.url} · max ${MAX_KB}KB WebP`,"inf");
+  log("Project: "+cfg.url+" · image cap "+MAX_KB+"KB WebP","inf");
   for (const b of ["media","images"]){
-    const { data, error } = await sb.storage.from(b).list("",{limit:1});
-    log(error? `bucket ${b}: ${error.message}` : `bucket ${b}: OK (${data.length} shown)`, error?"err":"ok");
+    const r = await sb.storage.from(b).list("",{limit:1});
+    log(r.error ? "bucket "+b+": "+r.error.message : "bucket "+b+": OK", r.error?"err":"ok");
   }
   for (const t of ["site_settings","home_media","menu_items"]){
-    const { count, error } = await sb.from(t).select("*",{count:"exact",head:true});
-    log(error? `${t}: ${error.message}` : `${t}: ${count} rows`, error?"err":"ok");
+    const r = await sb.from(t).select("*",{count:"exact",head:true});
+    log(r.error ? t+": "+r.error.message : t+": "+r.count+" rows", r.error?"err":"ok");
   }
-  log("Rule: uploads MUST go through the compressor above — raw files exhaust storage (Farooq rule).","inf");
+  log("Rule: every image passes the WebP compressor — raw uploads never reach storage.","inf");
 };
 
 async function boot(){
   try{
-    $("conn").textContent = "● connected to Supabase";
-    await loadHero(); await loadMenu();
-  }catch(e){ $("conn").textContent = "connection failed: "+e.message; }
+    $("connChip").textContent = "Connected to Supabase";
+    $("connChip").classList.add("ok");
+    await loadHero(); await loadContent(); await loadPopup(); await loadMenu();
+  }catch(e){ $("connChip").textContent = "Connection failed"; toast("Connection failed", e.message, "err"); }
 }
-if (sessionStorage.getItem("dd_admin")==="1") boot();
 </script>
 </body>
 </html>
