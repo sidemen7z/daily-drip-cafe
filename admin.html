@@ -195,7 +195,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
     <nav class="snav" id="snav">
       <div class="navlabel">WORKSPACE</div>
       <button data-t="overview" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Overview</button>
-      <button data-t="website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg>Website Editor</button>
       <button data-t="menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Menu Manager</button>
       <button data-t="offers"><svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 7v14M12 7s-1.5-4-4.5-4S5 7 12 7zM12 7s1.5-4 4.5-4S19 7 12 7z"/></svg>Offers &amp; Popups</button>
       <div class="navlabel">CONTENT</div>
@@ -207,7 +206,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
       <div class="navlabel">SYSTEM</div>
       <button data-t="library"><svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>Media Library</button>
       <button data-t="upload"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload</button>
-      <button data-t="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.4 2.7h4l.4-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.06-.4.1-.8.1-1.2z"/></svg>Diagnostics</button>
     </nav>
     <div class="side__foot">
       <a href="index.html" style="color:var(--peach)">View live site</a>
@@ -244,7 +242,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
         <div class="stat link" data-goto="upload"><small>UPLOADS</small><b id="stUploads">–</b><span>this session</span></div>
       </div>
       <div class="grid2">
-        <div class="card"><div class="card__head"><div><h3>Content health</h3><p class="sub">What the homepage needs before it looks complete.</p></div></div><div id="healthList"></div></div>
         <div class="card"><div class="card__head"><div><h3>Quick actions</h3><p class="sub">Most-used tasks, one click away.</p></div></div>
           <div class="row" style="margin-top:0">
             <button class="btn btn--dark btn--sm" onclick="gotoTab('menu')">Add dish</button>
@@ -252,30 +249,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
             <button class="btn btn--ghost btn--sm" onclick="gotoTab('offers')">Edit popup</button>
             <button class="btn btn--ghost btn--sm" onclick="gotoTab('homepage')">Hero films</button>
           </div>
-          <hr class="divider">
-          <h4>Latest dishes</h4>
-          <div id="recentList"></div>
         </div>
-      </div>
-    </section>
-
-    <!-- WEBSITE EDITOR -->
-    <section class="page" id="page-website">
-      <div class="card">
-        <div class="card__head"><div><h3>Website editor</h3><p class="sub">Navigation labels, Reserve button and the WhatsApp / phone numbers used across Home and Menu. Applied instantly on save.</p></div><button class="btn btn--dark btn--sm" id="saveWebsite">Save website</button></div>
-        <div class="grid2">
-          <div>
-            <label class="f">Navigation links (label → target)</label>
-            <div id="navRows"></div>
-            <p class="hint">Keep 6 links. Targets can be <b>#story</b>, <b>menu.html</b>, <b>#visit</b> etc.</p>
-          </div>
-          <div>
-            <label class="f">Reserve a Table — button text</label><input type="text" id="wReserveText" placeholder="Reserve a Table →">
-            <label class="f">Reserve a Table — link</label><input type="text" id="wReserveUrl" placeholder="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20reserve%20a%20table.">
-            <label class="f">WhatsApp number (digits only, with country code)</label><input type="text" id="wWa" placeholder="917738314007">
-            <label class="f">Call number (display + tel link)</label><input type="text" id="wPhone" placeholder="+91 77383 14007">
-            <label class="f">Email</label><input type="text" id="wEmail" placeholder="hello@dailydripcafe.in">
-          </div>
+        <div class="card"><div class="card__head"><div><h3>Latest dishes</h3><p class="sub">Newest on the live menu.</p></div></div>
+          <div id="recentList"></div>
         </div>
       </div>
     </section>
@@ -283,23 +259,34 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
     <!-- MENU MANAGER -->
     <section class="page" id="page-menu">
       <div class="card">
-        <div class="card__head"><div><h3>Menu manager</h3><p class="sub">Dishes render live on <b>menu.html</b> from Supabase when available (otherwise the built-in list is used). Edit inline, add dishes, or hide seasonal items.</p></div><button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button></div>
+        <h3>Add new dish</h3><p class="sub">Dish name, category, description and photo — exactly what shows on the website. Upload a photo or paste an image URL.</p>
+        <div class="grid2">
+          <div><label class="f">Dish name</label><input type="text" id="nName" placeholder="Truffle Arancini">
+          <label class="f">Category</label><select id="nCat"></select></div>
+          <div><label class="f">Description</label><textarea id="nDesc" placeholder="Crisp risotto balls, parmesan cream…"></textarea></div>
+        </div>
+        <label class="f">Dish photo</label>
+        <div class="row" style="margin-top:0">
+          <button class="btn btn--dark btn--sm" id="nUploadBtn">Upload image</button>
+          <button class="btn btn--ghost btn--sm" id="nUrlBtn">Paste URL</button>
+          <input type="file" id="nImgFile" accept="image/*" hidden>
+        </div>
+        <div class="row">
+          <img id="nImgPrev" class="thumb" style="display:none" alt="">
+          <input type="text" id="nImg" placeholder="https://…/dish.webp — uploaded or pasted URL appears here" style="flex:1;min-width:220px">
+        </div>
+        <p class="hint" id="nImgMsg"></p>
+        <label class="switchrow" style="font-weight:500"><input type="checkbox" id="nActive" checked> Visible on the menu</label>
+        <div class="row"><button class="btn btn--dark" id="addDish">Add dish to menu</button></div>
+      </div>
+      <div class="card">
+        <div class="card__head"><div><h3>Menu manager</h3><p class="sub">Dishes render live on <b>menu.html</b> from Supabase when available (otherwise the built-in list is used). Edit inline or hide seasonal items.</p></div><button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button></div>
         <div class="row" style="margin-top:0">
           <input type="text" id="menuSearch" placeholder="Search dishes — burrata, pizza…" style="max-width:300px">
           <select id="menuCat" style="max-width:230px"><option value="">All categories</option></select>
         </div>
         <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Category</th><th>Image URL</th><th>Live</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
         <p class="hint" id="menuCount"></p>
-      </div>
-      <div class="card">
-        <h3>Add new dish</h3><p class="sub">Upload the photo in Upload first, then paste the URL here.</p>
-        <div class="grid2">
-          <div><label class="f">Dish name</label><input type="text" id="nName" placeholder="Truffle Arancini">
-          <label class="f">Category</label><select id="nCat"></select></div>
-          <div><label class="f">Description</label><textarea id="nDesc" placeholder="Crisp risotto balls, parmesan cream…"></textarea>
-          <label class="f">Image URL</label><input type="text" id="nImg" placeholder="https://…/dish.webp"></div>
-        </div>
-        <div class="row"><button class="btn btn--dark" id="addDish">Add dish to menu</button></div>
       </div>
       <div class="card">
         <h3>Quick image replace</h3><p class="sub">Pick a dish, choose a photo — compressed to WebP under 250KB, uploaded and linked in one step.</p>
@@ -524,14 +511,6 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
       </div>
     </section>
 
-    <!-- DIAGNOSTICS -->
-    <section class="page" id="page-settings">
-      <div class="card">
-        <div class="card__head"><div><h3>Diagnostics</h3><p class="sub">Verify storage, tables and content keys. To change the login, edit ADMIN_ID / ADMIN_PASS in admin.html and push again.</p></div><button class="btn btn--dark btn--sm" id="checkBtn">Run system check</button></div>
-        <div class="log" id="log">Ready. Run a system check to verify the connection and content.</div>
-      </div>
-    </section>
-
     </div>
   </div>
 </div>
@@ -561,7 +540,7 @@ const $ = id => document.getElementById(id);
 let lastURL = "", savedBytes = 0, uploadCount = 0;
 let MENU = [];
 const CATS = ["Morning Bakery","Breakfast","Artisan Pizzas","Artisan Toasts","Small Plates","Salads","Sandwiches & Wraps","Pasta & Bowls","House Specialties","Desserts"];
-const PAGE_META = {overview:["WORKSPACE · OVERVIEW","Overview"],website:["WORKSPACE · WEBSITE","Website Editor"],menu:["WORKSPACE · MENU","Menu Manager"],offers:["WORKSPACE · OFFERS","Offers & Popups"],homepage:["CONTENT · HOMEPAGE","Homepage Sections"],story:["CONTENT · STORY","Our Story"],gallery:["CONTENT · GALLERY","Gallery & Media"],locations:["CONTENT · LOCATIONS","Locations & Contact"],footer:["CONTENT · FOOTER","Footer & Settings"],library:["SYSTEM · MEDIA","Media Library"],upload:["SYSTEM · UPLOAD","Upload"],settings:["SYSTEM · DIAGNOSTICS","Diagnostics"]};
+const PAGE_META = {overview:["WORKSPACE · OVERVIEW","Overview"],menu:["WORKSPACE · MENU","Menu Manager"],offers:["WORKSPACE · OFFERS","Offers & Popups"],homepage:["CONTENT · HOMEPAGE","Homepage Sections"],story:["CONTENT · STORY","Our Story"],gallery:["CONTENT · GALLERY","Gallery & Media"],locations:["CONTENT · LOCATIONS","Locations & Contact"],footer:["CONTENT · FOOTER","Footer & Settings"],library:["SYSTEM · MEDIA","Media Library"],upload:["SYSTEM · UPLOAD","Upload"]};
 
 /* Toasts */
 function toast(title, sub, kind){
@@ -665,7 +644,7 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("dlg").hidde
 async function boot(silent){
   try{
     if(!silent){ $("menuRows").innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Loading…</td></tr>'; }
-    await Promise.all([loadHero(), loadContent(), loadPopup(), loadMenu(), loadWebsite(), loadHomepage(), loadStory(), loadGallery(), loadLocations(), loadFooter()]);
+    await Promise.all([loadHero(), loadContent(), loadPopup(), loadMenu(), loadHomepage(), loadStory(), loadGallery(), loadLocations(), loadFooter()]);
     renderOverview();
   }catch(e){ if(!silent) toast("Connection failed", e.message, "err"); }
 }
@@ -678,16 +657,6 @@ function renderOverview(){
   $("recentList").innerHTML = MENU.slice(-5).reverse().map(m=>
     '<div class="minirow"><img src="'+esc(m.image_url)+'" onerror="this.src=\'menu_images/01_butter_croissant.webp\'"><div style="flex:1"><b>'+esc(m.name)+'</b><div style="font-size:11px;color:var(--muted)">'+esc(m.category)+'</div></div><span class="pill '+(m.active?'ok':'off')+'">'+(m.active?'Live':'Hidden')+'</span></div>'
   ).join("") || '<p class="hint">No dishes yet.</p>';
-  const checks = [
-    ["Hero films set", !!($("hero1").value && $("hero2").value)],
-    ["Headline + tagline set", !!($("cTitleA").value || $("cAccent").value)],
-    ["Popup configured", !!($("pTitle").value)],
-    ["Menu has dishes", MENU.length > 0],
-    ["Gallery has frames", document.querySelectorAll("#galRows .galrow").length >= 3],
-    ["Locations + footer filled", !!($("lPhone").value && $("ftEmail").value)]
-  ];
-  $("healthList").innerHTML = checks.map(([l,ok])=>
-    '<div class="check '+(ok?'y':'n')+'"><i>'+(ok?'✓':'!')+'</i><span>'+l+'</span></div>').join("");
 }
 
 /* ---------- HERO + HEADLINE ---------- */
@@ -756,31 +725,6 @@ $("saveContent").onclick = async ()=>{
 };
 $("reloadContent").onclick = loadContent;
 
-/* ---------- WEBSITE ---------- */
-const DEFAULT_NAV = [["Home","#"],["Menu","menu.html"],["Our Story","#story"],["Gallery","#gallery"],["Locations","#visit"],["Contact","#contact"]];
-function paintNav(rows){
-  $("navRows").innerHTML = rows.map((r,i)=>
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><input type="text" data-nav="l" data-i="'+i+'" value="'+esc(r[0]||"")+'" placeholder="Label"><input type="text" data-nav="u" data-i="'+i+'" value="'+esc(r[1]||"")+'" placeholder="Target"></div>').join("");
-}
-async function loadWebsite(){
-  const v = await getSetting("website") || {};
-  paintNav(v.nav && v.nav.length ? v.nav : DEFAULT_NAV);
-  $("wReserveText").value = v.reserve_text || "";
-  $("wReserveUrl").value = v.reserve_url || "";
-  $("wWa").value = v.whatsapp || "";
-  $("wPhone").value = v.phone || "";
-  $("wEmail").value = v.email || "";
-}
-$("saveWebsite").onclick = async ()=>{
-  const labels = [...document.querySelectorAll('[data-nav="l"]')].map(x=>x.value.trim());
-  const urls = [...document.querySelectorAll('[data-nav="u"]')].map(x=>x.value.trim());
-  const nav = labels.map((l,i)=>[l, urls[i]||"#"]).filter(r=>r[0]);
-  const val = { nav, reserve_text:$("wReserveText").value.trim(), reserve_url:$("wReserveUrl").value.trim(),
-    whatsapp:$("wWa").value.replace(/\D/g,""), phone:$("wPhone").value.trim(), email:$("wEmail").value.trim() };
-  try{ await saveSetting("website", val); toast("Website saved","Navigation, Reserve button and numbers are live."); }
-  catch(e){ toast("Save failed", e.message, "err"); }
-};
-
 /* ---------- MENU ---------- */
 async function loadMenu(){
   const { data, error } = await sb.from("menu_items").select("*").order("sort");
@@ -828,11 +772,30 @@ $("menuSearch").oninput = renderMenu; $("menuCat").onchange = renderMenu; $("rel
 $("addDish").onclick = async ()=>{
   const name=$("nName").value.trim(); if(!name) return toast("Name required","Give the dish a name.","err");
   const row = { category:$("nCat").value, name, description:$("nDesc").value.trim(),
-    image_url:$("nImg").value.trim()||"menu_images/01_butter_croissant.webp", sort:MENU.length, active:true };
+    image_url:$("nImg").value.trim()||"menu_images/01_butter_croissant.webp", sort:MENU.length, active:$("nActive").checked };
   const { error } = await sb.from("menu_items").insert(row);
   if(error) return toast("Add failed", error.message, "err");
-  $("nName").value=""; $("nDesc").value=""; $("nImg").value="";
+  $("nName").value=""; $("nDesc").value=""; $("nImg").value=""; $("nActive").checked=true;
+  $("nImgPrev").style.display="none"; $("nImgMsg").textContent="";
   toast("Dish added", name+" is on the menu."); loadMenu();
+};
+/* Dish photo: upload (auto-compress) or paste URL — same as Main Image */
+$("nUploadBtn").onclick = ()=>$("nImgFile").click();
+$("nUrlBtn").onclick = ()=>{ const u=prompt("Paste image URL:"); if(u){ $("nImg").value=u.trim(); $("nImgPrev").src=u.trim(); $("nImgPrev").style.display="block"; $("nImgMsg").textContent=""; } };
+$("nImg").oninput = e=>{ const v=e.target.value.trim(); if(v){ $("nImgPrev").src=v; $("nImgPrev").style.display="block"; } else $("nImgPrev").style.display="none"; };
+$("nImgFile").onchange = async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  $("nImgMsg").textContent="Compressing…";
+  try{
+    const r = await compressToWebP(f, MAX_KB);
+    if(r.over || r.kb > MAX_KB){ $("nImgMsg").textContent="Still "+fmtKB(r.kb)+" — pick a smaller photo."; return; }
+    $("nImgMsg").textContent="Uploading "+fmtKB(r.kb)+"…";
+    const base=(f.name.replace(/\.[^.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"-")||"dish")+"_"+Date.now()+".webp";
+    const pub = await uploadBlob(r.blob, "menu/"+base, "image/webp");
+    $("nImg").value=pub; $("nImgPrev").src=pub; $("nImgPrev").style.display="block";
+    $("nImgMsg").textContent="Uploaded "+fmtKB(r.kb)+" — ready to save.";
+  }catch(err){ $("nImgMsg").textContent=err.message; }
+  e.target.value="";
 };
 $("qrGo").onclick = async ()=>{
   const f = $("qrFile").files[0]; if(!f) return toast("No photo","Choose a photo first.","err");
@@ -1097,25 +1060,6 @@ $("vidGo").onclick = async ()=>{
     navigator.clipboard.writeText(lastURL).catch(()=>{});
     toast("Video uploaded","URL copied — paste it into Hero films.");
   }catch(e){ $("vidMsg").textContent = e.message; }
-};
-
-/* ---------- DIAGNOSTICS ---------- */
-function log(msg, cls){ const d=document.createElement("div"); if(cls)d.className=cls; d.textContent="› "+msg; $("log").appendChild(d); }
-$("checkBtn").onclick = async ()=>{
-  $("log").innerHTML="";
-  log("Daily Drip CMS · images auto-optimised to "+MAX_KB+"KB","inf");
-  for(const lb of [["media","Main library"],["images","Photo library"]]){
-    const r = await sb.storage.from(lb[0]).list("",{limit:1});
-    log(r.error ? lb[1]+": "+r.error.message : lb[1]+": OK", r.error?"err":"ok");
-  }
-  for(const t of [["site_settings","Settings keys"],["home_media","Media slots"],["menu_items","Menu dishes"]]){
-    const r = await sb.from(t[0]).select("*",{count:"exact",head:true});
-    log(r.error ? t[1]+": "+r.error.message : t[1]+": "+r.count+" rows", r.error?"err":"ok");
-  }
-  for(const k of ["hero","content","popup","website","homepage","story","gallery","locations","footer"]){
-    const v = await getSetting(k);
-    log(k+": "+(v?"configured":"empty — using site defaults"), v?"ok":"inf");
-  }
 };
 </script>
 </body>
