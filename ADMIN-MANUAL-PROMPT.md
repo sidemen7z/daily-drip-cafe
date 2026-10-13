@@ -7,6 +7,37 @@
 
 Generate a **user manual (PDF-ready document)** for the **Daily Drip Café Admin Panel (CMS)** — the private control panel that edits the live café website.
 
+## SCREENSHOTS — MANDATORY (read this first, do not skip)
+
+You MUST include real screenshots. Do not ship the manual with empty grey boxes.
+
+**Step 1 — open the admin panel yourself and capture screenshots:**
+- URL: `https://daily-drip-cafe.vercel.app/admin`
+- Admin ID: `admin` — Password: `dailydrip2026`
+- The owner gives you full permission to log in and take screenshots for this manual.
+- Capture each screen at desktop width (1440px), full section visible, sidebar included.
+
+**Step 2 — exact shot list (13 screenshots, one per item, in this order):**
+1. Login screen (ID + password fields)
+2. Overview (stats + quick actions + latest dishes)
+3. Menu Manager — Add new dish form (top card)
+4. Menu Manager — dishes table with search
+5. Menu Manager — Quick image replace card
+6. Offers & Popups (all fields + the ON switch)
+7. Homepage Sections — Hero films & headline card
+8. Homepage Sections — Brand pillars + Seasonal specials cards
+9. Our Story (all fields)
+10. Gallery & Media (frames list + media slots)
+11. Locations & Contact + Footer & Settings (both cards)
+12. Media Library (file cards) + Upload (dropzone + video upload)
+13. The live website homepage (`https://daily-drip-cafe.vercel.app/`) for the cover page
+
+**Step 3 — layout rules so pages never look broken ("ganda"):**
+- Every screenshot sits inside a fixed frame: 16:9, rounded corners, thin border, caption below in small grey text ("Fig. 3 — Add new dish form").
+- Never stretch or crop screenshots. If a screenshot is tall, scale it to fit page width and continue on the next page — never squeeze text around it.
+- One screenshot per page-half maximum; keep at least 12mm margins on all sides.
+- If (and only if) you genuinely cannot browse/capture: use a clean bordered placeholder box of the SAME fixed size with the caption text inside it, and keep the surrounding layout intact. Never leave a collapsed, overlapping, or half-rendered block.
+
 ## About the product (context for the manual)
 
 - **Café:** Daily Drip Café, Bandra West, Mumbai.
@@ -55,6 +86,6 @@ Sidebar has 10 sections:
 - Title: **"Daily Drip Café — Admin Panel User Manual"**, subtitle "Bandra West, Mumbai".
 - Start with a 1-page quick-start ("Add a dish photo in 4 steps").
 - Table of contents.
-- Every chapter: goal line, numbered steps, a field-reference table (Field | What to type | Example), one **[Screenshot: …]** placeholder, and a "Tips / Warnings" box where relevant.
+- Every chapter: goal line, numbered steps, a field-reference table (Field | What to type | Example), the mandatory screenshot from the shot list above with caption, and a "Tips / Warnings" box where relevant.
 - Café-brand styling: ivory background, espresso (#241812) headings in serif, caramel (#C69A52) accents.
 - End with a one-page "Daily / Weekly checklist" (check popup dates, seasonal picks, new photos, phone/WhatsApp numbers).
