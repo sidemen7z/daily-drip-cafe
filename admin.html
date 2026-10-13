@@ -3,159 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Console | Daily Drip Cafe</title>
+<title>Daily Drip CMS — Bandra West, Mumbai</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="images/favicon-32x32.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
---espresso:#141010;--bark:#1d1715;--cream:#fdf9f5;--cream2:#f6ece4;
---blush:#f3c6b3;--blush-soft:#fbe9de;--peach:#e9b48c;
---forest:#15261e;--gold:#c9a227;--text:#2b2220;--muted:#8a7d76;--border:#efe0d4;
---green:#1c7a3d;--red:#b3261e;--r:14px;
+--espresso:#241812;--espresso2:#2e2018;--char:#171411;
+--ivory:#F7F5F1;--white:#FFFFFF;--peach:#F2C1AD;--peach-soft:#F9E4D8;
+--caramel:#C69A52;--caramel-d:#a37e3e;--border:#E7E0D7;--border2:#efe8dc;
+--text:#241812;--muted:#81776F;--green:#2e7d46;--green-bg:#e6f3ea;--red:#b3261e;--red-bg:#fbe7e5;
+--r:12px;--sh:0 1px 2px rgba(36,24,18,.06);
+--serif:'Playfair Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
 }
-body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
-img,video{max-width:100%}a{color:inherit;text-decoration:none}button{font-family:inherit}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ivory);color:var(--text);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img,video{max-width:100%}a{color:inherit}button{font-family:inherit}
 /* ---------- LOGIN ---------- */
-#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000}
-#gate video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#gate .shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,6,5,.82) 0%,rgba(10,6,5,.55) 50%,rgba(10,6,5,.35) 100%)}
-.gate__card{position:relative;z-index:2;background:rgba(253,249,245,.98);border-radius:20px;padding:44px 42px;max-width:430px;width:calc(100% - 40px);box-shadow:0 30px 80px rgba(0,0,0,.5);text-align:center}
-.gate__eyebrow{font-size:10px;font-weight:800;letter-spacing:4px;color:var(--gold)}
-.gate__card h1{font-family:'Playfair Display',serif;font-size:34px;margin:8px 0 2px}
-.gate__card h1 em{color:var(--gold);font-style:italic}
-.gate__sub{color:var(--muted);font-size:13.5px;margin-bottom:22px}
-.gate__card label{display:block;text-align:left;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 0 6px}
-.gate__card input{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit;background:#fff;color:var(--text)}
-.gate__card input:focus{outline:none;border-color:var(--gold)}
-.gate__btn{width:100%;margin-top:22px;background:var(--bark);color:#fff;border:none;border-radius:100px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:.25s}
-.gate__btn:hover{background:#000;transform:translateY(-1px)}
-.gate__err{color:var(--red);font-size:13px;font-weight:600;min-height:20px;margin-top:12px}
-.gate__foot{margin-top:14px;font-size:12px;color:var(--muted)}
-.gate__foot a{text-decoration:underline;font-weight:700}
-.gate__hint{margin-top:10px;font-size:11.5px;color:var(--muted);background:var(--blush-soft);border-radius:10px;padding:8px}
-/* ---------- APP with black sidebar (same layout) ---------- */
+#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:linear-gradient(120deg,var(--char) 0%,var(--espresso) 60%,#3a2415 100%);padding:20px}
+.gate__card{background:var(--ivory);border:1px solid var(--border);border-radius:18px;padding:40px 38px;max-width:400px;width:100%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.gate__eyebrow{font-size:10px;font-weight:800;letter-spacing:3px;color:var(--caramel)}
+.gate__card h1{font-family:var(--serif);font-size:32px;margin:8px 0 2px}.gate__card h1 em{color:var(--caramel);font-style:italic}
+.gate__sub{color:var(--muted);font-size:13px;margin-bottom:6px}
+.gate__card label{display:block;text-align:left;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 0 6px}
+.gate__card input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;background:#fff;color:var(--text)}
+.gate__card input:focus{outline:none;border-color:var(--caramel)}
+.gate__btn{width:100%;margin-top:20px;background:var(--espresso);color:#fff;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer}
+.gate__btn:hover{background:var(--char)}
+.gate__err{color:var(--red);font-size:12.5px;min-height:20px;margin-top:10px;font-weight:600}
+.gate__foot{margin-top:10px;font-size:12px;color:var(--muted)}.gate__foot a{font-weight:700;text-decoration:underline}
+/* ---------- SHELL ---------- */
 #app{display:none;min-height:100vh}
 .layout{display:flex;min-height:100vh}
-.sidebar{width:212px;flex:0 0 212px;background:#0b0b0c;color:#b9b3ad;position:fixed;top:0;bottom:0;left:0;display:flex;flex-direction:column;padding:18px 12px 14px;z-index:100}
-.side__title{color:#d4af37;font-weight:800;font-size:14px;padding:2px 10px 18px}
-.snav{display:flex;flex-direction:column;gap:4px;flex:1}
-.snav button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:#b9b3ad;font-size:13.2px;padding:10px 12px;border-radius:8px;cursor:pointer;text-align:left}
-.snav button:hover{background:#1c1c1e;color:#fff}
-.snav button.on{background:#9e1b32;color:#fff;font-weight:600}
-.side__foot{border-top:1px solid #222;padding-top:12px;display:flex;flex-direction:column;gap:2px;margin-top:10px}
-.side__foot a,.side__foot button{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:9px 12px;border-radius:8px;background:none;border:none;cursor:pointer;text-decoration:none}
-.link-gold{color:#d4af37}.link-red{color:#f87171}
-.main{flex:1;margin-left:212px;padding:24px 28px 70px;min-width:0;background:#f4f5f7}
-.phead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.phead h1{font-family:'Playfair Display',serif;font-size:23px}
-.btn-outline{background:#fff;color:#c9a227;border:1.5px solid #c9a227;border-radius:7px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer}
-.dd-hero{background:linear-gradient(110deg,#141010 0%,#2b1a12 55%,#4a2c14 100%);color:#fff;border-radius:14px;padding:26px;display:flex;gap:20px;align-items:center;justify-content:space-between;position:relative;overflow:hidden;margin-bottom:16px}
-.dd-hero::after{content:"☕";position:absolute;right:18px;bottom:-22px;font-size:130px;opacity:.12}
-.dd-hero h2{font-family:'Playfair Display',serif;font-size:26px}.dd-hero h2 em{color:#e9c46a;font-style:italic}
-.dd-hero p{color:rgba(255,255,255,.7);font-size:13px;margin-top:4px}
-.dd-pill{font-size:11px;font-weight:700;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:100px;margin-right:8px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 16px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative;overflow:hidden}
-.stat::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold)}
-.stat small{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--muted)}
-.stat b{display:block;font-size:30px;margin-top:2px}.stat b em{font-style:normal;font-size:13px;color:var(--gold)}
-.stat span{font-size:12px;color:var(--muted)}
-.stat.link{cursor:pointer}.stat.link:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.1)}
-.dd-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.dd-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
-.dd-card h4{font-size:14px;font-weight:800}.dd-card p.sub{font-size:12px;color:var(--muted);margin:2px 0 12px}
-.qbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:8px}
-.qbtn:hover{background:#fffdf4;border-color:var(--gold)}
-.panel{animation:fadeUp .35s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.btn:active{transform:scale(.98)}
-input[type=text]:hover,input[type=url]:hover,input[type=password]:hover,select:hover,textarea:hover{border-color:#dccbbc}
-.tbl thead th{position:sticky;top:0;background:#fff}
-.tbl tbody tr{transition:background .15s}
-.tbl tbody tr:hover{background:#fffaf5}
-.tbl input[type=checkbox]{width:20px;height:20px;accent-color:var(--green);cursor:pointer}
-/* dropzone */
-.drop{border:2px dashed #dccbbc;border-radius:14px;background:#fffdf9;padding:26px 18px;text-align:center;cursor:pointer;transition:.2s}
-.drop:hover,.drop.over{border-color:var(--gold);background:var(--blush-soft)}
-.drop b{display:block;font-size:14px;margin-bottom:2px}
-.drop span{font-size:12px;color:var(--muted)}
-.drop input{display:none}
-/* spinner */
-.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite;vertical-align:-2px}
-@keyframes rot{to{transform:rotate(360deg)}}
-/* confirm dialog */
-.dlg{position:fixed;inset:0;z-index:400;background:rgba(10,6,5,.55);display:flex;align-items:center;justify-content:center;padding:20px}
-.dlg[hidden]{display:none}
-.dlg__card{background:#fdf9f5;border-radius:18px;max-width:400px;width:100%;padding:30px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:fadeUp .25s ease}
-.dlg__card h4{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
-.dlg__card p{color:var(--muted);font-size:13.5px;margin-bottom:20px}
-.dlg__btns{display:flex;gap:10px;justify-content:center}
-.tab{padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
-.tab:hover{border-color:var(--text);color:var(--text)}
-.tab.on{background:var(--bark);color:#fff;border-color:var(--bark)}
-.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-.panel h3{font-family:'Playfair Display',serif;font-size:22px}
-.panel p.sub{color:var(--muted);font-size:13.5px;margin:4px 0 18px;max-width:720px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-label.f{display:block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase}
-input[type=text],input[type=url],input[type=password],select,textarea{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:11px;color:var(--text);padding:11px 14px;font-size:14px;font-family:inherit}
-textarea{min-height:80px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+/* Sidebar — dark espresso */
+.sidebar{width:250px;flex:0 0 250px;background:var(--espresso);color:#cbbfae;position:fixed;top:0;bottom:0;left:0;display:flex;flex-direction:column;z-index:100}
+.brand{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand b{display:block;font-size:16px;font-weight:800;letter-spacing:3px;color:#fff}
+.brand span{display:block;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--caramel);margin-top:4px}
+.brand small{display:block;font-size:10.5px;color:#8d8175;margin-top:8px;letter-spacing:.4px}
+.snav{flex:1;overflow-y:auto;padding:12px 10px}
+.navlabel{font-size:9.5px;font-weight:800;letter-spacing:2px;color:#8d8175;padding:12px 12px 6px}
+.snav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;border-left:3px solid transparent;color:#cbbfae;font-size:13px;font-weight:500;padding:9px 12px;border-radius:0 8px 8px 0;cursor:pointer;text-align:left}
+.snav button svg{width:17px;height:17px;flex:0 0 17px;stroke:currentColor;fill:none;stroke-width:1.7;opacity:.85}
+.snav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.snav button.on{background:rgba(255,255,255,.08);color:#fff;font-weight:700;border-left-color:var(--caramel)}
+.side__foot{border-top:1px solid rgba(255,255,255,.08);padding:12px}
+.side__foot a,.side__foot button{display:flex;align-items:center;gap:9px;font-size:12.5px;padding:9px 12px;border-radius:8px;background:none;border:none;cursor:pointer;text-decoration:none;width:100%;color:#cbbfae;text-align:left}
+.side__foot a:hover,.side__foot button:hover{background:rgba(255,255,255,.06);color:#fff}
+.side__ver{font-size:10px;color:#6f6459;padding:2px 12px 4px}
+/* Main */
+.main{flex:1;margin-left:250px;min-width:0;padding:0 0 70px}
+.topbar{position:sticky;top:0;z-index:60;background:rgba(247,245,241,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.topbar__in{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:14px}
+.crumbs{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--caramel)}
+.topbar h1{font-family:var(--serif);font-size:24px;font-weight:700}
+.topbar p{font-size:12.5px;color:var(--muted)}
+.topbar__sp{flex:1}
+.statusdot{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--muted)}
+.statusdot i{width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 28px 0}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;border:1.5px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap}
+.btn--dark{background:var(--espresso);color:#fff}.btn--dark:hover{background:var(--char)}
+.btn--caramel{background:var(--caramel);color:#fff;border-color:var(--caramel)}.btn--caramel:hover{background:var(--caramel-d)}
+.btn--ghost{background:#fff;border-color:var(--espresso);color:var(--espresso)}.btn--ghost:hover{background:var(--espresso);color:#fff}
+.btn--soft{background:var(--peach-soft);border-color:var(--peach);color:var(--espresso)}.btn--soft:hover{background:var(--peach)}
+.btn--sm{padding:7px 14px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.menubtn{display:none;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:16px;cursor:pointer}
+/* Cards + forms */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);padding:22px;margin-bottom:16px}
+.card.tight{padding:16px 18px}
+.card h3{font-family:var(--serif);font-size:19px;font-weight:700}
+.card h4{font-size:13px;font-weight:800;letter-spacing:.2px}
+.card p.sub{color:var(--muted);font-size:12.5px;margin:4px 0 14px;max-width:760px}
+.card__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+label.f{display:block;font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase}
+input[type=text],input[type=url],input[type=password],input[type=number],select,textarea{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:9px;color:var(--text);padding:10px 13px;font-size:13.5px;font-family:inherit}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--caramel)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
-.hint{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
-.hint b{color:var(--text)}
-.switchrow{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;font-weight:600}
-.switchrow input{width:20px;height:20px;accent-color:var(--green)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:16px}
-.card{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-.card img,.card video{width:100%;height:140px;object-fit:cover;background:#000;display:block}
-.card__b{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
-.card__b b{font-size:14px}.card__b small{color:var(--muted);font-size:11.5px;word-break:break-all}
-.pill{font-size:10px;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase}
-.pill.ok{background:#e7f4ec;color:var(--green)}.pill.off{background:var(--cream2);color:var(--muted)}
-.kb{font-size:12px;font-weight:800;color:var(--green)}
-.progress{height:9px;background:var(--cream2);border-radius:8px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
-.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--peach));transition:width .2s}
-table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
-.tbl th{text-align:left;font-size:10px;letter-spacing:1.5px;color:var(--muted);padding:9px 8px;border-bottom:2px solid var(--border);text-transform:uppercase}
-.tbl td{padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top}
-.tbl img{width:64px;height:46px;object-fit:cover;border-radius:8px;background:var(--cream2)}
-.tbl input,.tbl select{padding:8px 10px;font-size:13px}
-.log{background:var(--bark);color:#e8ddd2;border-radius:12px;padding:14px 16px;font-size:12px;max-height:240px;overflow:auto;margin-top:12px;font-family:ui-monospace,monospace;line-height:1.8}
+.hint{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.6}.hint b{color:var(--text)}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.switchrow{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:13.5px;font-weight:600}
+.switchrow input{width:19px;height:19px;accent-color:var(--green)}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;font-size:13px;align-items:center}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--border);border-top:3px solid var(--caramel);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);cursor:default}
+.stat.link{cursor:pointer}.stat.link:hover{border-color:var(--caramel)}
+.stat small{font-size:9.5px;font-weight:800;letter-spacing:1.8px;color:var(--muted)}
+.stat b{display:block;font-size:29px;margin:3px 0 0;font-weight:800}.stat b em{font-style:normal;font-size:12px;color:var(--caramel);font-weight:700}
+.stat span{font-size:11.5px;color:var(--muted)}
+/* Tables */
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.tbl th{text-align:left;font-size:9.5px;letter-spacing:1.4px;color:var(--muted);padding:9px 10px;border-bottom:2px solid var(--border);text-transform:uppercase;white-space:nowrap}
+.tbl td{padding:10px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tbody tr:hover{background:#fdfaf4}
+.tbl img{width:62px;height:44px;object-fit:cover;border-radius:8px;background:#f1ebe1}
+.tbl input,.tbl select{padding:7px 9px;font-size:12.5px}
+.tbl input[type=checkbox]{width:18px;height:18px;accent-color:var(--green)}
+.pill{font-size:10px;font-weight:800;letter-spacing:.8px;padding:3px 11px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{background:var(--green-bg);color:var(--green)}.pill.off{background:#f1ebe6;color:var(--muted)}.pill.warn{background:#fdf0d8;color:#9a6b1a}
+/* Media cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px;margin-top:14px}
+.mcard{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.mcard img,.mcard video{width:100%;height:132px;object-fit:cover;background:#171411;display:block}
+.mcard__b{padding:11px 13px;display:flex;flex-direction:column;gap:5px;flex:1}
+.mcard__b b{font-size:13px}.mcard__b small{color:var(--muted);font-size:11px;word-break:break-all}
+/* Drop + progress */
+.drop{border:2px dashed #d9cdbd;border-radius:12px;background:#fffdf8;padding:24px 16px;text-align:center;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--caramel);background:var(--peach-soft)}
+.drop b{display:block;font-size:13.5px}.drop span{font-size:11.5px;color:var(--muted)}.drop input{display:none}
+.progress{height:8px;background:#f1ebe1;border-radius:8px;overflow:hidden;margin-top:12px}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--caramel),var(--peach));transition:width .2s}
+.log{background:var(--char);color:#e8ddd2;border-radius:10px;padding:13px 15px;font-size:11.5px;max-height:230px;overflow:auto;margin-top:12px;font-family:ui-monospace,monospace;line-height:1.8}
 .log .ok{color:#8fe3a8}.log .err{color:#ff9d94}.log .inf{color:#c9b8a6}
-/* toasts */
-#toasts{position:fixed;right:20px;top:76px;z-index:300;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 40px))}
-.toast{background:var(--bark);color:#fff;border-radius:12px;padding:14px 18px;font-size:13.5px;box-shadow:0 14px 40px rgba(0,0,0,.3);display:flex;gap:10px;align-items:flex-start;animation:slidein .3s ease}
-.toast.ok{border-left:5px solid #35c26e}.toast.err{border-left:5px solid #ff6b62}.toast.inf{border-left:5px solid var(--gold)}
-.toast b{display:block;font-size:13px}.toast span{opacity:.75;font-size:12px}
-@keyframes slidein{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
-.toast.out{transition:.3s;opacity:0;transform:translateX(30px)}
-.divider{border:none;border-top:1px solid var(--border);margin:22px 0}
-@media(max-width:820px){.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.panel{padding:20px}.gate__card{padding:34px 26px}}
-@media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.dd-grid2{grid-template-columns:1fr}.dd-hero{flex-direction:column;align-items:flex-start}}
+.thumb{width:100%;max-width:220px;height:110px;object-fit:cover;border-radius:9px;background:#f1ebe1;border:1px solid var(--border);display:block}
+.galrow{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid var(--border2)}
+.galrow:last-child{border:none}
+.galrow img{width:150px;height:92px;object-fit:cover;border-radius:9px;background:#f1ebe1;border:1px solid var(--border)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:7px 0}
+.check i{width:20px;height:20px;border-radius:50%;flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-style:normal;font-weight:800}
+.check.y i{background:var(--green-bg);color:var(--green)}
+.check.n i{background:var(--red-bg);color:var(--red)}
+.minirow{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--border2);font-size:13px}
+.minirow:last-child{border:none}
+.minirow img{width:46px;height:38px;object-fit:cover;border-radius:8px;background:#f1ebe1}
+/* Toasts + dialog */
+#toasts{position:fixed;right:18px;top:70px;z-index:400;display:flex;flex-direction:column;gap:9px;max-width:min(370px,calc(100vw - 36px))}
+.toast{background:var(--char);color:#fff;border-radius:10px;padding:12px 16px;font-size:13px;box-shadow:0 14px 40px rgba(0,0,0,.3);border-left:4px solid var(--caramel);animation:slidein .25s ease}
+.toast.err{border-left-color:#ff6b62}.toast.ok{border-left-color:#35c26e}
+.toast b{display:block;font-size:12.5px}.toast span{opacity:.75;font-size:12px}
+@keyframes slidein{from{transform:translateX(26px);opacity:0}to{transform:none;opacity:1}}
+.toast.out{transition:.3s;opacity:0;transform:translateX(26px)}
+.dlg{position:fixed;inset:0;z-index:500;background:rgba(23,20,17,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+.dlg[hidden]{display:none}
+.dlg__card{background:var(--ivory);border-radius:16px;max-width:390px;width:100%;padding:28px;text-align:center}
+.dlg__card h4{font-family:var(--serif);font-size:21px;margin-bottom:6px}
+.dlg__card p{color:var(--muted);font-size:13px;margin-bottom:18px}
+.dlg__btns{display:flex;gap:10px;justify-content:center}
+.page{display:none}.page.on{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite;vertical-align:-2px}
+@keyframes rot{to{transform:rotate(360deg)}}
+.hero-strip{background:linear-gradient(110deg,var(--espresso) 0%,#3a2415 100%);color:#fff;border-radius:var(--r);padding:24px;display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hero-strip h2{font-family:var(--serif);font-size:24px}.hero-strip h2 em{color:var(--peach);font-style:italic}
+.hero-strip p{color:rgba(255,255,255,.68);font-size:12.5px;margin-top:4px;max-width:560px}
+.hero-chips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hchip{font-size:11px;font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);padding:5px 12px;border-radius:100px}
+@media(max-width:1080px){.stats{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){
+.sidebar{transform:translateX(-100%);transition:transform .25s ease;width:260px}.sidebar.open{transform:none;box-shadow:30px 0 60px rgba(0,0,0,.3)}
+.main{margin-left:0}.menubtn{display:block}.grid2,.grid3,.grid4{grid-template-columns:1fr}.topbar__in,.wrap{padding-left:18px;padding-right:18px}
+.galrow{grid-template-columns:1fr}.galrow img{width:100%;height:160px}
+}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="gate">
-  <video autoplay muted loop playsinline preload="metadata" poster="menu_images/01_butter_croissant.webp"><source src="images/bombay-luxury-cafe.mp4" type="video/mp4"></video>
-  <div class="shade"></div>
   <div class="gate__card">
     <div class="gate__eyebrow">BANDRA WEST · MUMBAI</div>
     <h1>Daily <em>Drip</em></h1>
-    <p class="gate__sub">Admin Console — manage films, menu, offers and popups.<br>Authorised access only.</p>
+    <p class="gate__sub">Café CMS — manage the live website.<br>Authorised access only.</p>
     <label for="gateId">ADMIN ID</label>
     <input type="text" id="gateId" placeholder="Enter admin ID" autocomplete="username">
     <label for="gatePass">PASSWORD</label>
     <input type="password" id="gatePass" placeholder="Enter password" autocomplete="current-password">
-    <button class="gate__btn" id="gateGo">Sign in to Console</button>
+    <button class="gate__btn" id="gateGo">Sign in to CMS</button>
     <div class="gate__err" id="gateMsg"></div>
     <div class="gate__foot"><a href="index.html">Back to website</a></div>
   </div>
@@ -164,197 +190,350 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
 <!-- APP -->
 <div id="app">
 <div class="layout">
-  <aside class="sidebar">
-    <div class="side__title">Admin Panel</div>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><b>DAILY DRIP</b><span>CAFÉ CMS</span><small>Bandra West · Mumbai</small></div>
     <nav class="snav" id="snav">
-      <button data-t="dashboard" class="on">▦ Dashboard</button>
-      <button data-t="home">🎬 Home Films</button>
-      <button data-t="content">✎ Site Content</button>
-      <button data-t="offers">🎁 Offers and Popup</button>
-      <button data-t="menu">🍽️ Menu Manager</button>
-      <button data-t="library">🖼️ Media Library</button>
-      <button data-t="upload">⬆ Upload</button>
-      <button data-t="settings">⚙ Settings</button>
+      <div class="navlabel">WORKSPACE</div>
+      <button data-t="overview" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Overview</button>
+      <button data-t="website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg>Website Editor</button>
+      <button data-t="menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Menu Manager</button>
+      <button data-t="offers"><svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 7v14M12 7s-1.5-4-4.5-4S5 7 12 7zM12 7s1.5-4 4.5-4S19 7 12 7z"/></svg>Offers &amp; Popups</button>
+      <div class="navlabel">CONTENT</div>
+      <button data-t="homepage"><svg viewBox="0 0 24 24"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>Homepage Sections</button>
+      <button data-t="story"><svg viewBox="0 0 24 24"><path d="M4 19V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Our Story</button>
+      <button data-t="gallery"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4 4"/></svg>Gallery &amp; Media</button>
+      <button data-t="locations"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Locations &amp; Contact</button>
+      <button data-t="footer"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg>Footer &amp; Settings</button>
+      <div class="navlabel">SYSTEM</div>
+      <button data-t="library"><svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>Media Library</button>
+      <button data-t="upload"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload</button>
+      <button data-t="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.4 2.7h4l.4-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.06-.4.1-.8.1-1.2z"/></svg>Diagnostics</button>
     </nav>
     <div class="side__foot">
-      <a class="link-gold" href="index.html">↗ &nbsp;Back to Main Site</a>
-      <button class="link-red" id="logoutBtn">↩ &nbsp;Sign Out</button>
+      <a href="index.html" style="color:var(--peach)">View live site</a>
+      <button id="logoutBtn">Sign out</button>
+      <div class="side__ver">CMS · Supabase live</div>
     </div>
   </aside>
-  <main class="main">
 
-    <!-- DASHBOARD (good Daily Drip theme, whole) -->
-    <section class="panel" id="pane-dashboard" style="background:transparent;border:none;box-shadow:none;padding:0">
-      <div class="phead"><h1>Dashboard</h1><button class="btn-outline" onclick="boot()">⟳ Refresh</button></div>
-      <div class="dd-hero">
+  <div class="main">
+    <div class="topbar"><div class="topbar__in">
+      <button class="menubtn" id="menuBtn" aria-label="Menu">☰</button>
+      <div><div class="crumbs" id="crumb">WORKSPACE · OVERVIEW</div><h1 id="pageTitle">Overview</h1></div>
+      <span class="topbar__sp"></span>
+      <span class="statusdot"><i></i><span id="saveState">All changes saved</span></span>
+      <a class="btn btn--ghost btn--sm" href="index.html">View site</a>
+    </div></div>
+
+    <div class="wrap">
+
+    <!-- OVERVIEW -->
+    <section class="page on" id="page-overview">
+      <div class="hero-strip">
         <div>
-          <div style="font-size:10px;font-weight:800;letter-spacing:3px;color:#e9c46a">BANDRA WEST · MUMBAI</div>
-          <h2>Good day, Admin — <em>Daily Drip</em> is live.</h2>
-          <p>Videos, menu, offers and popups — everything on the homepage can be changed from here.</p>
-          <div style="margin-top:12px"><span class="dd-pill" id="pillMenu">— dishes</span><span class="dd-pill" id="pillMedia">— media</span></div>
+          <h2>Good day — <em>Daily Drip</em> is live.</h2>
+          <p>Every card below is read from Supabase. Edit anywhere in the sidebar and the public site picks it up on the next visit.</p>
+          <div class="hero-chips"><span class="hchip" id="pillMenu">— dishes</span><span class="hchip" id="pillMedia">— media</span><span class="hchip" id="pillPopup">Popup —</span></div>
         </div>
-        <div><a class="btn btn--dark btn--sm" style="background:#c9a227;border:none" href="index.html">View site ↗</a></div>
+        <div><button class="btn btn--caramel btn--sm" onclick="boot(true)">Refresh data</button></div>
       </div>
-      <div class="stats" style="grid-template-columns:1fr 1fr">
-        <div class="stat link" data-goto="menu"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on the Menu page · open</span></div>
-        <div class="stat link" data-goto="home"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b><span>hero + food + steam films · open</span></div>
+      <div class="stats">
+        <div class="stat link" data-goto="menu"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on Menu page</span></div>
+        <div class="stat link" data-goto="gallery"><small>MEDIA ASSETS</small><b id="stMedia">–</b><span>library files</span></div>
+        <div class="stat link" data-goto="offers"><small>POPUP</small><b id="stPopup">–</b><span>homepage offer</span></div>
+        <div class="stat link" data-goto="upload"><small>UPLOADS</small><b id="stUploads">–</b><span>this session</span></div>
       </div>
-      <div class="dd-grid2">
-        <div class="dd-card"><h4>Quick actions</h4><p class="sub">Most used tasks</p>
-          <button class="qbtn" onclick="gotoTab('home')">🎬 &nbsp;Update home films / videos</button>
-          <button class="qbtn" onclick="gotoTab('upload')">⬆ &nbsp;Upload &amp; compress photo / video</button>
-          <button class="qbtn" onclick="gotoTab('menu')">🍽️ &nbsp;Add / edit menu dish</button>
-          <button class="qbtn" onclick="gotoTab('offers')">🎁 &nbsp;Edit offer popup</button>
+      <div class="grid2">
+        <div class="card"><div class="card__head"><div><h3>Content health</h3><p class="sub">What the homepage needs before it looks complete.</p></div></div><div id="healthList"></div></div>
+        <div class="card"><div class="card__head"><div><h3>Quick actions</h3><p class="sub">Most-used tasks, one click away.</p></div></div>
+          <div class="row" style="margin-top:0">
+            <button class="btn btn--dark btn--sm" onclick="gotoTab('menu')">Add dish</button>
+            <button class="btn btn--ghost btn--sm" onclick="gotoTab('upload')">Upload photo</button>
+            <button class="btn btn--ghost btn--sm" onclick="gotoTab('offers')">Edit popup</button>
+            <button class="btn btn--ghost btn--sm" onclick="gotoTab('homepage')">Hero films</button>
+          </div>
+          <hr class="divider">
+          <h4>Latest dishes</h4>
+          <div id="recentList"></div>
         </div>
-        <div class="dd-card"><h4>How it works</h4><p class="sub">Upload → copy URL → paste in films / menu</p>
-          <p style="font-size:13px;color:var(--muted)">1. Go to <b>Upload</b>, drop a photo (auto WebP &lt;250KB) or mp4 video.<br>2. Copy the public URL.<br>3. Paste it in <b>Home Films</b> or <b>Menu Manager</b>.<br>Changes go live instantly.</p>
+      </div>
+    </section>
+
+    <!-- WEBSITE EDITOR -->
+    <section class="page" id="page-website">
+      <div class="card">
+        <div class="card__head"><div><h3>Website editor</h3><p class="sub">Navigation labels, Reserve button and the WhatsApp / phone numbers used across Home and Menu. Applied instantly on save.</p></div><button class="btn btn--dark btn--sm" id="saveWebsite">Save website</button></div>
+        <div class="grid2">
+          <div>
+            <label class="f">Navigation links (label → target)</label>
+            <div id="navRows"></div>
+            <p class="hint">Keep 6 links. Targets can be <b>#story</b>, <b>menu.html</b>, <b>#visit</b> etc.</p>
+          </div>
+          <div>
+            <label class="f">Reserve a Table — button text</label><input type="text" id="wReserveText" placeholder="Reserve a Table →">
+            <label class="f">Reserve a Table — link</label><input type="text" id="wReserveUrl" placeholder="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20reserve%20a%20table.">
+            <label class="f">WhatsApp number (digits only, with country code)</label><input type="text" id="wWa" placeholder="917738314007">
+            <label class="f">Call number (display + tel link)</label><input type="text" id="wPhone" placeholder="+91 77383 14007">
+            <label class="f">Email</label><input type="text" id="wEmail" placeholder="hello@dailydripcafe.in">
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- HOME FILMS -->
-    <section class="panel" id="pane-home" hidden>
-      <h3>Homepage films</h3>
-      <p class="sub">Hero films, food montage, steam loop and space video. Paste an mp4 URL or upload in the Upload tab and paste the public URL here.</p>
-      <div class="grid2">
-        <div><label class="f">Hero film 1 (mp4 or URL)</label><input type="text" id="hero1" placeholder="images/bombay-mumbai-view.mp4">
-        <label class="f">Poster image</label><input type="text" id="hero1poster" placeholder="menu_images/01_butter_croissant.webp"></div>
-        <div><label class="f">Hero film 2 (mp4 or URL)</label><input type="text" id="hero2" placeholder="images/bombay-luxury-cafe.mp4">
-        <label class="f">Poster image</label><input type="text" id="hero2poster" placeholder="menu_images/03_almond_pistachio_croissant.webp"></div>
+    <!-- MENU MANAGER -->
+    <section class="page" id="page-menu">
+      <div class="card">
+        <div class="card__head"><div><h3>Menu manager</h3><p class="sub">Dishes render live on <b>menu.html</b> from Supabase when available (otherwise the built-in list is used). Edit inline, add dishes, or hide seasonal items.</p></div><button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button></div>
+        <div class="row" style="margin-top:0">
+          <input type="text" id="menuSearch" placeholder="Search dishes — burrata, pizza…" style="max-width:300px">
+          <select id="menuCat" style="max-width:230px"><option value="">All categories</option></select>
+        </div>
+        <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Category</th><th>Image URL</th><th>Live</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
+        <p class="hint" id="menuCount"></p>
       </div>
-      <div class="grid2">
-        <div><label class="f">Food montage film</label><input type="text" id="foodfilm" placeholder="images/food-montage.mp4"></div>
-        <div><label class="f">Steam loop / Space video</label><input type="text" id="steamfilm" placeholder="images/steam.mp4"></div>
+      <div class="card">
+        <h3>Add new dish</h3><p class="sub">Upload the photo in Upload first, then paste the URL here.</p>
+        <div class="grid2">
+          <div><label class="f">Dish name</label><input type="text" id="nName" placeholder="Truffle Arancini">
+          <label class="f">Category</label><select id="nCat"></select></div>
+          <div><label class="f">Description</label><textarea id="nDesc" placeholder="Crisp risotto balls, parmesan cream…"></textarea>
+          <label class="f">Image URL</label><input type="text" id="nImg" placeholder="https://…/dish.webp"></div>
+        </div>
+        <div class="row"><button class="btn btn--dark" id="addDish">Add dish to menu</button></div>
       </div>
-      <div class="row">
-        <button class="btn btn--dark" id="saveHero">Save homepage films</button>
-        <button class="btn btn--ghost" id="reloadHero">Reload from cloud</button>
-      </div>
-      <p class="hint">Keep hero films under <b>8 MB</b> for fast mobile load. Videos are stored securely and stream on the homepage automatically.</p>
-      <div id="mediaCards" class="cards"></div>
-    </section>
-
-    <!-- SITE CONTENT -->
-    <section class="panel" id="pane-content" hidden>
-      <h3>Site content</h3>
-      <p class="sub">Homepage headline, eyebrow line and welcome note. Saved to the cloud and applied on the homepage on next visit.</p>
-      <div class="grid2">
-        <div><label class="f">Eyebrow line</label><input type="text" id="cEyebrow" placeholder="BANDRA WEST • MUMBAI"></div>
-        <div><label class="f">Welcome note (script line)</label><input type="text" id="cScript" placeholder="Good coffee. Great food."></div>
-      </div>
-      <div class="grid2">
-        <div><label class="f">Headline — first line</label><input type="text" id="cTitleA" placeholder="More Than"></div>
-        <div><label class="f">Headline — second line</label><input type="text" id="cTitleB" placeholder="Just"></div>
-      </div>
-      <div><label class="f">Headline — accent word (italic gold)</label><input type="text" id="cAccent" placeholder="Coffee" style="max-width:340px"></div>
-      <div><label class="f">Our space paragraph</label><textarea id="cStory" placeholder="Daily Drip is a cozy, warm cafe in the heart of Bandra West…"></textarea></div>
-      <div class="row">
-        <button class="btn btn--dark" id="saveContent">Save site content</button>
-        <button class="btn btn--ghost" id="reloadContent">Reload from cloud</button>
+      <div class="card">
+        <h3>Quick image replace</h3><p class="sub">Pick a dish, choose a photo — compressed to WebP under 250KB, uploaded and linked in one step.</p>
+        <div class="grid2"><div><label class="f">Dish</label><select id="qrDish"></select></div>
+        <div><label class="f">New photo</label><input type="file" id="qrFile" accept="image/*"></div></div>
+        <div class="progress"><i id="qrBar"></i></div>
+        <div class="row"><button class="btn btn--dark btn--sm" id="qrGo">Compress, upload and link</button><span class="hint" id="qrMsg"></span></div>
       </div>
     </section>
 
-    <!-- OFFERS + POPUP -->
-    <section class="panel" id="pane-offers" hidden>
-      <h3>Offers and welcome popup</h3>
-      <p class="sub">A short split popup on the homepage — bold headline on the left, your photo on the right. Text only, no signup form. Turn it off anytime without deleting the text.</p>
-      <div class="switchrow"><input type="checkbox" id="pActive"> <label for="pActive">Show popup on homepage</label></div>
-      <div class="grid2">
-        <div><label class="f">Badge line</label><input type="text" id="pBadge" placeholder="FESTIVE OFFER"></div>
-        <div><label class="f">Button text</label><input type="text" id="pCta" placeholder="View Menu"></div>
-      </div>
-      <div><label class="f">Popup title</label><input type="text" id="pTitle" placeholder="Monsoon Special — 15% off artisan pizzas"></div>
-      <div><label class="f">Popup message</label><textarea id="pMsg" placeholder="This weekend only. Show this popup at the counter or order on WhatsApp."></textarea></div>
-      <div><label class="f">Button link</label><input type="text" id="pUrl" placeholder="menu.html"></div>
-      <div><label class="f">Popup image (optional, auto-compress in Upload tab first)</label><input type="text" id="pImg" placeholder="https://…/offer.webp"></div>
-      <div class="row">
-        <button class="btn btn--dark" id="savePopup">Save offer popup</button>
-        <button class="btn btn--ghost" id="reloadPopup">Reload from cloud</button>
-        <button class="btn btn--ghost" id="previewPopup">Preview popup</button>
+    <!-- OFFERS -->
+    <section class="page" id="page-offers">
+      <div class="card">
+        <div class="card__head"><div><h3>Offers &amp; welcome popup</h3><p class="sub">Split popup on the homepage — headline left, photo right. Turn it off anytime without deleting the text.</p></div><button class="btn btn--dark btn--sm" id="savePopup">Save popup</button></div>
+        <div class="switchrow"><input type="checkbox" id="pActive"><label for="pActive">Show popup on homepage</label></div>
+        <div class="grid2">
+          <div><label class="f">Badge line</label><input type="text" id="pBadge" placeholder="FESTIVE OFFER"></div>
+          <div><label class="f">Button text</label><input type="text" id="pCta" placeholder="View Menu"></div>
+        </div>
+        <div><label class="f">Popup title</label><input type="text" id="pTitle" placeholder="Monsoon Special — 15% off artisan pizzas"></div>
+        <div><label class="f">Popup message</label><textarea id="pMsg" placeholder="This weekend only. Show this popup at the counter or order on WhatsApp."></textarea></div>
+        <div class="grid2">
+          <div><label class="f">Button link</label><input type="text" id="pUrl" placeholder="menu.html"></div>
+          <div><label class="f">Popup image (upload first for auto-compress)</label><input type="text" id="pImg" placeholder="https://…/offer.webp"></div>
+        </div>
+        <div class="row">
+          <button class="btn btn--ghost btn--sm" id="reloadPopup">Reload from cloud</button>
+          <button class="btn btn--ghost btn--sm" id="previewPopup">Preview popup</button>
+        </div>
       </div>
     </section>
 
-    <!-- MENU -->
-    <section class="panel" id="pane-menu" hidden>
-      <h3>Menu manager</h3>
-      <p class="sub">All dishes live on the Menu page. Edit inline, replace images, add new dishes or hide seasonal items.</p>
-      <div class="row">
-        <input type="text" id="menuSearch" placeholder="Search dishes — burrata, pizza…" style="max-width:300px">
-        <select id="menuCat" style="max-width:230px"><option value="">All categories</option></select>
-        <button class="btn btn--ghost btn--sm" id="reloadMenu">Reload</button>
+    <!-- HOMEPAGE SECTIONS -->
+    <section class="page" id="page-homepage">
+      <div class="card">
+        <div class="card__head"><div><h3>Hero films &amp; headline</h3><p class="sub">Full-screen cinematic hero — two rotating films, eyebrow, “More Than Just Coffee” heading and tagline.</p></div><button class="btn btn--dark btn--sm" id="saveHero">Save hero</button></div>
+        <div class="grid2">
+          <div><label class="f">Hero film 1 (mp4 URL)</label><input type="text" id="hero1" placeholder="images/bombay-mumbai-view.mp4">
+          <label class="f">Poster image</label><input type="text" id="hero1poster" placeholder="menu_images/01_butter_croissant.webp"></div>
+          <div><label class="f">Hero film 2 (mp4 URL)</label><input type="text" id="hero2" placeholder="images/bombay-luxury-cafe.mp4">
+          <label class="f">Poster image</label><input type="text" id="hero2poster" placeholder="menu_images/03_almond_pistachio_croissant.webp"></div>
+        </div>
+        <div class="grid2">
+          <div><label class="f">Food montage film</label><input type="text" id="foodfilm" placeholder="images/food-montage.mp4"></div>
+          <div><label class="f">Steam loop film</label><input type="text" id="steamfilm" placeholder="images/steam.mp4"></div>
+        </div>
+        <hr class="divider">
+        <div class="grid2">
+          <div><label class="f">Eyebrow line</label><input type="text" id="cEyebrow" placeholder="BANDRA WEST • MUMBAI"></div>
+          <div><label class="f">Tagline (script line)</label><input type="text" id="cScript" placeholder="Good coffee. Great food."></div>
+        </div>
+        <div class="grid3">
+          <div><label class="f">Headline — line 1</label><input type="text" id="cTitleA" placeholder="More Than"></div>
+          <div><label class="f">Headline — line 2</label><input type="text" id="cTitleB" placeholder="Just"></div>
+          <div><label class="f">Accent word (italic peach)</label><input type="text" id="cAccent" placeholder="Coffee"></div>
+        </div>
+        <div class="row">
+          <button class="btn btn--ghost btn--sm" id="reloadHero">Reload from cloud</button>
+          <button class="btn btn--ghost btn--sm" id="reloadContent">Reload text</button>
+          <button class="btn btn--dark btn--sm" id="saveContent">Save headline</button>
+        </div>
+        <p class="hint">Keep hero films under <b>8 MB</b> (720p) for fast mobile load. Upload videos in <b>Upload</b>, then paste the URL here.</p>
       </div>
-      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th></th><th>Dish</th><th>Category</th><th>Image URL</th><th>Live</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
-      <p class="hint" id="menuCount"></p>
-      <hr class="divider">
-      <h3 style="font-size:18px">Add new dish</h3>
-      <div class="grid2">
-        <div><label class="f">Dish name</label><input type="text" id="nName" placeholder="Truffle Arancini">
-        <label class="f">Category</label><select id="nCat"></select></div>
-        <div><label class="f">Description</label><textarea id="nDesc" placeholder="Crisp risotto balls, parmesan cream…"></textarea>
-        <label class="f">Image URL (upload in Upload tab first)</label><input type="text" id="nImg" placeholder="https://…/dish.webp"></div>
+
+      <div class="card">
+        <div class="card__head"><div><h3>Brand pillars</h3><p class="sub">The four promises under the hero — Specialty Coffee, Artisan Kitchen, Cozy Ambience, A Space for Everyone.</p></div><button class="btn btn--dark btn--sm" id="savePillars">Save pillars</button></div>
+        <div class="grid2" id="pillarRows"></div>
       </div>
-      <div class="row"><button class="btn btn--dark" id="addDish">Add dish to menu</button></div>
-      <hr class="divider">
-      <h3 style="font-size:18px">Quick image replace (auto-compress)</h3>
-      <p class="sub">Pick a dish, choose a photo — it is compressed to WebP under 250KB, uploaded and linked in one step.</p>
-      <div class="grid2"><div><label class="f">Dish</label><select id="qrDish"></select></div>
-      <div><label class="f">New photo</label><input type="file" id="qrFile" accept="image/*"></div></div>
-      <div class="progress"><i id="qrBar"></i></div>
-      <div class="row"><button class="btn btn--dark" id="qrGo">Compress, upload and link</button><span class="hint" id="qrMsg"></span></div>
+
+      <div class="card">
+        <div class="card__head"><div><h3>Seasonal specials</h3><p class="sub">Dark-green “Featured This Week” band — heading plus any 4 live dishes. Snapshots are saved so the homepage never breaks.</p></div><button class="btn btn--dark btn--sm" id="saveSeasonal">Save seasonal</button></div>
+        <div class="grid3">
+          <div><label class="f">Eyebrow</label><input type="text" id="sEyebrow" placeholder="FEATURED THIS WEEK"></div>
+          <div><label class="f">Title</label><input type="text" id="sTitle" placeholder="Seasonal Specials"></div>
+          <div><label class="f">Sub text</label><input type="text" id="sSub" placeholder="Fresh flavours, crafted for good days…"></div>
+        </div>
+        <div class="grid4" id="seasonPicks"></div>
+      </div>
+
+      <div class="card">
+        <div class="card__head"><div><h3>Bakery favourites</h3><p class="sub">White editorial grid — heading only. The 8 cards stay curated in code; edit dish photos in Menu Manager.</p></div><button class="btn btn--dark btn--sm" id="saveFav">Save headings</button></div>
+        <div class="grid3">
+          <div><label class="f">Eyebrow</label><input type="text" id="fEyebrow" placeholder="FROM THE BAKERY & KITCHEN"></div>
+          <div><label class="f">Title</label><input type="text" id="fTitle" placeholder="Bakery Favourites"></div>
+          <div><label class="f">Sub text</label><input type="text" id="fSub" placeholder="A taste of our 61-dish menu…"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="page" id="page-story">
+      <div class="card">
+        <div class="card__head"><div><h3>Our story</h3><p class="sub">Peach “Our Space” split section — text left, film right.</p></div><button class="btn btn--dark btn--sm" id="saveStory">Save story</button></div>
+        <div class="grid2">
+          <div><label class="f">Eyebrow</label><input type="text" id="stEyebrow" placeholder="OUR SPACE"></div>
+          <div><label class="f">Title (use \n for line break)</label><input type="text" id="stTitle" placeholder="A Café\nfor the Curious"></div>
+        </div>
+        <div><label class="f">Story paragraph</label><textarea id="cStory" placeholder="Daily Drip is a cozy, warm café in the heart of Bandra West…"></textarea></div>
+        <div class="grid2">
+          <div><label class="f">Space film (mp4 URL)</label><input type="text" id="stVideo" placeholder="images/bombay-luxury-cafe.mp4"></div>
+          <div><label class="f">Film poster</label><input type="text" id="stPoster" placeholder="images/EL_Puente_BG_2025.webp"></div>
+        </div>
+        <div class="grid2">
+          <div><label class="f">Primary button text</label><input type="text" id="stCta1" placeholder="Our Story →"></div>
+          <div><label class="f">Primary button link</label><input type="text" id="stCta1Url" placeholder="#visit"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="page" id="page-gallery">
+      <div class="card">
+        <div class="card__head"><div><h3>Gallery — “Inside Daily Drip”</h3><p class="sub">Homepage grid. Add, reorder (via up/down) or remove frames. Images should be Upload-compressed WebP.</p></div>
+          <div><button class="btn btn--ghost btn--sm" id="addGal">Add frame</button> <button class="btn btn--dark btn--sm" id="saveGallery">Save gallery</button></div></div>
+        <div class="grid3">
+          <div><label class="f">Eyebrow</label><input type="text" id="gEyebrow" placeholder="CAFÉ AMBIENCE"></div>
+          <div><label class="f">Title</label><input type="text" id="gTitle" placeholder="Inside Daily Drip"></div>
+          <div><label class="f">Sub text</label><input type="text" id="gSub" placeholder="Cozy corners, warm lights…"></div>
+        </div>
+        <div id="galRows"></div>
+      </div>
+      <div class="card">
+        <div class="card__head"><div><h3>Media slots</h3><p class="sub">Named video/image slots in Supabase (<b>home_media</b>) — reuse their URLs in any field with “Use URL”.</p></div></div>
+        <div id="mediaCards" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="page" id="page-locations">
+      <div class="card">
+        <div class="card__head"><div><h3>Locations &amp; contact</h3><p class="sub">Dark “Visit the Café” band plus map, directions and WhatsApp ordering.</p></div><button class="btn btn--dark btn--sm" id="saveLocations">Save locations</button></div>
+        <div class="grid2">
+          <div><label class="f">Kicker</label><input type="text" id="lKicker" placeholder="VISIT THE CAFÉ"></div>
+          <div><label class="f">Title (use \n for line break)</label><input type="text" id="lTitle" placeholder="Daily Drip Café,\nBandra West, Mumbai"></div>
+        </div>
+        <div><label class="f">Address (2 lines max)</label><textarea id="lAddr" placeholder="2, B.J. Road, Next to Seabird Building, Bandstand…"></textarea></div>
+        <div class="grid3">
+          <div><label class="f">Hours line</label><input type="text" id="lHours" placeholder="Open Daily: 8:00 AM – 11:00 PM"></div>
+          <div><label class="f">Phone (display)</label><input type="text" id="lPhone" placeholder="+91 77383 14007"></div>
+          <div><label class="f">Rating line</label><input type="text" id="lRating" placeholder="★★★★★ 4.8/5 from 1,200+ happy guests"></div>
+        </div>
+        <div class="grid2">
+          <div><label class="f">Map query (lat,lng or address)</label><input type="text" id="lMap" placeholder="19.053086,72.822224"></div>
+          <div><label class="f">Directions URL</label><input type="text" id="lDir" placeholder="https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224"></div>
+        </div>
+        <div class="grid2">
+          <div><label class="f">WhatsApp order link</label><input type="text" id="lWaUrl" placeholder="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20order."></div>
+          <div><label class="f">WhatsApp button text</label><input type="text" id="lWaText" placeholder="Order on WhatsApp"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="page" id="page-footer">
+      <div class="card">
+        <div class="card__head"><div><h3>Footer &amp; settings</h3><p class="sub">Bottom band, floating WhatsApp button and site-wide contact details.</p></div><button class="btn btn--dark btn--sm" id="saveFooter">Save footer</button></div>
+        <div><label class="f">Address line</label><input type="text" id="ftAddr" placeholder="2, B.J. Road, Bandstand, Bandra West, Mumbai 400050"></div>
+        <div class="grid3">
+          <div><label class="f">Phone (display)</label><input type="text" id="ftPhone" placeholder="+91 77383 14007"></div>
+          <div><label class="f">WhatsApp number</label><input type="text" id="ftWa" placeholder="917738314007"></div>
+          <div><label class="f">Email</label><input type="text" id="ftEmail" placeholder="hello@dailydripcafe.in"></div>
+        </div>
+        <div><label class="f">Script note (handwritten line)</label><input type="text" id="ftNote" placeholder="See you at Daily Drip ♡"></div>
+        <div class="grid2">
+          <div><label class="f">Copyright line</label><input type="text" id="ftCopy" placeholder="© 2026 Daily Drip Cafe. All rights reserved."></div>
+          <div><label class="f">Credit line</label><input type="text" id="ftCredit" placeholder="Made with care by aise360.com"></div>
+        </div>
+      </div>
     </section>
 
     <!-- LIBRARY -->
-    <section class="panel" id="pane-library" hidden>
-      <h3>Media library</h3>
-      <p class="sub">Every file in cloud storage. Copy a URL for use on the site, or delete what you no longer need.</p>
-      <div class="row">
-        <select id="libFolder" style="max-width:260px">
-          <option value="">All files</option>
-          <option value="compressed">Optimised photos</option>
-          <option value="menu">Dish photos</option>
-          <option value="videos">Videos</option>
-        </select>
-        <button class="btn btn--ghost btn--sm" id="libGo">Browse</button>
+    <section class="page" id="page-library">
+      <div class="card">
+        <div class="card__head"><div><h3>Media library</h3><p class="sub">Every file in cloud storage. Copy a URL for use anywhere, or delete what you no longer need.</p></div><button class="btn btn--ghost btn--sm" id="libGo">Browse</button></div>
+        <div class="row" style="margin-top:0">
+          <select id="libFolder" style="max-width:260px">
+            <option value="">All files</option>
+            <option value="compressed">Optimised photos</option>
+            <option value="menu">Dish photos</option>
+            <option value="videos">Videos</option>
+          </select>
+          <input type="text" id="libSearch" placeholder="Filter by name…" style="max-width:240px">
+        </div>
+        <div id="libCards" class="cards"></div>
       </div>
-      <div id="libCards" class="cards"></div>
+      <div class="card">
+        <h3>Named slots</h3><p class="sub">Add a reusable slot (hero1, menu_film, gallery …), then reference it from Homepage or Gallery.</p>
+        <div class="grid4">
+          <div><label class="f">Slot</label><input type="text" id="msSlot" placeholder="gallery"></div>
+          <div><label class="f">Kind</label><select id="msKind"><option value="video">video</option><option value="image">image</option></select></div>
+          <div><label class="f">Title</label><input type="text" id="msTitle" placeholder="Evening pour"></div>
+          <div><label class="f">URL</label><input type="text" id="msUrl" placeholder="https://…"></div>
+        </div>
+        <div class="row"><button class="btn btn--dark btn--sm" id="msAdd">Add slot</button></div>
+      </div>
     </section>
 
     <!-- UPLOAD -->
-    <section class="panel" id="pane-upload" hidden>
-      <h3>Upload with auto compression</h3>
-      <p class="sub">Every image is recompressed in this browser to <b>WebP, max 1600px, maximum 250KB</b> before it reaches cloud storage. Raw files are never uploaded, so storage never exhausts.</p>
-      <div class="grid2">
-        <div><label class="f">Choose image</label>
-        <div class="drop" id="upDrop"><input type="file" id="upFile" accept="image/*"><b>Drop a photo here or click to browse</b><span>JPG, PNG or WebP — auto-optimised under 250KB</span></div>
-        <label class="f">Library</label><select id="upBucket"><option value="media">Main library (recommended)</option><option value="images">Photo library</option></select>
-        <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="butter-croissant"></div>
-        <div><label class="f">Preview</label><img id="upPrev" style="width:100%;border-radius:12px;background:var(--cream2);min-height:140px;object-fit:cover" alt="">
-        <p class="hint" id="upInfo">No file chosen yet.</p></div>
+    <section class="page" id="page-upload">
+      <div class="card">
+        <h3>Upload — auto compression</h3>
+        <p class="sub">Images are recompressed in this browser to <b>WebP, max 1600px, max 250KB</b> before reaching storage. Raw files are never uploaded. Videos go as-is (mp4, up to 25MB).</p>
+        <div class="grid2">
+          <div><label class="f">Choose image</label>
+          <div class="drop" id="upDrop"><input type="file" id="upFile" accept="image/*"><b>Drop a photo here or click to browse</b><span>JPG, PNG or WebP — auto-optimised under 250KB</span></div>
+          <label class="f">Library</label><select id="upBucket"><option value="media">Main library (recommended)</option><option value="images">Photo library</option></select>
+          <label class="f">File name (optional)</label><input type="text" id="upName" placeholder="butter-croissant"></div>
+          <div><label class="f">Preview</label><img id="upPrev" class="thumb" style="max-width:100%;height:190px" alt="">
+          <p class="hint" id="upInfo">No file chosen yet.</p></div>
+        </div>
+        <div class="progress"><i id="upBar"></i></div>
+        <div class="row">
+          <button class="btn btn--dark btn--sm" id="upGo" disabled>Compress and upload</button>
+          <button class="btn btn--ghost btn--sm" id="upCopy" disabled>Copy public URL</button>
+          <span class="hint" id="upMsg"></span>
+        </div>
+        <hr class="divider">
+        <h4>Video upload (mp4, up to 25MB)</h4>
+        <p class="sub">Videos are not compressed. Keep hero films 720p for fast mobile load.</p>
+        <div class="row" style="margin-top:0"><input type="file" id="vidFile" accept="video/mp4,video/webm"><button class="btn btn--dark btn--sm" id="vidGo">Upload video</button><span class="hint" id="vidMsg"></span></div>
+        <div class="progress"><i id="vidBar"></i></div>
       </div>
-      <div class="progress"><i id="upBar"></i></div>
-      <div class="row">
-        <button class="btn btn--dark" id="upGo" disabled>Compress and upload</button>
-        <button class="btn btn--ghost" id="upCopy" disabled>Copy public URL</button>
-        <span class="hint" id="upMsg"></span>
-      </div>
-      <hr class="divider">
-      <h3 style="font-size:18px">Video upload (mp4, up to 25MB)</h3>
-      <p class="sub">Videos are not compressed. Keep hero films small and fast (720p recommended).</p>
-      <div class="row"><input type="file" id="vidFile" accept="video/mp4,video/webm"><button class="btn btn--dark btn--sm" id="vidGo">Upload video</button><span class="hint" id="vidMsg"></span></div>
-      <div class="progress"><i id="vidBar"></i></div>
     </section>
 
-    <!-- SETTINGS -->
-    <section class="panel" id="pane-settings" hidden>
-      <h3>Settings and diagnostics</h3>
-      <p class="sub">Check that everything is online and saving correctly.</p>
-      <div class="row"><button class="btn btn--dark btn--sm" id="checkBtn">Run system check</button></div>
-      <div class="log" id="log">Ready. Run a system check to verify the connection and content.</div>
-      <hr class="divider">
-      <h3 style="font-size:18px">Access</h3>
-      <p class="sub">To change the login, edit ADMIN_ID and ADMIN_PASS at the top of admin.html and push again.</p>
+    <!-- DIAGNOSTICS -->
+    <section class="page" id="page-settings">
+      <div class="card">
+        <div class="card__head"><div><h3>Diagnostics</h3><p class="sub">Verify storage, tables and content keys. To change the login, edit ADMIN_ID / ADMIN_PASS in admin.html and push again.</p></div><button class="btn btn--dark btn--sm" id="checkBtn">Run system check</button></div>
+        <div class="log" id="log">Ready. Run a system check to verify the connection and content.</div>
+      </div>
     </section>
-  </main>
+
+    </div>
+  </div>
 </div>
 </div>
 
@@ -363,8 +542,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
 <h4 id="dlgTitle">Are you sure?</h4>
 <p id="dlgMsg"></p>
 <div class="dlg__btns">
-<button class="btn btn--ghost" id="dlgNo">Keep it</button>
-<button class="btn btn--dark" id="dlgYes">Yes, delete</button>
+<button class="btn btn--ghost btn--sm" id="dlgNo">Keep it</button>
+<button class="btn btn--dark btn--sm" id="dlgYes">Yes, delete</button>
 </div>
 </div>
 </div>
@@ -379,7 +558,10 @@ const MAX_KB = (window.DAILY_DRIP_SUPABASE || {}).MAX_IMAGE_KB || 250;
 const cfg = window.DAILY_DRIP_SUPABASE;
 const sb = window.supabase.createClient(cfg.url, cfg.anonKey);
 const $ = id => document.getElementById(id);
-let lastURL = "", savedBytes = 0;
+let lastURL = "", savedBytes = 0, uploadCount = 0;
+let MENU = [];
+const CATS = ["Morning Bakery","Breakfast","Artisan Pizzas","Artisan Toasts","Small Plates","Salads","Sandwiches & Wraps","Pasta & Bowls","House Specialties","Desserts"];
+const PAGE_META = {overview:["WORKSPACE · OVERVIEW","Overview"],website:["WORKSPACE · WEBSITE","Website Editor"],menu:["WORKSPACE · MENU","Menu Manager"],offers:["WORKSPACE · OFFERS","Offers & Popups"],homepage:["CONTENT · HOMEPAGE","Homepage Sections"],story:["CONTENT · STORY","Our Story"],gallery:["CONTENT · GALLERY","Gallery & Media"],locations:["CONTENT · LOCATIONS","Locations & Contact"],footer:["CONTENT · FOOTER","Footer & Settings"],library:["SYSTEM · MEDIA","Media Library"],upload:["SYSTEM · UPLOAD","Upload"],settings:["SYSTEM · DIAGNOSTICS","Diagnostics"]};
 
 /* Toasts */
 function toast(title, sub, kind){
@@ -392,8 +574,9 @@ function toast(title, sub, kind){
   $("toasts").appendChild(t);
   setTimeout(()=>{ t.classList.add("out"); setTimeout(()=>t.remove(), 350); }, 4200);
 }
+function setSaved(msg){ $("saveState").textContent = msg || "All changes saved"; }
 
-/* Gate: ID + password */
+/* Gate */
 function unlock(){ $("gate").style.display = "none"; $("app").style.display = "block"; boot(); }
 if (sessionStorage.getItem("dd_admin") === "1") unlock();
 function tryLogin(){
@@ -409,18 +592,37 @@ function tryLogin(){
 $("gateGo").onclick = tryLogin;
 [$("gateId"), $("gatePass")].forEach(el=>el.addEventListener("keydown", e=>{ if(e.key==="Enter") tryLogin(); }));
 $("logoutBtn").onclick = ()=>{ sessionStorage.removeItem("dd_admin"); location.reload(); };
+$("menuBtn").onclick = ()=>$("sidebar").classList.toggle("open");
 
-/* Sidebar nav (same layout, Daily Drip sections only) */
+/* Nav */
 function gotoTab(k){
   document.querySelectorAll("#snav button").forEach(x=>x.classList.toggle("on", x.dataset.t===k));
-  ["dashboard","home","content","offers","menu","library","upload","settings"].forEach(x=>{const el=$("pane-"+x);if(el)el.hidden=(x!==k)});
-  window.scrollTo({top:0,behavior:"smooth"});
+  Object.keys(PAGE_META).forEach(x=>{ const el=$("page-"+x); if(el) el.classList.toggle("on", x===k); });
+  const m = PAGE_META[k] || ["CMS", k];
+  $("crumb").textContent = m[0]; $("pageTitle").textContent = m[1];
+  $("sidebar").classList.remove("open");
+  window.scrollTo({top:0, behavior:"smooth"});
 }
-window.gotoTab=gotoTab;
+window.gotoTab = gotoTab;
 document.querySelectorAll("#snav button").forEach(t=>t.onclick=()=>gotoTab(t.dataset.t));
 document.querySelectorAll(".stat.link").forEach(s=>s.onclick=()=>gotoTab(s.dataset.goto));
 
-/* WebP sub-250KB compressor */
+/* Settings helpers */
+async function getSetting(k){
+  try{ const r = await sb.from("site_settings").select("value").eq("key",k).maybeSingle(); return (r.data && r.data.value) || null; }
+  catch(e){ return null; }
+}
+async function saveSetting(k,v){
+  setSaved("Saving…");
+  const { error } = await sb.from("site_settings").upsert({key:k, value:v});
+  if(error){ setSaved("Save failed"); throw error; }
+  setSaved("All changes saved");
+}
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function nl2br(s){ return esc(s||"").replace(/\n/g,"<br>"); }
+const fmtKB = kb => kb>1024 ? (kb/1024).toFixed(2)+" MB" : kb.toFixed(0)+" KB";
+
+/* Image compressor */
 function loadImage(file){ return new Promise((res,rej)=>{ const u=URL.createObjectURL(file); const im=new Image();
   im.onload=()=>{URL.revokeObjectURL(u);res(im)}; im.onerror=rej; im.src=u; }); }
 async function compressToWebP(file, maxKB){
@@ -443,186 +645,409 @@ async function compressToWebP(file, maxKB){
   const blob = await new Promise(r=>c.toBlob(r,"image/webp",0.3));
   return {blob, kb:blob.size/1024, origKB, w, h, q:0.3, over:true};
 }
-const fmtKB = kb => kb>1024 ? (kb/1024).toFixed(2)+" MB" : kb.toFixed(0)+" KB";
-function trackSaving(origKB, kb){
-  savedBytes += Math.max(0,(origKB-kb))*1024;
-  if($("stLast"))$("stLast").innerHTML = fmtKB(kb)+' <em>was '+fmtKB(origKB)+'</em>';
-  if($("stSaved"))$("stSaved").innerHTML = (savedBytes/1048576).toFixed(2)+' <em>MB</em>';
+async function uploadBlob(blob, path, type){
+  const { error } = await sb.storage.from("media").upload(path, blob, {contentType:type});
+  if(error) throw error;
+  return sb.storage.from("media").getPublicUrl(path).data.publicUrl;
+}
+function confirmDlg(title, msg){
+  return new Promise(res=>{
+    $("dlgTitle").textContent = title; $("dlgMsg").textContent = msg;
+    $("dlg").hidden = false;
+    $("dlgYes").onclick = ()=>{ $("dlg").hidden = true; res(true); };
+    $("dlgNo").onclick = ()=>{ $("dlg").hidden = true; res(false); };
+  });
+}
+$("dlg").addEventListener("click", e=>{ if(e.target===$("dlg")) $("dlg").hidden = true; });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("dlg").hidden) $("dlg").hidden = true; });
+
+/* ---------- BOOT ---------- */
+async function boot(silent){
+  try{
+    if(!silent){ $("menuRows").innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Loading…</td></tr>'; }
+    await Promise.all([loadHero(), loadContent(), loadPopup(), loadMenu(), loadWebsite(), loadHomepage(), loadStory(), loadGallery(), loadLocations(), loadFooter()]);
+    renderOverview();
+  }catch(e){ if(!silent) toast("Connection failed", e.message, "err"); }
+}
+window.boot = boot;
+
+function renderOverview(){
+  const live = MENU.filter(m=>m.active).length;
+  $("stMenu").textContent = MENU.length;
+  $("pillMenu").textContent = live + " live / " + MENU.length + " dishes";
+  $("recentList").innerHTML = MENU.slice(-5).reverse().map(m=>
+    '<div class="minirow"><img src="'+esc(m.image_url)+'" onerror="this.src=\'menu_images/01_butter_croissant.webp\'"><div style="flex:1"><b>'+esc(m.name)+'</b><div style="font-size:11px;color:var(--muted)">'+esc(m.category)+'</div></div><span class="pill '+(m.active?'ok':'off')+'">'+(m.active?'Live':'Hidden')+'</span></div>'
+  ).join("") || '<p class="hint">No dishes yet.</p>';
+  const checks = [
+    ["Hero films set", !!($("hero1").value && $("hero2").value)],
+    ["Headline + tagline set", !!($("cTitleA").value || $("cAccent").value)],
+    ["Popup configured", !!($("pTitle").value)],
+    ["Menu has dishes", MENU.length > 0],
+    ["Gallery has frames", document.querySelectorAll("#galRows .galrow").length >= 3],
+    ["Locations + footer filled", !!($("lPhone").value && $("ftEmail").value)]
+  ];
+  $("healthList").innerHTML = checks.map(([l,ok])=>
+    '<div class="check '+(ok?'y':'n')+'"><i>'+(ok?'✓':'!')+'</i><span>'+l+'</span></div>').join("");
 }
 
-/* Home films */
+/* ---------- HERO + HEADLINE ---------- */
 async function loadHero(){
-  const { data } = await sb.from("site_settings").select("value").eq("key","hero").single();
-  const v = (data && data.value) || {};
+  const v = await getSetting("hero") || {};
   const vids = v.videos || [];
   $("hero1").value = (vids[0]&&vids[0].url)||""; $("hero1poster").value = (vids[0]&&vids[0].poster)||"";
   $("hero2").value = (vids[1]&&vids[1].url)||""; $("hero2poster").value = (vids[1]&&vids[1].poster)||"";
   $("foodfilm").value = v.food_film||""; $("steamfilm").value = v.steam_film||v.space_video||"";
-  const m = await sb.from("home_media").select("*").order("sort");
-  const media = m.data || [];
-  $("stMedia").textContent = media.length;
-  if($("pillMedia"))$("pillMedia").textContent=media.length+" media slots";
-  $("mediaCards").innerHTML = media.map(x=>
-    '<div class="card">' + (x.kind==="video"
-      ? '<video src="'+x.url+'" muted playsinline preload="none" poster="'+(x.poster||'')+'"></video>'
-      : '<img src="'+x.url+'" loading="lazy" alt="">') +
-    '<div class="card__b"><b>'+(x.title||x.slot)+'</b><small>'+x.slot+' · '+x.url+'</small>' +
-    '<div class="row"><span class="pill '+(x.active?'ok':'off')+'">'+(x.active?'Live':'Hidden')+'</span>' +
-    '<button class="btn btn--ghost btn--sm" data-slot="'+x.slot+'" data-url="'+x.url+'" onclick="fillSlot(this)">Use URL</button></div></div></div>').join("");
+  try{
+    const m = await sb.from("home_media").select("*").order("sort");
+    const media = (m.data)||[];
+    $("stMedia").textContent = media.length;
+    $("pillMedia").textContent = media.length + " media slots";
+    $("mediaCards").innerHTML = media.map(x=>
+      '<div class="mcard">' + (x.kind==="video"
+        ? '<video src="'+esc(x.url)+'" muted playsinline preload="none" poster="'+esc(x.poster||'')+'"></video>'
+        : '<img src="'+esc(x.url)+'" loading="lazy" alt="">') +
+      '<div class="mcard__b"><b>'+esc(x.title||x.slot)+'</b><small>'+esc(x.slot)+' · '+esc(x.url)+'</small>' +
+      '<div class="row" style="margin-top:6px"><span class="pill '+(x.active?'ok':'off')+'">'+(x.active?'Live':'Hidden')+'</span>' +
+      '<button class="btn btn--ghost btn--sm" data-slot="'+esc(x.slot)+'" data-url="'+esc(x.url)+'" onclick="fillSlot(this)">Use URL</button>'+
+      '<button class="btn btn--ghost btn--sm" onclick="toggleSlot('+x.id+','+(!x.active)+')">'+(x.active?'Hide':'Show')+'</button>'+
+      '<button class="btn btn--ghost btn--sm" onclick="delSlot('+x.id+')">Delete</button></div></div></div>').join("") || '<p class="hint">No slots yet — add one in Media Library.</p>';
+  }catch(e){ /* table may not exist yet */ }
 }
 window.fillSlot = btn=>{
   const slot = btn.getAttribute("data-slot"), url = btn.getAttribute("data-url");
   if(slot==="hero1")$("hero1").value=url; if(slot==="hero2")$("hero2").value=url;
-  if(slot==="menu_film")$("foodfilm").value=url; if(slot==="menu_bg"||slot==="space")$("steamfilm").value=url;
-  window.scrollTo({top:0,behavior:"smooth"});
+  if(slot==="menu_film")$("foodfilm").value=url; if(slot==="menu_bg"||slot==="space"||slot==="gallery")$("steamfilm").value=url;
+  toast("URL placed", "Review it in the field, then Save.");
+};
+window.toggleSlot = async (id, active)=>{
+  const { error } = await sb.from("home_media").update({active}).eq("id",id);
+  if(error) return toast("Update failed", error.message, "err");
+  loadHero();
+};
+window.delSlot = async id=>{
+  if(!await confirmDlg("Delete this slot?", "The file in storage stays, only the slot is removed.")) return;
+  const { error } = await sb.from("home_media").delete().eq("id",id);
+  if(error) return toast("Delete failed", error.message, "err");
+  toast("Slot deleted"); loadHero();
 };
 $("saveHero").onclick = async ()=>{
   const val = { videos:[
     {slot:"hero1",url:$("hero1").value.trim(),poster:$("hero1poster").value.trim(),active:true},
     {slot:"hero2",url:$("hero2").value.trim(),poster:$("hero2poster").value.trim(),active:true}],
     food_film:$("foodfilm").value.trim(), steam_film:$("steamfilm").value.trim(), space_video:$("steamfilm").value.trim() };
-  const { error } = await sb.from("site_settings").upsert({key:"hero",value:val});
-  if (error) return toast("Could not save films", error.message, "err");
-  toast("Homepage films saved", "The site picks them up instantly.", "ok"); loadHero();
+  try{ await saveSetting("hero",val); toast("Hero films saved","Live on the homepage."); }
+  catch(e){ toast("Could not save films", e.message, "err"); }
 };
-$("reloadHero").onclick = ()=>{ loadHero(); toast("Reloaded", "Latest homepage films loaded from cloud.", "inf"); };
+$("reloadHero").onclick = ()=>{ loadHero(); };
 
-/* Site content */
 async function loadContent(){
-  const { data } = await sb.from("site_settings").select("value").eq("key","content").single();
-  const v = (data && data.value) || {};
+  const v = await getSetting("content") || {};
   $("cEyebrow").value=v.eyebrow||""; $("cScript").value=v.script||"";
   $("cTitleA").value=v.title_a||""; $("cTitleB").value=v.title_b||""; $("cAccent").value=v.accent||"";
-  $("cStory").value=v.story||"";
+  if($("cStory") && !$("cStory").value) $("cStory").value=v.story||"";
 }
 $("saveContent").onclick = async ()=>{
+  const storyEl = $("cStory");
   const val = { eyebrow:$("cEyebrow").value.trim(), script:$("cScript").value.trim(),
     title_a:$("cTitleA").value.trim(), title_b:$("cTitleB").value.trim(),
-    accent:$("cAccent").value.trim(), story:$("cStory").value.trim() };
-  const { error } = await sb.from("site_settings").upsert({key:"content",value:val});
-  if (error) return toast("Could not save content", error.message, "err");
-  toast("Site content saved", "Homepage headline and story updated.", "ok");
+    accent:$("cAccent").value.trim(), story: storyEl ? storyEl.value.trim() : "" };
+  try{ await saveSetting("content",val); toast("Headline saved","Live on the homepage."); renderOverview(); }
+  catch(e){ toast("Could not save", e.message, "err"); }
 };
 $("reloadContent").onclick = loadContent;
 
-/* Offers + popup */
-async function loadPopup(){
-  const { data } = await sb.from("site_settings").select("value").eq("key","popup").single();
-  const v = (data && data.value) || {};
-  $("pActive").checked = !!v.active; $("pBadge").value=v.badge||"";
-  $("pTitle").value=v.title||""; $("pMsg").value=v.message||"";
-  $("pCta").value=v.cta_text||""; $("pUrl").value=v.cta_url||""; $("pImg").value=v.image||"";
+/* ---------- WEBSITE ---------- */
+const DEFAULT_NAV = [["Home","#"],["Menu","menu.html"],["Our Story","#story"],["Gallery","#gallery"],["Locations","#visit"],["Contact","#contact"]];
+function paintNav(rows){
+  $("navRows").innerHTML = rows.map((r,i)=>
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><input type="text" data-nav="l" data-i="'+i+'" value="'+esc(r[0]||"")+'" placeholder="Label"><input type="text" data-nav="u" data-i="'+i+'" value="'+esc(r[1]||"")+'" placeholder="Target"></div>').join("");
 }
-$("savePopup").onclick = async ()=>{
-  const val = { active:$("pActive").checked, badge:$("pBadge").value.trim(), title:$("pTitle").value.trim(),
-    message:$("pMsg").value.trim(), cta_text:$("pCta").value.trim(), cta_url:$("pUrl").value.trim(), image:$("pImg").value.trim() };
-  const { error } = await sb.from("site_settings").upsert({key:"popup",value:val});
-  if (error) return toast("Could not save popup", error.message, "err");
-  toast(val.active ? "Popup is live" : "Popup saved (hidden)", val.active ? "Visitors will see it on the homepage." : "Turn on the switch to show it.", "ok");
-};
-$("reloadPopup").onclick = loadPopup;
-$("previewPopup").onclick = ()=>{
-  toast($("pTitle").value || "Popup preview", $("pMsg").value || "This is how the message reads.", "inf");
+async function loadWebsite(){
+  const v = await getSetting("website") || {};
+  paintNav(v.nav && v.nav.length ? v.nav : DEFAULT_NAV);
+  $("wReserveText").value = v.reserve_text || "";
+  $("wReserveUrl").value = v.reserve_url || "";
+  $("wWa").value = v.whatsapp || "";
+  $("wPhone").value = v.phone || "";
+  $("wEmail").value = v.email || "";
+}
+$("saveWebsite").onclick = async ()=>{
+  const labels = [...document.querySelectorAll('[data-nav="l"]')].map(x=>x.value.trim());
+  const urls = [...document.querySelectorAll('[data-nav="u"]')].map(x=>x.value.trim());
+  const nav = labels.map((l,i)=>[l, urls[i]||"#"]).filter(r=>r[0]);
+  const val = { nav, reserve_text:$("wReserveText").value.trim(), reserve_url:$("wReserveUrl").value.trim(),
+    whatsapp:$("wWa").value.replace(/\D/g,""), phone:$("wPhone").value.trim(), email:$("wEmail").value.trim() };
+  try{ await saveSetting("website", val); toast("Website saved","Navigation, Reserve button and numbers are live."); }
+  catch(e){ toast("Save failed", e.message, "err"); }
 };
 
-/* Menu */
-let MENU=[];
-const CATS = ["Morning Bakery","Breakfast","Artisan Pizzas","Artisan Toasts","Small Plates","Salads","Sandwiches & Wraps","Pasta & Bowls","House Specialties","Desserts"];
+/* ---------- MENU ---------- */
 async function loadMenu(){
   const { data, error } = await sb.from("menu_items").select("*").order("sort");
-  if (error) return toast("Menu load failed", error.message, "err");
-  MENU = data||[]; $("stMenu").textContent = MENU.length;
-  if($("pillMenu"))$("pillMenu").textContent=MENU.length+" dishes live";
-  const cats = [...new Set(MENU.map(m=>m.category))];
-  $("menuCat").innerHTML = '<option value="">All categories</option>'+cats.map(c=>'<option>'+c+'</option>').join("");
-  $("nCat").innerHTML = (cats.length?cats:CATS).map(c=>'<option>'+c+'</option>').join("");
-  $("qrDish").innerHTML = MENU.map(m=>'<option value="'+m.id+'">#'+m.id+' — '+m.name+'</option>').join("");
-  renderMenu();
+  if(error){ toast("Menu load failed", error.message, "err"); return; }
+  MENU = data||[];
+  $("stMenu").textContent = MENU.length;
+  $("pillMenu").textContent = MENU.filter(m=>m.active).length + " live / " + MENU.length + " dishes";
+  const cats = [...new Set(MENU.map(m=>m.category).filter(Boolean))];
+  $("menuCat").innerHTML = '<option value="">All categories</option>'+cats.map(c=>'<option>'+esc(c)+'</option>').join("");
+  $("nCat").innerHTML = (cats.length?cats:CATS).map(c=>'<option>'+esc(c)+'</option>').join("");
+  $("qrDish").innerHTML = MENU.map(m=>'<option value="'+m.id+'">#'+m.id+' — '+esc(m.name)+'</option>').join("");
+  buildSeasonPicks();
+  renderMenu(); renderOverview();
 }
-function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
 function renderMenu(){
   const q = ($("menuSearch").value||"").toLowerCase(), c = $("menuCat").value;
-  const list = MENU.filter(m=>(!c||m.category===c)&&(!q||(m.name+" "+m.description).toLowerCase().includes(q))).slice(0,80);
+  const list = MENU.filter(m=>(!c||m.category===c)&&(!q||(m.name+" "+m.description).toLowerCase().includes(q))).slice(0,100);
   $("menuRows").innerHTML = list.map(m=>'<tr>'+
     '<td><img src="'+esc(m.image_url)+'" loading="lazy" onerror="this.src=\'menu_images/01_butter_croissant.webp\'"></td>'+
     '<td><b>#'+m.id+' '+esc(m.name)+'</b></td>'+
     '<td><select class="mcat" data-id="'+m.id+'">'+CATS.map(x=>'<option'+(x===m.category?' selected':'')+'>'+x+'</option>').join("")+'</select></td>'+
     '<td><input type="text" class="murl" data-id="'+m.id+'" value="'+esc(m.image_url)+'" style="min-width:200px"></td>'+
-    '<td><input type="checkbox" class="mact" data-id="'+m.id+'" '+(m.active?'checked':'')+' style="width:18px;height:18px"></td>'+
-    '<td style="white-space:nowrap"><button class="btn btn--dark btn--sm" onclick="saveDish('+m.id+',this)">Save</button> '+
-    '<button class="btn btn--ghost btn--sm" onclick="delDish('+m.id+')">Delete</button></td></tr>').join("");
+    '<td><input type="checkbox" class="mact" data-id="'+m.id+'" '+(m.active?'checked':'')+'></td>'+
+    '<td style="white-space:nowrap"><button class="btn btn--dark btn--sm" onclick="saveDish('+m.id+')">Save</button> '+
+    '<button class="btn btn--ghost btn--sm" onclick="delDish('+m.id+')">Delete</button></td></tr>').join("") || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">No dishes match.</td></tr>';
   const live = MENU.filter(m=>m.active).length;
   $("menuCount").textContent = "Showing "+list.length+" of "+MENU.length+" dishes · "+live+" live on the site";
 }
-window.saveDish = async (id,btn)=>{
+window.saveDish = async id=>{
   const url = document.querySelector('.murl[data-id="'+id+'"]').value.trim();
   const cat = document.querySelector('.mcat[data-id="'+id+'"]').value;
   const act = document.querySelector('.mact[data-id="'+id+'"]').checked;
   const { error } = await sb.from("menu_items").update({image_url:url,category:cat,active:act}).eq("id",id);
-  if (error) return toast("Save failed", error.message, "err");
-  toast("Dish #"+id+" saved", "Menu updated.", "ok"); loadMenu();
+  if(error) return toast("Save failed", error.message, "err");
+  toast("Dish #"+id+" saved"); loadMenu();
 };
 window.delDish = async id=>{
   const dish = (MENU.find(m=>m.id===id)||{}).name || ("#"+id);
-  if(!await confirmDlg("Delete this dish?", dish+" will be removed from the menu permanently.")) return;
+  if(!await confirmDlg("Delete this dish?", dish+" will be removed permanently.")) return;
   const { error } = await sb.from("menu_items").delete().eq("id",id);
-  if (error) return toast("Delete failed", error.message, "err");
-  toast("Dish deleted", "#"+id+" removed from the menu.", "ok"); loadMenu();
+  if(error) return toast("Delete failed", error.message, "err");
+  toast("Dish deleted"); loadMenu();
 };
 $("menuSearch").oninput = renderMenu; $("menuCat").onchange = renderMenu; $("reloadMenu").onclick = loadMenu;
 $("addDish").onclick = async ()=>{
-  const name=$("nName").value.trim(); if(!name) return toast("Name required", "Give the new dish a name.", "err");
+  const name=$("nName").value.trim(); if(!name) return toast("Name required","Give the dish a name.","err");
   const row = { category:$("nCat").value, name, description:$("nDesc").value.trim(),
     image_url:$("nImg").value.trim()||"menu_images/01_butter_croissant.webp", sort:MENU.length, active:true };
   const { error } = await sb.from("menu_items").insert(row);
-  if (error) return toast("Add failed", error.message, "err");
+  if(error) return toast("Add failed", error.message, "err");
   $("nName").value=""; $("nDesc").value=""; $("nImg").value="";
-  toast("Dish added", name+" is now on the menu.", "ok"); loadMenu();
+  toast("Dish added", name+" is on the menu."); loadMenu();
 };
 $("qrGo").onclick = async ()=>{
-  const f = $("qrFile").files[0]; if(!f) return toast("No photo", "Choose a photo first.", "err");
+  const f = $("qrFile").files[0]; if(!f) return toast("No photo","Choose a photo first.","err");
   const id = +$("qrDish").value;
   $("qrMsg").textContent = "Compressing…"; $("qrBar").style.width="20%";
   const r = await compressToWebP(f, MAX_KB);
-  if (r.over || r.kb > MAX_KB){ $("qrMsg").textContent = "Still "+fmtKB(r.kb)+" — pick a smaller photo."; return; }
-  trackSaving(r.origKB, r.kb);
+  if(r.over || r.kb > MAX_KB){ $("qrMsg").textContent = "Still "+fmtKB(r.kb)+" — pick a smaller photo."; return; }
   const path = "menu/"+id+"_"+Date.now()+".webp";
   $("qrBar").style.width="60%"; $("qrMsg").textContent="Uploading "+fmtKB(r.kb)+"…";
-  const { error:upErr } = await sb.storage.from("media").upload(path, r.blob, {contentType:"image/webp"});
-  if (upErr){ $("qrMsg").textContent = upErr.message; return; }
-  const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
-  const { error:dbErr } = await sb.from("menu_items").update({image_url:pub, image_path:path}).eq("id",id);
-  $("qrBar").style.width="100%";
-  if (dbErr){ $("qrMsg").textContent = dbErr.message; return; }
-  $("qrMsg").textContent = "Dish #"+id+" updated — "+fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".";
-  toast("Dish image replaced", fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".", "ok"); loadMenu();
+  try{
+    const pub = await uploadBlob(r.blob, path, "image/webp");
+    const { error:dbErr } = await sb.from("menu_items").update({image_url:pub, image_path:path}).eq("id",id);
+    if(dbErr) throw dbErr;
+    $("qrBar").style.width="100%";
+    $("qrMsg").textContent = "Dish #"+id+" updated — "+fmtKB(r.origKB)+" → "+fmtKB(r.kb)+".";
+    toast("Dish image replaced"); loadMenu();
+  }catch(e){ $("qrMsg").textContent = e.message; }
 };
 
-/* Library */
+/* ---------- OFFERS ---------- */
+async function loadPopup(){
+  const v = await getSetting("popup") || {};
+  $("pActive").checked = !!v.active; $("pBadge").value=v.badge||"";
+  $("pTitle").value=v.title||""; $("pMsg").value=v.message||"";
+  $("pCta").value=v.cta_text||""; $("pUrl").value=v.cta_url||""; $("pImg").value=v.image||"";
+  $("stPopup").textContent = v.active ? "Live" : "Hidden";
+  $("pillPopup").textContent = "Popup " + (v.active ? "live" : "hidden");
+}
+$("savePopup").onclick = async ()=>{
+  const val = { active:$("pActive").checked, badge:$("pBadge").value.trim(), title:$("pTitle").value.trim(),
+    message:$("pMsg").value.trim(), cta_text:$("pCta").value.trim(), cta_url:$("pUrl").value.trim(), image:$("pImg").value.trim() };
+  try{ await saveSetting("popup",val); toast(val.active?"Popup is live":"Popup saved (hidden)"); loadPopup(); }
+  catch(e){ toast("Could not save popup", e.message, "err"); }
+};
+$("reloadPopup").onclick = loadPopup;
+$("previewPopup").onclick = ()=>{ toast($("pTitle").value||"Popup preview", $("pMsg").value||"This is how it reads.", "ok"); };
+
+/* ---------- HOMEPAGE: pillars + seasonal + favourites ---------- */
+const DEFAULT_PILLARS = [["Specialty Coffee","Freshly brewed, always."],["Artisan Kitchen","Globally inspired."],["Cozy Ambience","Work, chill or catch up."],["A Space for Everyone","Solos, friends, creators."]];
+function dishOptions(sel){
+  return '<option value="">— Select dish —</option>'+MENU.filter(m=>m.active).map(m=>'<option value="'+m.id+'"'+(String(sel)===String(m.id)?' selected':'')+'>'+esc(m.name)+'</option>').join("");
+}
+async function loadHomepage(){
+  const v = await getSetting("homepage") || {};
+  const pillars = v.pillars && v.pillars.length ? v.pillars : DEFAULT_PILLARS;
+  $("pillarRows").innerHTML = pillars.map((p,i)=>
+    '<div><label class="f">Pillar '+(i+1)+' — title</label><input type="text" data-pl="t" data-i="'+i+'" value="'+esc(p[0]||"")+'">'+
+    '<label class="f">Pillar '+(i+1)+' — text</label><input type="text" data-pl="d" data-i="'+i+'" value="'+esc(p[1]||"")+'"></div>').join("");
+  $("sEyebrow").value = v.season_eyebrow || "";
+  $("sTitle").value = v.season_title || "";
+  $("sSub").value = v.season_sub || "";
+  window._seasonIds = v.season_ids || [];
+  buildSeasonPicks();
+  $("fEyebrow").value = v.fav_eyebrow || "";
+  $("fTitle").value = v.fav_title || "";
+  $("fSub").value = v.fav_sub || "";
+}
+function buildSeasonPicks(){
+  const ids = window._seasonIds || [];
+  const box = $("seasonPicks"); if(!box) return;
+  box.innerHTML = [0,1,2,3].map(i=>'<div><label class="f">Pick '+(i+1)+'</label><select data-sp="'+i+'">'+dishOptions(ids[i])+'</select></div>').join("");
+}
+$("savePillars").onclick = async ()=>{
+  const t=[...document.querySelectorAll('[data-pl="t"]')].map(x=>x.value.trim());
+  const d=[...document.querySelectorAll('[data-pl="d"]')].map(x=>x.value.trim());
+  const pillars=t.map((x,i)=>[x,d[i]||""]);
+  const cur = await getSetting("homepage") || {};
+  cur.pillars = pillars;
+  try{ await saveSetting("homepage",cur); toast("Pillars saved","Live under the hero."); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+$("saveSeasonal").onclick = async ()=>{
+  const ids=[...document.querySelectorAll('[data-sp]')].map(x=>+x.value||null).filter(Boolean);
+  const snap = ids.map(id=>{ const m=MENU.find(x=>x.id===id); return m?{id:m.id,name:m.name,desc:m.description,img:m.image_url}:null; }).filter(Boolean);
+  const cur = await getSetting("homepage") || {};
+  cur.season_eyebrow=$("sEyebrow").value.trim(); cur.season_title=$("sTitle").value.trim(); cur.season_sub=$("sSub").value.trim();
+  cur.season_ids=ids; cur.season_snap=snap;
+  try{ await saveSetting("homepage",cur); toast("Seasonal saved","Homepage band updated."); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+$("saveFav").onclick = async ()=>{
+  const cur = await getSetting("homepage") || {};
+  cur.fav_eyebrow=$("fEyebrow").value.trim(); cur.fav_title=$("fTitle").value.trim(); cur.fav_sub=$("fSub").value.trim();
+  try{ await saveSetting("homepage",cur); toast("Favourites headings saved"); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+
+/* ---------- STORY ---------- */
+async function loadStory(){
+  const v = await getSetting("story") || {};
+  const c = await getSetting("content") || {};
+  $("stEyebrow").value = v.eyebrow || "OUR SPACE";
+  $("stTitle").value = v.title || "A Café\nfor the Curious";
+  if($("cStory") && !$("cStory").value) $("cStory").value = c.story || v.text || "";
+  if(v.text && !$("cStory").value) $("cStory").value = v.text;
+  $("stVideo").value = v.video || "";
+  $("stPoster").value = v.poster || "";
+  $("stCta1").value = v.cta1 || "Our Story →";
+  $("stCta1Url").value = v.cta1_url || "#visit";
+}
+$("saveStory").onclick = async ()=>{
+  const text = $("cStory") ? $("cStory").value.trim() : "";
+  const val = { eyebrow:$("stEyebrow").value.trim(), title:$("stTitle").value.trim(), text,
+    video:$("stVideo").value.trim(), poster:$("stPoster").value.trim(),
+    cta1:$("stCta1").value.trim(), cta1_url:$("stCta1Url").value.trim() };
+  try{
+    await saveSetting("story", val);
+    const c = await getSetting("content") || {};
+    c.story = text; await saveSetting("content", c);
+    if($("cStory")) $("cStory").value = text;
+    toast("Story saved","Our Space section updated.");
+  }catch(e){ toast("Save failed", e.message, "err"); }
+};
+
+/* ---------- GALLERY ---------- */
+function galRow(g){
+  g = g || {img:"", alt:""};
+  const d = document.createElement("div");
+  d.className = "galrow";
+  d.innerHTML = '<img src="'+esc(g.img||"menu_images/01_butter_croissant.webp")+'" onerror="this.src=\'menu_images/01_butter_croissant.webp\'">'+
+    '<div><label class="f" style="margin-top:0">Image URL</label><input type="text" data-g="img" value="'+esc(g.img||"")+'" placeholder="https://… (upload first for auto-compress)">'+
+    '<label class="f">Alt text</label><input type="text" data-g="alt" value="'+esc(g.alt||"")+'" placeholder="Bakery counter">'+
+    '<div class="row"><button class="btn btn--ghost btn--sm" data-act="up">↑</button><button class="btn btn--ghost btn--sm" data-act="down">↓</button><button class="btn btn--ghost btn--sm" data-act="del">Remove</button></div></div>';
+  d.querySelector('[data-act="up"]').onclick = ()=>{ const p=d.previousElementSibling; if(p) d.parentNode.insertBefore(d,p); };
+  d.querySelector('[data-act="down"]').onclick = ()=>{ const n=d.nextElementSibling; if(n) d.parentNode.insertBefore(n,d); };
+  d.querySelector('[data-act="del"]').onclick = ()=>d.remove();
+  d.querySelector('[data-g="img"]').oninput = e=>{ d.querySelector("img").src = e.target.value || "menu_images/01_butter_croissant.webp"; };
+  return d;
+}
+async function loadGallery(){
+  const v = await getSetting("gallery") || {};
+  $("gEyebrow").value = v.eyebrow || "";
+  $("gTitle").value = v.title || "";
+  $("gSub").value = v.sub || "";
+  const box = $("galRows"); box.innerHTML = "";
+  (v.frames && v.frames.length ? v.frames : [{img:"",alt:""},{img:"",alt:""},{img:"",alt:""},{img:"",alt:""}]).forEach(g=>box.appendChild(galRow(g)));
+}
+$("addGal").onclick = ()=>{ $("galRows").appendChild(galRow({img:"",alt:""})); };
+$("saveGallery").onclick = async ()=>{
+  const frames = [...document.querySelectorAll("#galRows .galrow")].map(r=>({img:r.querySelector('[data-g="img"]').value.trim(), alt:r.querySelector('[data-g="alt"]').value.trim()})).filter(f=>f.img);
+  const val = { eyebrow:$("gEyebrow").value.trim(), title:$("gTitle").value.trim(), sub:$("gSub").value.trim(), frames };
+  try{ await saveSetting("gallery",val); toast("Gallery saved", frames.length+" frames live."); renderOverview(); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+$("msAdd").onclick = async ()=>{
+  const slot=$("msSlot").value.trim(); const url=$("msUrl").value.trim();
+  if(!slot||!url) return toast("Slot + URL required","","err");
+  const { error } = await sb.from("home_media").insert({slot, kind:$("msKind").value, title:$("msTitle").value.trim(), url, sort:99, active:true});
+  if(error) return toast("Add failed", error.message, "err");
+  $("msSlot").value=""; $("msUrl").value=""; $("msTitle").value="";
+  toast("Slot added"); loadHero();
+};
+
+/* ---------- LOCATIONS ---------- */
+async function loadLocations(){
+  const v = await getSetting("locations") || {};
+  $("lKicker").value=v.kicker||""; $("lTitle").value=v.title||"";
+  $("lAddr").value=v.address||""; $("lHours").value=v.hours||"";
+  $("lPhone").value=v.phone||""; $("lRating").value=v.rating||"";
+  $("lMap").value=v.map||""; $("lDir").value=v.dir_url||"";
+  $("lWaUrl").value=v.wa_url||""; $("lWaText").value=v.wa_text||"";
+}
+$("saveLocations").onclick = async ()=>{
+  const val = { kicker:$("lKicker").value.trim(), title:$("lTitle").value.trim(), address:$("lAddr").value.trim(),
+    hours:$("lHours").value.trim(), phone:$("lPhone").value.trim(), rating:$("lRating").value.trim(),
+    map:$("lMap").value.trim(), dir_url:$("lDir").value.trim(), wa_url:$("lWaUrl").value.trim(), wa_text:$("lWaText").value.trim() };
+  try{ await saveSetting("locations",val); toast("Locations saved"); renderOverview(); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+
+/* ---------- FOOTER ---------- */
+async function loadFooter(){
+  const v = await getSetting("footer") || {};
+  $("ftAddr").value=v.address||""; $("ftPhone").value=v.phone||"";
+  $("ftWa").value=v.whatsapp||""; $("ftEmail").value=v.email||"";
+  $("ftNote").value=v.note||""; $("ftCopy").value=v.copy||""; $("ftCredit").value=v.credit||"";
+}
+$("saveFooter").onclick = async ()=>{
+  const val = { address:$("ftAddr").value.trim(), phone:$("ftPhone").value.trim(), whatsapp:$("ftWa").value.replace(/\D/g,""),
+    email:$("ftEmail").value.trim(), note:$("ftNote").value.trim(), copy:$("ftCopy").value.trim(), credit:$("ftCredit").value.trim() };
+  try{ await saveSetting("footer",val); toast("Footer saved"); renderOverview(); }
+  catch(e){ toast("Save failed", e.message, "err"); }
+};
+
+/* ---------- LIBRARY ---------- */
+let LIBCACHE = [];
 $("libGo").onclick = async ()=>{
   const folder = $("libFolder").value;
-  const { data, error } = await sb.storage.from("media").list(folder, {limit:60});
-  if (error) return toast("Library failed", error.message, "err");
-  const files = (data||[]).filter(x=>x.id!==null && x.name!==".emptyFolderPlaceholder");
+  const q = ($("libSearch").value||"").toLowerCase();
+  const { data, error } = await sb.storage.from("media").list(folder, {limit:100});
+  if(error) return toast("Library failed", error.message, "err");
+  LIBCACHE = (data||[]).filter(x=>x.id!==null && x.name!==".emptyFolderPlaceholder");
+  const files = LIBCACHE.filter(x=>!q||x.name.toLowerCase().includes(q));
+  $("stMedia").textContent = LIBCACHE.length;
+  $("pillMedia").textContent = LIBCACHE.length + " media slots";
   $("libCards").innerHTML = files.length ? files.map(x=>{
     const path = folder ? folder+"/"+x.name : x.name;
     const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
     const isVid = /\.(mp4|webm|mov)$/i.test(x.name);
-    return '<div class="card">'+(isVid?'<video src="'+pub+'" muted playsinline preload="none"></video>':'<img src="'+pub+'" loading="lazy" alt="">')+
-    '<div class="card__b"><b>'+x.name+'</b><small>'+path+' · '+fmtKB((x.metadata&&x.metadata.size||0)/1024)+'</small>'+
-    '<div class="row"><button class="btn btn--ghost btn--sm" data-u="'+pub+'" onclick="navigator.clipboard.writeText(this.getAttribute(\'data-u\'));toast(\'URL copied\',\'Paste it anywhere on the site.\',\'inf\')">Copy URL</button>'+
-    '<button class="btn btn--ghost btn--sm" data-p="'+path+'" onclick="delFile(this)">Delete</button></div></div></div>';
-  }).join("") : '<p class="hint">No files in this folder yet.</p>';
+    return '<div class="mcard">'+(isVid?'<video src="'+pub+'" muted playsinline preload="none"></video>':'<img src="'+pub+'" loading="lazy" alt="">')+
+    '<div class="mcard__b"><b>'+esc(x.name)+'</b><small>'+esc(path)+' · '+fmtKB((x.metadata&&x.metadata.size||0)/1024)+'</small>'+
+    '<div class="row" style="margin-top:6px"><button class="btn btn--ghost btn--sm" data-u="'+esc(pub)+'" onclick="navigator.clipboard.writeText(this.getAttribute(\'data-u\'));toast(\'URL copied\',\'Paste it anywhere.\')">Copy URL</button>'+
+    '<button class="btn btn--ghost btn--sm" data-p="'+esc(path)+'" onclick="delFile(this)">Delete</button></div></div></div>';
+  }).join("") : '<p class="hint">No files here yet.</p>';
 };
+if($("libSearch")) $("libSearch").oninput = ()=>$("libGo").click();
 window.delFile = async btn=>{
   const path = btn.getAttribute("data-p");
   if(!await confirmDlg("Delete this file?", path)) return;
   const { error } = await sb.storage.from("media").remove([path]);
-  if (error) return toast("Delete failed", error.message, "err");
-  toast("File deleted", path, "ok"); $("libGo").click();
+  if(error) return toast("Delete failed", error.message, "err");
+  toast("File deleted"); $("libGo").click();
 };
 
-/* Upload dropzone (click or drag-and-drop) */
+/* ---------- UPLOAD ---------- */
 (function(){
   const dz = $("upDrop"), fi = $("upFile");
   if(!dz || !fi) return;
@@ -633,18 +1058,6 @@ window.delFile = async btn=>{
     if(e.dataTransfer.files && e.dataTransfer.files[0]){ fi.files = e.dataTransfer.files; fi.onchange({target:fi}); }
   });
 })();
-
-/* Styled confirm dialog (replaces browser popups) */
-function confirmDlg(title, msg){
-  return new Promise(res=>{
-    $("dlgTitle").textContent = title; $("dlgMsg").textContent = msg;
-    $("dlg").hidden = false;
-    $("dlgYes").onclick = ()=>{ $("dlg").hidden = true; res(true); };
-    $("dlgNo").onclick = ()=>{ $("dlg").hidden = true; res(false); };
-  });
-}
-$("dlg").addEventListener("click", e=>{ if(e.target===$("dlg")){ $("dlg").hidden = true; } });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("dlg").hidden) $("dlg").hidden = true; });
 $("upFile").onchange = e=>{
   const f = e.target.files[0]; if(!f) return;
   $("upPrev").src = URL.createObjectURL(f);
@@ -657,61 +1070,53 @@ $("upGo").onclick = async ()=>{
   try{
     const r = await compressToWebP(f, MAX_KB);
     $("upBar").style.width = "55%";
-    if (r.over || r.kb > MAX_KB){ $("upMsg").textContent = "Smallest possible is "+fmtKB(r.kb)+" — still over limit. Try a smaller photo."; $("upGo").disabled=false; return; }
-    trackSaving(r.origKB, r.kb);
+    if(r.over || r.kb > MAX_KB){ $("upMsg").textContent = "Smallest possible is "+fmtKB(r.kb)+" — try a smaller photo."; $("upGo").disabled=false; return; }
     const base = ($("upName").value.trim() || f.name.replace(/\.[^.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"-")) + "_"+Date.now()+".webp";
     const path = "compressed/"+base;
     $("upMsg").textContent = "Uploading "+fmtKB(r.kb)+" ("+r.w+"x"+r.h+")…";
-    const { error } = await sb.storage.from($("upBucket").value).upload(path, r.blob, {contentType:"image/webp"});
-    if (error) throw error;
-    lastURL = sb.storage.from($("upBucket").value).getPublicUrl(path).data.publicUrl;
+    lastURL = await uploadBlob(r.blob, path, "image/webp");
+    uploadCount++; $("stUploads").textContent = uploadCount;
     $("upBar").style.width = "100%";
-    $("upMsg").textContent = "Uploaded "+fmtKB(r.kb)+" (saved "+fmtKB(r.origKB-r.kb)+"). URL ready — use Copy.";
+    $("upMsg").textContent = "Uploaded "+fmtKB(r.kb)+" (saved "+fmtKB(r.origKB-r.kb)+").";
     $("upCopy").disabled = false;
-    toast("Image uploaded", fmtKB(r.origKB)+" compressed to "+fmtKB(r.kb)+".", "ok");
+    toast("Image uploaded", fmtKB(r.origKB)+" → "+fmtKB(r.kb)+".");
   }catch(err){ $("upMsg").textContent = err.message; toast("Upload failed", err.message, "err"); }
   $("upGo").disabled = false;
 };
-$("upCopy").onclick = ()=>{ if(lastURL){ navigator.clipboard.writeText(lastURL); toast("URL copied","Paste it into any image field.","inf"); } };
+$("upCopy").onclick = ()=>{ if(lastURL){ navigator.clipboard.writeText(lastURL); toast("URL copied","Paste it into any field."); } };
 $("vidGo").onclick = async ()=>{
   const f = $("vidFile").files[0]; if(!f) return;
-  if (f.size > 25*1048576) return toast("Video too large","Keep videos under 25MB (720p recommended).","err");
+  if(f.size > 25*1048576) return toast("Video too large","Keep videos under 25MB.","err");
   $("vidMsg").textContent = "Uploading…"; $("vidBar").style.width="30%";
   const path = "videos/"+Date.now()+"_"+f.name.replace(/\s+/g,"-");
-  const { error } = await sb.storage.from("media").upload(path, f, {contentType:f.type||"video/mp4"});
-  if (error){ $("vidMsg").textContent = error.message; return; }
-  const pub = sb.storage.from("media").getPublicUrl(path).data.publicUrl;
-  lastURL = pub; $("vidBar").style.width="100%";
-  $("vidMsg").textContent = "Uploaded. Copy the URL and paste it into Home Films.";
-  toast("Video uploaded","Copy the URL into Home Films to use it.","ok");
+  try{
+    lastURL = await uploadBlob(f, path, f.type||"video/mp4");
+    uploadCount++; $("stUploads").textContent = uploadCount;
+    $("vidBar").style.width="100%";
+    $("vidMsg").textContent = "Uploaded. Copy the URL and paste it into Hero films.";
+    navigator.clipboard.writeText(lastURL).catch(()=>{});
+    toast("Video uploaded","URL copied — paste it into Hero films.");
+  }catch(e){ $("vidMsg").textContent = e.message; }
 };
 
-/* Settings */
+/* ---------- DIAGNOSTICS ---------- */
 function log(msg, cls){ const d=document.createElement("div"); if(cls)d.className=cls; d.textContent="› "+msg; $("log").appendChild(d); }
 $("checkBtn").onclick = async ()=>{
   $("log").innerHTML="";
-  log("Daily Drip cloud · images auto-optimised to "+MAX_KB+"KB","inf");
-  const libs = [["media","Main library"],["images","Photo library"]];
-  for (const lb of libs){
+  log("Daily Drip CMS · images auto-optimised to "+MAX_KB+"KB","inf");
+  for(const lb of [["media","Main library"],["images","Photo library"]]){
     const r = await sb.storage.from(lb[0]).list("",{limit:1});
     log(r.error ? lb[1]+": "+r.error.message : lb[1]+": OK", r.error?"err":"ok");
   }
-  const tabs = [["site_settings","Site content"],["home_media","Homepage films"],["menu_items","Menu dishes"]];
-  for (const t of tabs){
+  for(const t of [["site_settings","Settings keys"],["home_media","Media slots"],["menu_items","Menu dishes"]]){
     const r = await sb.from(t[0]).select("*",{count:"exact",head:true});
-    log(r.error ? t[1]+": "+r.error.message : t[1]+": "+r.count+" items", r.error?"err":"ok");
+    log(r.error ? t[1]+": "+r.error.message : t[1]+": "+r.count+" rows", r.error?"err":"ok");
   }
-  log("Rule: every image is optimised automatically before upload — nothing large ever reaches storage.","inf");
+  for(const k of ["hero","content","popup","website","homepage","story","gallery","locations","footer"]){
+    const v = await getSetting(k);
+    log(k+": "+(v?"configured":"empty — using site defaults"), v?"ok":"inf");
+  }
 };
-
-async function boot(){
-  try{
-    $("stMenu").textContent = "…"; $("stMedia").textContent = "…";
-    $("menuRows").innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:26px">Loading dishes…</td></tr>';
-    $("mediaCards").innerHTML = "";
-    await loadHero(); await loadContent(); await loadPopup(); await loadMenu();
-  }catch(e){ toast("Connection failed", e.message, "err"); }
-}
 </script>
 </body>
 </html>

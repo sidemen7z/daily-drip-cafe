@@ -122,11 +122,9 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <header class="hdr" id="hdr">
 <div class="hdr__in">
 <a class="hdr__logo" href="#"><b>DAILY DRIP</b><span>— CAFÉ —</span></a>
-<nav class="hdr__nav">
-<a href="#" class="on">Home</a><a href="menu.html">Menu</a><a href="#story">Our Story</a><a href="#gallery">Gallery</a><a href="#visit">Locations</a><a href="#contact">Contact</a>
-</nav>
+<nav class="hdr__nav" id="siteNav"><a href="#" class="on">Home</a><a href="menu.html">Menu</a><a href="#story">Our Story</a><a href="#gallery">Gallery</a><a href="#visit">Locations</a><a href="#contact">Contact</a></nav>
 <div class="hdr__cta">
-<a href="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20reserve%20a%20table." target="_blank" rel="noopener" class="btn btn--peach" style="padding:11px 24px">Reserve a Table →</a>
+<a href="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20reserve%20a%20table." target="_blank" rel="noopener" class="btn btn--peach" id="reserveBtn" style="padding:11px 24px">Reserve a Table →</a>
 <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
 </div>
 </div>
@@ -134,8 +132,8 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 
 <div class="mmenu" id="mmenu">
 <div style="display:flex;justify-content:space-between;align-items:center"><b style="letter-spacing:3px">DAILY DRIP</b><button id="mclose" style="font-size:28px">×</button></div>
-<a href="#">Home</a><a href="menu.html">Menu</a><a href="#story">Our Story</a><a href="#gallery">Gallery</a><a href="#visit">Locations</a><a href="#contact">Contact</a>
-<a href="https://wa.me/917738314007" target="_blank" rel="noopener" class="btn btn--dark" style="margin-top:16px">Reserve a Table</a>
+<div id="mnavLinks"><a href="#">Home</a><a href="menu.html">Menu</a><a href="#story">Our Story</a><a href="#gallery">Gallery</a><a href="#visit">Locations</a><a href="#contact">Contact</a></div>
+<a href="https://wa.me/917738314007" target="_blank" rel="noopener" class="btn btn--dark" id="mReserve" style="margin-top:16px">Reserve a Table</a>
 </div>
 
 <!-- HERO -->
@@ -153,10 +151,10 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <a href="#story" class="btn btn--outline">Our Story</a>
 </div>
 <div class="hero__usps">
-<div class="usp"><svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/></svg><div><b>Specialty Coffee</b>Freshly brewed, always.</div></div>
-<div class="usp"><svg viewBox="0 0 24 24"><path d="M7 2v20M4 2v6a3 3 0 0 0 6 0V2M17 2c-2 0-3 3-3 7v5h3v8"/></svg><div><b>Artisan Kitchen</b>Globally inspired.</div></div>
-<div class="usp"><svg viewBox="0 0 24 24"><path d="M12 22V10M12 10C12 5 8 2 4 2c0 5 4 8 8 8zM12 12c0-5 4-8 8-8 0 5-4 8-8 8z"/></svg><div><b>Cozy Ambience</b>Work, chill or catch up.</div></div>
-<div class="usp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 15c2 0 5 1 5 4"/></svg><div><b>A Space for Everyone</b>Solos, friends, creators.</div></div>
+<div class="usp"><svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/></svg><div><b id="pl0t">Specialty Coffee</b><span id="pl0d">Freshly brewed, always.</span></div></div>
+<div class="usp"><svg viewBox="0 0 24 24"><path d="M7 2v20M4 2v6a3 3 0 0 0 6 0V2M17 2c-2 0-3 3-3 7v5h3v8"/></svg><div><b id="pl1t">Artisan Kitchen</b><span id="pl1d">Globally inspired.</span></div></div>
+<div class="usp"><svg viewBox="0 0 24 24"><path d="M12 22V10M12 10C12 5 8 2 4 2c0 5 4 8 8 8zM12 12c0-5 4-8 8-8 0 5-4 8-8 8z"/></svg><div><b id="pl2t">Cozy Ambience</b><span id="pl2d">Work, chill or catch up.</span></div></div>
+<div class="usp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 15c2 0 5 1 5 4"/></svg><div><b id="pl3t">A Space for Everyone</b><span id="pl3d">Solos, friends, creators.</span></div></div>
 </div>
 </div>
 </div>
@@ -186,12 +184,12 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <section class="season">
 <div class="wrap season__grid">
 <div>
-<p class="season__eyebrow">FEATURED THIS WEEK</p>
-<h2 class="season__title">Seasonal<br>Specials</h2>
-<p class="season__sub">Fresh flavours, crafted for good days and great company. Baked and plated every morning.</p>
+<p class="season__eyebrow" id="seasonEyebrow">FEATURED THIS WEEK</p>
+<h2 class="season__title" id="seasonTitle">Seasonal<br>Specials</h2>
+<p class="season__sub" id="seasonSub">Fresh flavours, crafted for good days and great company. Baked and plated every morning.</p>
 <a href="menu.html" class="btn btn--outline">View All Specials →</a>
 </div>
-<div class="spec-grid">
+<div class="spec-grid" id="specGrid">
 <div class="spec"><img src="menu_images/Artisan_pizza_with_wild_mushrooms_20260927171635.webp" alt="Truffle Fungi Pizza"><div class="spec__b"><b>Truffle Fungi Pizza</b><p>Wild mushrooms, truffle.</p><a class="spec__order" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi!%20I%20want%20Truffle%20Fungi%20Pizza">Order +</a></div></div>
 <div class="spec"><img src="menu_images/11_avocado_royale.webp" alt="Avocado Royale"><div class="spec__b"><b>Avocado Royale</b><p>Hass avocado, whipped feta.</p><a class="spec__order" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi!%20I%20want%20Avocado%20Royale">Order +</a></div></div>
 <div class="spec"><img src="menu_images/Pancakes_topped_with_pistachio_c_20260927171635.webp" alt="Pistachio Pancakes"><div class="spec__b"><b>Pistachio Pancakes</b><p>Rose chantilly, honey.</p><a class="spec__order" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi!%20I%20want%20Pistachio%20Pancakes">Order +</a></div></div>
@@ -206,9 +204,9 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 
 <!-- BAKERY FAVOURITES -->
 <section class="sec sec--white">
-<p class="eyebrow">FROM THE BAKERY &amp; KITCHEN</p>
-<h2 class="title">Bakery Favourites</h2>
-<p class="sub">A taste of our 61-dish menu — croissants, toasts, pastas and desserts.</p>
+<p class="eyebrow" id="favEyebrow">FROM THE BAKERY &amp; KITCHEN</p>
+<h2 class="title" id="favTitle">Bakery Favourites</h2>
+<p class="sub" id="favSub">A taste of our 61-dish menu — croissants, toasts, pastas and desserts.</p>
 <div class="wrap"><div class="fav-grid">
 <div class="fav"><img loading="lazy" src="menu_images/01_butter_croissant.webp" alt="Butter Croissant"><div class="fav__b"><div class="fav__c">Morning Bakery</div><div class="fav__n">Butter Croissant</div><div class="fav__d">Flaky golden layers, cultured butter.</div></div></div>
 <div class="fav"><img loading="lazy" src="menu_images/03_almond_pistachio_croissant.webp" alt="Almond Pistachio Croissant"><div class="fav__b"><div class="fav__c">Morning Bakery</div><div class="fav__n">Almond Pistachio Croissant</div><div class="fav__d">Toasted pistachio, almond frangipane.</div></div></div>
@@ -234,23 +232,23 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <section class="space" id="story">
 <div class="space__grid">
 <div class="space__txt">
-<p class="space__eyebrow">OUR SPACE</p>
-<h2 class="space__title">A Café<br>for the Curious</h2>
+<p class="space__eyebrow" id="storyEyebrow">OUR SPACE</p>
+<h2 class="space__title" id="storyTitle">A Café<br>for the Curious</h2>
 <p id="storyPara">Daily Drip is a cozy, warm café in the heart of Bandra West — specialty coffee, globally inspired food and a welcoming space for everyone. Work, chill or catch up over fresh bakes.</p>
-<div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a href="#visit" class="btn btn--dark">Our Story →</a><a href="menu.html" class="btn btn--ghost-dark">See Menu</a></div>
+<div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a href="#visit" class="btn btn--dark" id="storyCta1">Our Story →</a><a href="menu.html" class="btn btn--ghost-dark">See Menu</a></div>
 </div>
 <div class="space__media">
-<video muted loop playsinline preload="none" data-lazy poster="images/EL_Puente_BG_2025.webp"><source src="images/bombay-luxury-cafe.mp4" type="video/mp4"></video>
+<video id="spaceVideo" muted loop playsinline preload="none" data-lazy poster="images/EL_Puente_BG_2025.webp"><source src="images/bombay-luxury-cafe.mp4" type="video/mp4"></video>
 </div>
 </div>
 </section>
 
 <!-- GALLERY -->
 <section class="sec sec--white" id="gallery">
-<p class="eyebrow">CAFÉ AMBIENCE</p>
-<h2 class="title">Inside Daily Drip</h2>
-<p class="sub">Cozy corners, warm lights and slow brews near Bandstand.</p>
-<div class="wrap"><div class="gal">
+<p class="eyebrow" id="galEyebrow">CAFÉ AMBIENCE</p>
+<h2 class="title" id="galTitle">Inside Daily Drip</h2>
+<p class="sub" id="galSub">Cozy corners, warm lights and slow brews near Bandstand.</p>
+<div class="wrap"><div class="gal" id="galGrid">
 <img src="menu_images/01_butter_croissant.webp" alt="Bakery" onclick="openLB(this.src)">
 <img src="menu_images/11_avocado_royale.webp" alt="Breakfast" onclick="openLB(this.src)">
 <img src="menu_images/Margherita_pizza_on_stone_table_20260927171635.webp" alt="Pizza" onclick="openLB(this.src)">
@@ -263,25 +261,25 @@ img,video{max-width:100%}img{display:block}a{color:inherit;text-decoration:none}
 <section class="loc" id="visit">
 <div class="wrap loc__grid">
 <div>
-<p style="font-size:11px;letter-spacing:3px;color:var(--blush);font-weight:800">VISIT THE CAFÉ</p>
-<h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);margin:10px 0">Daily Drip Café,<br>Bandra West, Mumbai</h2>
-<p style="color:rgba(255,255,255,.7);margin-bottom:18px">2, B.J. Road, Next to Seabird Building, Bandstand, Bandra West, Mumbai 400050<br>Open Daily: 8:00 AM – 11:00 PM • <a href="tel:+917738314007" style="text-decoration:underline">+91 77383 14007</a></p>
-<div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn--peach" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224">Get Directions</a><a class="btn btn--outline" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20order.">Order on WhatsApp</a></div>
-<p style="margin-top:18px;color:#f3c66a">★★★★★ 4.8/5 from 1,200+ happy guests</p>
+<p style="font-size:11px;letter-spacing:3px;color:var(--blush);font-weight:800" id="visitKicker">VISIT THE CAFÉ</p>
+<h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);margin:10px 0" id="visitTitle">Daily Drip Café,<br>Bandra West, Mumbai</h2>
+<p style="color:rgba(255,255,255,.7);margin-bottom:18px"><span id="visitAddr">2, B.J. Road, Next to Seabird Building, Bandstand, Bandra West, Mumbai 400050</span><br><span id="visitHours">Open Daily: 8:00 AM – 11:00 PM</span> • <a href="tel:+917738314007" id="visitPhoneInline" style="text-decoration:underline">+91 77383 14007</a></p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn--peach" id="dirBtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224">Get Directions</a><a class="btn btn--outline" id="waOrderBtn" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi!%20I%20want%20to%20order.">Order on WhatsApp</a></div>
+<p style="margin-top:18px;color:#f3c66a" id="visitRating">★★★★★ 4.8/5 from 1,200+ happy guests</p>
 </div>
-<div><iframe title="map" loading="lazy" src="https://www.google.com/maps?q=19.053086,72.822224&z=17&output=embed"></iframe></div>
+<div><iframe title="map" id="mapFrame" loading="lazy" src="https://www.google.com/maps?q=19.053086,72.822224&z=17&output=embed"></iframe></div>
 </div>
 </section>
 
 <footer class="footer" id="contact">
 <div class="wrap" style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:10px">
-<div>📍 2, B.J. Road, Bandstand, Bandra West, Mumbai 400050<br>📞 <a href="tel:+917738314007">+91 77383 14007</a> • <a href="https://wa.me/917738314007" style="text-decoration:underline">WhatsApp</a> • ✉️ hello@dailydripcafe.in</div>
-<div style="font-family:'Caveat',cursive;font-size:22px;color:#fff">See you at Daily Drip ♡</div>
+<div><span id="footAddr">📍 2, B.J. Road, Bandstand, Bandra West, Mumbai 400050</span><br>📞 <a href="tel:+917738314007" id="footPhoneInline">+91 77383 14007</a> • <a href="https://wa.me/917738314007" style="text-decoration:underline">WhatsApp</a> • ✉️ <a href="mailto:hello@dailydripcafe.in" id="footEmailInline">hello@dailydripcafe.in</a></div>
+<div style="font-family:'Caveat',cursive;font-size:22px;color:#fff" id="footNote">See you at Daily Drip ♡</div>
 </div>
-<div class="wrap footer__bar"><span>© 2026 Daily Drip Cafe. All rights reserved.</span><span>Made with care by aise360.com</span></div>
+<div class="wrap footer__bar"><span id="copyLine">© 2026 Daily Drip Cafe. All rights reserved.</span><span id="creditLine">Made with care by aise360.com</span></div>
 </footer>
 
-<a class="wa" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi%20Daily%20Drip!%20I%20want%20to%20order." aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>
+<a class="wa" id="waFloat" target="_blank" rel="noopener" href="https://wa.me/917738314007?text=Hi%20Daily%20Drip!%20I%20want%20to%20order." aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>
 
 <!-- Offer popup (managed from Admin Console → Offers and Popup) -->
 <div class="offer" id="offerModal" hidden>

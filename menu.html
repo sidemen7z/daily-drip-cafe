@@ -249,5 +249,66 @@ if('IntersectionObserver' in window){
   new IntersectionObserver(function(es){es.forEach(function(en){ if(en.isIntersecting){v.play&&v.play().catch(function(){});} else {v.pause&&v.pause();} });},{threshold:0.05}).observe(v);
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+// Live CMS menu: replace the built-in list with Supabase menu_items when available.
+// Falls back silently to the static MENU above.
+(function(){
+  var CFG = window.DAILY_DRIP_SUPABASE || {};
+  if(!CFG.url || !CFG.anonKey || !window.supabase) return;
+  var sb = window.supabase.createClient(CFG.url, CFG.anonKey);
+  function normCat(c){
+    c = String(c||'').toLowerCase();
+    if(/bakery|bake|croissant|cookie|danish/.test(c)) return 'Morning Bakery';
+    if(/breakfast|egg|pancake|benedict|shakshuka|french toast|rosti/.test(c)) return 'Breakfast';
+    if(/pizza/.test(c)) return 'Artisan Pizzas';
+    if(/toast|tartine/.test(c)) return 'Artisan Toasts';
+    if(/small|plate|karaage|bravas|stracciatella|prawn|kofta|camembert|corn ribs/.test(c)) return 'Small Plates';
+    if(/salad|bowl.*grain|caesar/.test(c)) return 'Salads';
+    if(/sandwich|wrap|ciabatta|brioche|melt/.test(c)) return 'Sandwiches & Wraps';
+    if(/pasta|bucatini|orecchiette|rigatoni|couscous|falafel|poke/.test(c)) return 'Pasta & Bowls';
+    if(/dessert|cake|tiramisu|cremeux|affogato|cheesecake|tres leches/.test(c)) return 'Desserts';
+    return 'House Specialties';
+  }
+  sb.from('menu_items').select('*').eq('active', true).order('sort').then(function(res){
+    var rows = res.data || [];
+    if(!rows.length) return;
+    var liveCats = [];
+    var liveKey = {};
+    var live = rows.map(function(r){
+      var label = r.category || normCat(r.name);
+      var key = String(label).toLowerCase();
+      if(!(key in liveKey)){ liveKey[key] = liveCats.length; liveCats.push(label); }
+      return [key, r.name, r.description || '', r.image_url || 'menu_images/01_butter_croissant.webp'];
+    });
+    MENU = live; CATKEY = liveKey; CATS = liveCats;
+    shown = PAGE; cat = -1;
+    try{
+      chipsBox.innerHTML = '<button class="chip active" data-c="-1">All ' + live.length + '</button>' + CATS.map(function(t,i){return '<button class="chip" data-c="'+i+'">'+t+'</button>';}).join('');
+      searchBox.placeholder = 'Search ' + live.length + ' dishes — try burrata, pizza, pancakes...';
+      var sub = document.querySelector('.hero p.sub');
+      if(sub) sub.innerHTML = 'All ' + live.length + ' dishes + our in-cafe menu board — baked and cooked fresh every day. Coffee &amp; drinks menu is on the <a href="index.html#menu" style="text-decoration:underline;font-weight:700;">home page</a>.';
+      document.title = 'Our Menu (' + live.length + ' Dishes) | Daily Drip Cafe, Bandra West';
+    }catch(e){}
+    render();
+  }, function(){});
+  // WhatsApp number follows CMS Locations when set
+  sb.from('site_settings').select('value').eq('key','locations').maybeSingle().then(function(res){
+    var v = (res.data||{}).value || {};
+    var digits = (v.wa_url||'').match(/wa\.me\/(\d+)/);
+    digits = digits ? digits[1] : null;
+    if(!digits) return;
+    var grid = document.getElementById('grid');
+    var swap = function(){
+      grid.querySelectorAll('a[href*="wa.me/"]').forEach(function(a){
+        a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + digits);
+      });
+    };
+    if('MutationObserver' in window) new MutationObserver(swap).observe(grid, {childList:true});
+    swap();
+  }, function(){});
+})();
+</script>
 </body>
 </html>

@@ -101,3 +101,28 @@ on conflict (key) do update set value = excluded.value, updated_at = now();
 insert into public.site_settings (key, value) values
 ('admin_meta', '{"max_image_kb": 250, "image_format": "webp", "note": "Farooq rule: every upload compressed to WebP sub-250KB"}'::jsonb)
 on conflict (key) do update set value = excluded.value, updated_at = now();
+
+-- 6) CMS content keys (added for the branded CMS; do-nothing so live edits are never overwritten) --
+insert into public.site_settings (key, value) values
+('website', '{"nav": [["Home","#"],["Menu","menu.html"],["Our Story","#story"],["Gallery","#gallery"],["Locations","#visit"],["Contact","#contact"]], "reserve_text": "Reserve a Table →", "reserve_url": "https://wa.me/917738314007?text=Hi!%20I%20want%20to%20reserve%20a%20table.", "whatsapp": "917738314007", "phone": "+91 77383 14007", "email": "hello@dailydripcafe.in"}'::jsonb)
+on conflict (key) do nothing;
+
+insert into public.site_settings (key, value) values
+('homepage', '{"pillars": [["Specialty Coffee","Freshly brewed, always."],["Artisan Kitchen","Globally inspired."],["Cozy Ambience","Work, chill or catch up."],["A Space for Everyone","Solos, friends, creators."]], "season_eyebrow": "FEATURED THIS WEEK", "season_title": "Seasonal Specials", "season_sub": "Fresh flavours, crafted for good days and great company. Baked and plated every morning.", "season_ids": [], "season_snap": [], "fav_eyebrow": "FROM THE BAKERY & KITCHEN", "fav_title": "Bakery Favourites", "fav_sub": "A taste of our 61-dish menu — croissants, toasts, pastas and desserts."}'::jsonb)
+on conflict (key) do nothing;
+
+insert into public.site_settings (key, value) values
+('story', '{"eyebrow": "OUR SPACE", "title": "A Café\nfor the Curious", "text": "Daily Drip is a cozy, warm café in the heart of Bandra West — specialty coffee, globally inspired food and a welcoming space for everyone. Work, chill or catch up over fresh bakes.", "video": "images/bombay-luxury-cafe.mp4", "poster": "images/EL_Puente_BG_2025.webp", "cta1": "Our Story →", "cta1_url": "#visit"}'::jsonb)
+on conflict (key) do nothing;
+
+insert into public.site_settings (key, value) values
+('gallery', '{"eyebrow": "CAFÉ AMBIENCE", "title": "Inside Daily Drip", "sub": "Cozy corners, warm lights and slow brews near Bandstand.", "frames": [{"img": "menu_images/01_butter_croissant.webp", "alt": "Bakery"}, {"img": "menu_images/11_avocado_royale.webp", "alt": "Breakfast"}, {"img": "menu_images/Margherita_pizza_on_stone_table_20260927171635.webp", "alt": "Pizza"}, {"img": "menu_images/Burnt_Basque_cheesecake_served_20260927171635.webp", "alt": "Dessert"}]}'::jsonb)
+on conflict (key) do nothing;
+
+insert into public.site_settings (key, value) values
+('locations', '{"kicker": "VISIT THE CAFÉ", "title": "Daily Drip Café,\nBandra West, Mumbai", "address": "2, B.J. Road, Next to Seabird Building, Bandstand, Bandra West, Mumbai 400050", "hours": "Open Daily: 8:00 AM – 11:00 PM", "phone": "+91 77383 14007", "rating": "★★★★★ 4.8/5 from 1,200+ happy guests", "map": "19.053086,72.822224", "dir_url": "https://www.google.com/maps/dir/?api=1&destination=19.053086,72.822224", "wa_url": "https://wa.me/917738314007?text=Hi!%20I%20want%20to%20order.", "wa_text": "Order on WhatsApp"}'::jsonb)
+on conflict (key) do nothing;
+
+insert into public.site_settings (key, value) values
+('footer', '{"address": "2, B.J. Road, Bandstand, Bandra West, Mumbai 400050", "phone": "+91 77383 14007", "whatsapp": "917738314007", "email": "hello@dailydripcafe.in", "note": "See you at Daily Drip ♡", "copy": "© 2026 Daily Drip Cafe. All rights reserved.", "credit": "Made with care by aise360.com"}'::jsonb)
+on conflict (key) do nothing;
