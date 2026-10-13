@@ -42,7 +42,8 @@ img,video{max-width:100%}a{color:inherit}button{font-family:inherit}
 .layout{display:flex;min-height:100vh}
 /* Sidebar — dark espresso */
 .sidebar{width:250px;flex:0 0 250px;background:var(--espresso);color:#cbbfae;position:fixed;top:0;bottom:0;left:0;display:flex;flex-direction:column;z-index:100}
-.brand{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+.sideclose{display:none;position:absolute;top:14px;right:12px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer}
 .brand b{display:block;font-size:16px;font-weight:800;letter-spacing:3px;color:#fff}
 .brand span{display:block;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--caramel);margin-top:4px}
 .brand small{display:block;font-size:10.5px;color:#8d8175;margin-top:8px;letter-spacing:.4px}
@@ -164,7 +165,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
 @media(max-width:1080px){.stats{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
 .sidebar{transform:translateX(-100%);transition:transform .25s ease;width:260px}.sidebar.open{transform:none;box-shadow:30px 0 60px rgba(0,0,0,.3)}
-.main{margin-left:0}.menubtn{display:block}.grid2,.grid3,.grid4{grid-template-columns:1fr}.topbar__in,.wrap{padding-left:18px;padding-right:18px}
+.main{margin-left:0}.menubtn{display:block}.sideclose{display:block}.grid2,.grid3,.grid4{grid-template-columns:1fr}.topbar__in,.wrap{padding-left:18px;padding-right:18px}
 .galrow{grid-template-columns:1fr}.galrow img{width:100%;height:160px}
 }
 </style>
@@ -191,7 +192,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
 <div id="app">
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <div class="brand"><b>DAILY DRIP</b><span>CAFÉ CMS</span><small>Bandra West · Mumbai</small></div>
+    <div class="brand"><button class="sideclose" id="sideClose" aria-label="Back">←</button><b>DAILY DRIP</b><span>CAFÉ CMS</span><small>Bandra West · Mumbai</small></div>
     <nav class="snav" id="snav">
       <div class="navlabel">WORKSPACE</div>
       <button data-t="overview" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Overview</button>
@@ -571,6 +572,7 @@ $("gateGo").onclick = tryLogin;
 [$("gateId"), $("gatePass")].forEach(el=>el.addEventListener("keydown", e=>{ if(e.key==="Enter") tryLogin(); }));
 $("logoutBtn").onclick = ()=>{ sessionStorage.removeItem("dd_admin"); location.reload(); };
 $("menuBtn").onclick = ()=>$("sidebar").classList.toggle("open");
+$("sideClose").onclick = ()=>$("sidebar").classList.remove("open");
 
 /* Nav */
 function gotoTab(k){
