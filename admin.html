@@ -195,11 +195,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
         </div>
         <div><a class="btn btn--dark btn--sm" style="background:#c9a227;border:none" href="index.html">View site ↗</a></div>
       </div>
-      <div class="stats">
+      <div class="stats" style="grid-template-columns:1fr 1fr">
         <div class="stat link" data-goto="menu"><small>MENU DISHES</small><b id="stMenu">–</b><span>live on the Menu page · open</span></div>
         <div class="stat link" data-goto="home"><small>HOME MEDIA SLOTS</small><b id="stMedia">–</b><span>hero + food + steam films · open</span></div>
-        <div class="stat"><small>LAST COMPRESSED</small><b id="stLast">–</b><span>original vs optimised size</span></div>
-        <div class="stat link" data-goto="upload"><small>STORAGE SAVED</small><b id="stSaved">–</b><span>this session · upload</span></div>
       </div>
       <div class="dd-grid2">
         <div class="dd-card"><h4>Quick actions</h4><p class="sub">Most used tasks</p>
@@ -448,8 +446,8 @@ async function compressToWebP(file, maxKB){
 const fmtKB = kb => kb>1024 ? (kb/1024).toFixed(2)+" MB" : kb.toFixed(0)+" KB";
 function trackSaving(origKB, kb){
   savedBytes += Math.max(0,(origKB-kb))*1024;
-  $("stLast").innerHTML = fmtKB(kb)+' <em>was '+fmtKB(origKB)+'</em>';
-  $("stSaved").innerHTML = (savedBytes/1048576).toFixed(2)+' <em>MB</em>';
+  if($("stLast"))$("stLast").innerHTML = fmtKB(kb)+' <em>was '+fmtKB(origKB)+'</em>';
+  if($("stSaved"))$("stSaved").innerHTML = (savedBytes/1048576).toFixed(2)+' <em>MB</em>';
 }
 
 /* Home films */
